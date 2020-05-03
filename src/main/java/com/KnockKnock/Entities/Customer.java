@@ -1,5 +1,6 @@
 package com.KnockKnock.Entities;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -40,22 +41,22 @@ public class Customer implements Serializable {
     @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)")
     private String customerEmail;
 
-    @Column
+
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private Login login;
 
-    @Column
+
     @NotNull
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Customer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Address> addresses = new HashSet<>();
 
     @Column
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Date customerBirthDate;
+    private Date customerBirthDate=new Date(2323223232L);
 
-    @Column
+
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private BankAccount bankAccount;
@@ -65,4 +66,82 @@ public class Customer implements Serializable {
     @Lob
     private Byte[] customerPhoto;
 
+    public Customer(@Size(max = 50) @NotNull String customerName, @Size(max = 20) @NotNull String customerGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String customerEmail, @NotNull Byte[] customerPhoto) {
+        this.customerName = customerName;
+        this.customerGender = customerGender;
+        this.customerEmail = customerEmail;
+        this.customerPhoto = customerPhoto;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerGender() {
+        return customerGender;
+    }
+
+    public void setCustomerGender(String customerGender) {
+        this.customerGender = customerGender;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public Byte[] getCustomerPhoto() {
+        return customerPhoto;
+    }
+
+    public void setCustomerPhoto(Byte[] customerPhoto) {
+        this.customerPhoto = customerPhoto;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public Date getCustomerBirthDate() {
+        return customerBirthDate;
+    }
+
+    public void setCustomerBirthDate(Date customerBirthDate) {
+        this.customerBirthDate = customerBirthDate;
+    }
+
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
 }

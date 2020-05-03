@@ -33,4 +33,45 @@ public class BankAccount implements Serializable {
     @Size(max=20)
     @NotNull
     private String bankIFCI;
+
+    public BankAccount() {
+    }
+
+    public BankAccount(@Size(max = 50) @NotNull String bankAccountNo, @Size(max = 50) @NotNull String bankAccountName, @Size(max = 20) @NotNull String bankIFCI) {
+        this.bankAccountNo = bankAccountNo;
+        this.bankAccountName = bankAccountName;
+        this.bankIFCI = bankIFCI;
+    }
+
+    public Integer getBankAccountId() {
+        return bankAccountId;
+    }
+
+    public void setBankAccountId(Integer bankAccountId) {
+        this.bankAccountId = bankAccountId;
+    }
+
+    public String getBankAccountNo() {
+        return bankAccountNo;
+    }
+
+    public void setBankAccountNo(String bankAccountNo) {
+        this.bankAccountNo = bankAccountNo;
+    }
+
+    public String getBankAccountName() {
+        return bankAccountName;
+    }
+
+    public void setBankAccountName(String bankAccountName) {
+        this.bankAccountName = bankAccountName;
+    }
+
+    public String getBankIFCI() {
+        return bankIFCI;
+    }
+
+    public void setBankIFCI(String bankIFCI) {
+        this.bankIFCI = bankIFCI;
+    }
 }

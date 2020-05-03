@@ -29,9 +29,48 @@ public class ServiceSubCategory implements Serializable {
     @NotNull
     private String serviceSubCategoryDesc;
 
-    @Column
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     private ServiceCategory serviceCategory;
 
+    public Integer getServiceSubCategoryId() {
+        return serviceSubCategoryId;
+    }
+
+    public void setServiceSubCategoryId(Integer serviceSubCategoryId) {
+        this.serviceSubCategoryId = serviceSubCategoryId;
+    }
+
+    public String getServiceSubCategoryName() {
+        return serviceSubCategoryName;
+    }
+
+    public void setServiceSubCategoryName(String serviceSubCategoryName) {
+        this.serviceSubCategoryName = serviceSubCategoryName;
+    }
+
+    public String getServiceSubCategoryDesc() {
+        return serviceSubCategoryDesc;
+    }
+
+    public void setServiceSubCategoryDesc(String serviceSubCategoryDesc) {
+        this.serviceSubCategoryDesc = serviceSubCategoryDesc;
+    }
+
+    public ServiceCategory getServiceCategory() {
+        return serviceCategory;
+    }
+
+    public void setServiceCategory(ServiceCategory serviceCategory) {
+        this.serviceCategory = serviceCategory;
+    }
+
+    public ServiceSubCategory(@Size(max = 50) @NotNull String serviceSubCategoryName, @Size(max = 200) @NotNull String serviceSubCategoryDesc, @NotNull ServiceCategory serviceCategory) {
+        this.serviceSubCategoryName = serviceSubCategoryName;
+        this.serviceSubCategoryDesc = serviceSubCategoryDesc;
+        this.serviceCategory = serviceCategory;
+    }
+
+    public ServiceSubCategory() {
+    }
 }

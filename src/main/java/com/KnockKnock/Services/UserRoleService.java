@@ -16,4 +16,9 @@ public class UserRoleService {
     {
         userRoleRepository.save(userRole);
     }
+
+    public UserRole findById(long userRoleId)
+    {
+        return userRoleRepository.findById(userRoleId).orElse(null);
+    }
 }

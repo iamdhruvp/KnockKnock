@@ -26,18 +26,19 @@ public class CustomerController<LoginService> {
   private UserRoleService userRoleService;
 
     @PostMapping("/postCustomer")
-            void postCustomer(@RequestParam("cname") String cn,@RequestParam("cgen") String cgen,
+         public void postCustomer(@RequestParam("cname") String cn,@RequestParam("cgen") String cgen,
                               @RequestParam("cmail") String cmail,
                               @RequestParam("cpass") String password, @RequestParam("cmobile") String mobile)
 
     {
         Date date=new Date();
 
-        UserRole ur=new UserRole("Customer");
+        UserRole ur=userRoleService.findById(1);
 
-        userRoleService.save(ur);
 
-        Login login=new Login(date,date,mobile,password,'a', ur);
+        Login login=new Login(date,date,mobile,password,'a',ur);
+
+
 
         loginService.save(login);
         Customer customer=new Customer(cn,cgen,cmail , login);

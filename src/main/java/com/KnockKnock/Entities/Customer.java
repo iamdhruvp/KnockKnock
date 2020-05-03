@@ -57,14 +57,27 @@ public class Customer implements Serializable {
     private Date customerBirthDate=new Date(2323223232L);
 
 
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
-    private BankAccount bankAccount;
+//    @NotNull
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private BankAccount bankAccount;
 
     @Column
-    @NotNull
+//    @NotNull
     @Lob
     private Byte[] customerPhoto;
+
+    public Customer(@Size(max = 50) @NotNull String customerName, @Size(max = 20) @NotNull String customerGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String customerEmail) {
+        this.customerName = customerName;
+        this.customerGender = customerGender;
+        this.customerEmail = customerEmail;
+    }
+
+    public Customer(@Size(max = 50) @NotNull String customerName, @Size(max = 20) @NotNull String customerGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String customerEmail, @NotNull Login login) {
+        this.customerName = customerName;
+        this.customerGender = customerGender;
+        this.customerEmail = customerEmail;
+        this.login = login;
+    }
 
     public Customer(@Size(max = 50) @NotNull String customerName, @Size(max = 20) @NotNull String customerGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String customerEmail, @NotNull Byte[] customerPhoto) {
         this.customerName = customerName;
@@ -137,11 +150,11 @@ public class Customer implements Serializable {
         this.customerBirthDate = customerBirthDate;
     }
 
-    public BankAccount getBankAccount() {
-        return bankAccount;
-    }
-
-    public void setBankAccount(BankAccount bankAccount) {
-        this.bankAccount = bankAccount;
-    }
+//    public BankAccount getBankAccount() {
+//        return bankAccount;
+//    }
+//
+//    public void setBankAccount(BankAccount bankAccount) {
+//        this.bankAccount = bankAccount;
+//    }
 }

@@ -24,6 +24,13 @@ public class UserRole implements Serializable {
     @NotNull
     private String userRoleName;
 
+    public UserRole() {
+    }
+
+    public UserRole(@Size(max = 50) @NotNull String userRoleName) {
+        this.userRoleName = userRoleName;
+    }
+
     public Integer getUserRoleId() {
         return userRoleId;
     }
@@ -32,10 +39,11 @@ public class UserRole implements Serializable {
         this.userRoleId = userRoleId;
     }
 
-    public UserRole(@Size(max = 50) @NotNull String userRoleName) {
-        this.userRoleName = userRoleName;
+    public String getUserRoleName() {
+        return userRoleName;
     }
 
-    public UserRole() {
+    public void setUserRoleName(String userRoleName) {
+        this.userRoleName = userRoleName;
     }
 }

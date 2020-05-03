@@ -23,4 +23,19 @@ public class UserRole implements Serializable {
     @Size(max=50)
     @NotNull
     private String userRoleName;
+
+    public Integer getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(Integer userRoleId) {
+        this.userRoleId = userRoleId;
+    }
+
+    public UserRole(@Size(max = 50) @NotNull String userRoleName) {
+        this.userRoleName = userRoleName;
+    }
+
+    public UserRole() {
+    }
 }

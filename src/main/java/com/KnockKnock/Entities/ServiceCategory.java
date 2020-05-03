@@ -23,4 +23,19 @@ public class ServiceCategory implements Serializable {
     @Size(max=20)
     @NotNull
     private String serviceCategoryName;
+
+    public ServiceCategory() {
+    }
+
+    public Integer getServiceCategoryId() {
+        return serviceCategoryId;
+    }
+
+    public void setServiceCategoryId(Integer serviceCategoryId) {
+        this.serviceCategoryId = serviceCategoryId;
+    }
+
+    public ServiceCategory(@Size(max = 20) @NotNull String serviceCategoryName) {
+        this.serviceCategoryName = serviceCategoryName;
+    }
 }

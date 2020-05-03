@@ -38,4 +38,54 @@ public class City implements Serializable {
     @Size(max=6)
     @NotNull
     private String cityPincode;
+
+    public City() {
+    }
+
+    public City(@Size(max = 20) @NotNull String cityName, @Size(max = 20) @NotNull String cityState, @Size(max = 20) @NotNull String cityCountry, @Size(max = 6) @NotNull String cityPincode) {
+        this.cityName = cityName;
+        this.cityState = cityState;
+        this.cityCountry = cityCountry;
+        this.cityPincode = cityPincode;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getCityState() {
+        return cityState;
+    }
+
+    public void setCityState(String cityState) {
+        this.cityState = cityState;
+    }
+
+    public String getCityCountry() {
+        return cityCountry;
+    }
+
+    public void setCityCountry(String cityCountry) {
+        this.cityCountry = cityCountry;
+    }
+
+    public String getCityPincode() {
+        return cityPincode;
+    }
+
+    public void setCityPincode(String cityPincode) {
+        this.cityPincode = cityPincode;
+    }
 }

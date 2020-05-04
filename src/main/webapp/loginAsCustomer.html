@@ -40,12 +40,14 @@
         </div>
         <br>
         <p style=" color: black;"><strong>Log-in</strong></p>
-        <form class="user">
+
+          <form class ="user" id="admission-form" action = "/verifyCustomer/1" method="get" >
+            <form :hidden path="id" />
           <div class="form-group">
-            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+            <input type="text" class="form-control form-control-user" id="cmobile" name="cmobile" aria-describedby="emailHelp" placeholder="Enter Mobile Number...">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+            <input type="password" class="form-control form-control-user" id="cpass" name="cpass" placeholder="Password">
           </div>
           <div class="form-group">
             <div class="custom-control custom-checkbox small">
@@ -53,9 +55,9 @@
               <label class="custom-control-label" for="customCheck">Remember Me</label>
             </div>
           </div>
-          <a href="index.html" class="btn btn-primary btn-user btn-block" style="background-color: #2d4373 ">
-            Login
-          </a>
+            <div class="form-group">
+              <button id="sub-btn" type="submit" class="btn btn-primary btn-block"> Log-in </button>
+            </div>
           <hr>
           <a href="index.html" class="btn btn-google btn-user btn-block">
             <i class="fab fa-google fa-fw"></i> Login with Google

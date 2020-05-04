@@ -34,6 +34,10 @@ public class Address implements Serializable {
     @NotNull
     private String addressLandmark;
 
+    @Column
+    @Size(max=6)
+    @NotNull
+    private String addressPincode;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -50,10 +54,11 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) @NotNull String addressLandmark, @NotNull City addressCity, @NotNull Boolean isDefaultAddress, @NotNull Customer customer) {
+    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) @NotNull String addressLandmark, @Size(max = 6) @NotNull String addressPincode, @NotNull City addressCity, @NotNull Boolean isDefaultAddress, @NotNull Customer customer) {
         this.addressName = addressName;
         this.addressLine = addressLine;
         this.addressLandmark = addressLandmark;
+        this.addressPincode = addressPincode;
         this.addressCity = addressCity;
         this.isDefaultAddress = isDefaultAddress;
         this.customer = customer;
@@ -87,6 +92,13 @@ public class Address implements Serializable {
         return customer;
     }
 
+    public String getAddressPincode() {
+        return addressPincode;
+    }
+
+    public void setAddressPincode(String addressPincode) {
+        this.addressPincode = addressPincode;
+    }
     public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }

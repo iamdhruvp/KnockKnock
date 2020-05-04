@@ -35,11 +35,6 @@ public class Service implements Serializable {
     private String serviceDesc;
 
     @Column
-    @Size(max=50)
-    @NotNull
-    private String serviceSubCategoryName;
-
-    @Column
     @Max(100)
     @NotNull
     private Float serviceCommission;
@@ -76,14 +71,6 @@ public class Service implements Serializable {
         this.serviceDesc = serviceDesc;
     }
 
-    public String getServiceSubCategoryName() {
-        return serviceSubCategoryName;
-    }
-
-    public void setServiceSubCategoryName(String serviceSubCategoryName) {
-        this.serviceSubCategoryName = serviceSubCategoryName;
-    }
-
     public Float getServiceCommission() {
         return serviceCommission;
     }
@@ -108,10 +95,9 @@ public class Service implements Serializable {
         this.professionalServices = professionalServices;
     }
 
-    public Service(@Size(max = 50) @NotNull String serviceName, @Size(max = 200) @NotNull String serviceDesc, @Size(max = 50) @NotNull String serviceSubCategoryName, @Max(100) @NotNull Float serviceCommission, @NotNull ServiceSubCategory serviceSubCategory, Set<ProfessionalService> professionalServices) {
+    public Service(@Size(max = 50) @NotNull String serviceName, @Size(max = 200) @NotNull String serviceDesc, @Max(100) @NotNull Float serviceCommission, @NotNull ServiceSubCategory serviceSubCategory, Set<ProfessionalService> professionalServices) {
         this.serviceName = serviceName;
         this.serviceDesc = serviceDesc;
-        this.serviceSubCategoryName = serviceSubCategoryName;
         this.serviceCommission = serviceCommission;
         this.serviceSubCategory = serviceSubCategory;
         this.professionalServices = professionalServices;

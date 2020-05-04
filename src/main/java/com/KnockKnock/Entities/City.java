@@ -19,7 +19,7 @@ public class City implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cityId;
 
-    @Column
+
     @Size(max=20)
     @NotNull
     private String cityName;
@@ -34,19 +34,13 @@ public class City implements Serializable {
     @NotNull
     private String cityCountry;
 
-    @Column(unique = true)
-    @Size(max=6)
-    @NotNull
-    private String cityPincode;
-
     public City() {
     }
 
-    public City(@Size(max = 20) @NotNull String cityName, @Size(max = 20) @NotNull String cityState, @Size(max = 20) @NotNull String cityCountry, @Size(max = 6) @NotNull String cityPincode) {
+    public City(@Size(max = 20) @NotNull String cityName, @Size(max = 20) @NotNull String cityState, @Size(max = 20) @NotNull String cityCountry) {
         this.cityName = cityName;
         this.cityState = cityState;
         this.cityCountry = cityCountry;
-        this.cityPincode = cityPincode;
     }
 
     public Integer getCityId() {
@@ -79,13 +73,5 @@ public class City implements Serializable {
 
     public void setCityCountry(String cityCountry) {
         this.cityCountry = cityCountry;
-    }
-
-    public String getCityPincode() {
-        return cityPincode;
-    }
-
-    public void setCityPincode(String cityPincode) {
-        this.cityPincode = cityPincode;
     }
 }

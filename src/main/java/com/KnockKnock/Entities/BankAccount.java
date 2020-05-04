@@ -21,17 +21,17 @@ public class BankAccount implements Serializable {
 
     @Column(unique = true)
     @Size(max=50)
-    @NotNull
+//    @NotNull
     private String bankAccountNo;
 
     @Column
     @Size(max=50)
-    @NotNull
+//    @NotNull
     private String bankAccountName;
 
     @Column
     @Size(max=20)
-    @NotNull
+//    @NotNull
     private String bankIFCI;
 
     public BankAccount() {

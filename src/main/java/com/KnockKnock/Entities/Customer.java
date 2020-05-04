@@ -56,10 +56,8 @@ public class Customer implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date customerBirthDate=new Date(2323223232L);
 
-
-//    @NotNull
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private BankAccount bankAccount;
+    @OneToOne(cascade = CascadeType.ALL)
+    private BankAccount bankAccount;
 
     @Column
 //    @NotNull
@@ -150,11 +148,11 @@ public class Customer implements Serializable {
         this.customerBirthDate = customerBirthDate;
     }
 
-//    public BankAccount getBankAccount() {
-//        return bankAccount;
-//    }
-//
-//    public void setBankAccount(BankAccount bankAccount) {
-//        this.bankAccount = bankAccount;
-//    }
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
 }

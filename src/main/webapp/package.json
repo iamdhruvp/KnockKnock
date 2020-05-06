@@ -9,7 +9,8 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "axios": "^0.19.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,16 +22,8 @@
     "clean-new-build": "rm -rf build",
     "postbuild": "npm run clean-old-build && npm run move-build && npm run clean-new-build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iamdhruvp/KnockKnock.git"
-  },
   "author": "iamdhruvp <dhruvpatel0107@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/iamdhruvp/KnockKnock/issues"
-  },
-  "homepage": "https://github.com/iamdhruvp/KnockKnock#readme",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -45,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "axios": "^0.19.2"
   }
 }

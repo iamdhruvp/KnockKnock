@@ -67,6 +67,11 @@ public class Login implements Serializable {
     public Login() {
     }
 
+    public Login(@NotNull @Pattern(regexp = "(^$|[0-9]{10})") String mobileNo, @NotNull @Size(min = 6, max = 32) @Pattern(regexp = "(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$)") String password) {
+        this.mobileNo = mobileNo;
+        this.password = password;
+    }
+
     public Login(@NotNull Date registerDate, @NotNull Date lastLoginDate, @NotNull @Pattern(regexp = "(^$|[0-9]{10})") String mobileNo, @NotNull @Size(min = 6, max = 32) @Pattern(regexp = "(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$)") String password, @Size(min = 6, max = 32) @Pattern(regexp = "(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$)") String oldPassword1, @Size(min = 6, max = 32) @Pattern(regexp = "(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$)") String oldPassword2, @NotNull Character status, @NotNull UserRole userRole) {
         this.registerDate = registerDate;
         this.lastLoginDate = lastLoginDate;

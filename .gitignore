@@ -36,7 +36,7 @@ src/main/webapp/.pnp
 src/main/webapp/.pnp.js
 
 # testing
-/coverage
+src/main/webapp/coverage
 
 # production
 src/main/webapp/build
@@ -54,4 +54,6 @@ src/main/webapp/.env.production.local
 src/main/webapp/npm-debug.log*
 src/main/webapp/yarn-debug.log*
 src/main/webapp/yarn-error.log*
+
+src/main/webapp/src/styles/reduction.css
 

@@ -10,20 +10,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created on  : 03/05/20 - 2:39 AM
- * Project     : KnockKnock
- * Author      : dhruv
- * Comments    : Read below article to work with photos in database
- *  * https://stackoverflow.com/questions/50363639/how-spring-boot-jpahibernate-saves-images
- */
+
 @Entity
 @Table(name="Customer")
 public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer customerId;
+    private Long customerId;
 
     @Column
     @Size(max=50)
@@ -47,9 +41,7 @@ public class Customer implements Serializable {
     private Login login;
 
 
-    @NotNull
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Set<Address> addresses = new HashSet<>();
+
 
     @Column
     @NotNull
@@ -63,6 +55,10 @@ public class Customer implements Serializable {
 //    @NotNull
     @Lob
     private Byte[] customerPhoto;
+
+    public Customer(){
+
+    }
 
     public Customer(@Size(max = 50) @NotNull String customerName, @Size(max = 20) @NotNull String customerGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String customerEmail) {
         this.customerName = customerName;
@@ -84,11 +80,11 @@ public class Customer implements Serializable {
         this.customerPhoto = customerPhoto;
     }
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
@@ -132,13 +128,6 @@ public class Customer implements Serializable {
         this.login = login;
     }
 
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
-    }
 
     public Date getCustomerBirthDate() {
         return customerBirthDate;

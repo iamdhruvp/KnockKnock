@@ -17,7 +17,7 @@ public class Address implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer addressId;
+    private Long addressId;
 
     @Column
     @Size(max=50)
@@ -39,7 +39,7 @@ public class Address implements Serializable {
     @NotNull
     private String addressPincode;
 
-    @NotNull
+
     @ManyToOne(fetch = FetchType.EAGER)
     private City addressCity;
 
@@ -47,7 +47,7 @@ public class Address implements Serializable {
     @NotNull
     private Boolean isDefaultAddress;
 
-    @NotNull
+
     @ManyToOne
     private Customer customer;
 
@@ -64,8 +64,12 @@ public class Address implements Serializable {
         this.customer = customer;
     }
 
-    public Integer getAddressId() {
+    public Long getAddressId() {
         return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
     public String getAddressName() {
@@ -98,9 +102,6 @@ public class Address implements Serializable {
 
     public void setAddressPincode(String addressPincode) {
         this.addressPincode = addressPincode;
-    }
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
     }
 
     public void setAddressName(String addressName) {

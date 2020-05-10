@@ -9,7 +9,7 @@ import './styles/reduction.scss';
 
 const AlertPage = React.lazy(() => import('pages/AlertPage'));
 const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
-const BadgePage = React.lazy(() => import('pages/BadgePage'));
+const AddressPage = React.lazy(() => import('pages/AddressPage'));
 const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
 const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
 const CategoryCardPage = React.lazy(() => import('pages/CategoryCardPage'));
@@ -151,7 +151,7 @@ class App extends React.Component {
                 <Route exact path="/typography" component={TypographyPage} />
                 <Route exact path="/alerts" component={AlertPage} />
                 <Route exact path="/tables" component={TablePage} />
-                <Route exact path="/badges" component={BadgePage} />
+                <Route exact path="/address" component={AddressPage} />
                 <Route
                   exact
                   path="/button-groups"

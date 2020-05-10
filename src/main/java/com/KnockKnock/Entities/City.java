@@ -17,7 +17,7 @@ public class City implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cityId;
+    private Long cityId;
 
 
     @Size(max=20)
@@ -43,11 +43,11 @@ public class City implements Serializable {
         this.cityCountry = cityCountry;
     }
 
-    public Integer getCityId() {
+    public Long getCityId() {
         return cityId;
     }
 
-    public void setCityId(Integer cityId) {
+    public void setCityId(Long cityId) {
         this.cityId = cityId;
     }
 

@@ -39,6 +39,7 @@ public class Service implements Serializable {
     @NotNull
     private Float serviceCommission;
 
+    @JsonIgnore
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private ServiceSubCategory serviceSubCategory;

@@ -1,5 +1,7 @@
 package com.KnockKnock.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,8 +31,9 @@ public class ServiceSubCategory implements Serializable {
     @NotNull
     private String serviceSubCategoryDesc;
 
+    @JsonIgnore
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private ServiceCategory serviceCategory;
 
     public Integer getServiceSubCategoryId() {

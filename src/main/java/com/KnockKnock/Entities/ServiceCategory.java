@@ -35,6 +35,14 @@ public class ServiceCategory implements Serializable {
         this.serviceCategoryId = serviceCategoryId;
     }
 
+    public String getServiceCategoryName() {
+        return serviceCategoryName;
+    }
+
+    public void setServiceCategoryName(String serviceCategoryName) {
+        this.serviceCategoryName = serviceCategoryName;
+    }
+
     public ServiceCategory(@Size(max = 20) @NotNull String serviceCategoryName) {
         this.serviceCategoryName = serviceCategoryName;
     }

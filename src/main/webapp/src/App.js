@@ -12,6 +12,7 @@ const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
 const BadgePage = React.lazy(() => import('pages/BadgePage'));
 const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
 const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
+const CategoryCardPage = React.lazy(() => import('pages/CategoryCardPage'));
 const CardPage = React.lazy(() => import('pages/CardPage'));
 const ChartPage = React.lazy(() => import('pages/ChartPage'));
 const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
@@ -143,6 +144,7 @@ class App extends React.Component {
                 
                 <Route exact path="/dashboard" component={DashboardPage} />
                 <Route exact path="/login-modal" component={AuthModalPage} />
+                <Route exact path="/category" component={CategoryCardPage} />
                 <Route exact path="/buttons" component={ButtonPage} />
                 <Route exact path="/cards" component={CardPage} />
                 <Route exact path="/widgets" component={WidgetPage} />

@@ -47,21 +47,16 @@ public class Address implements Serializable {
     @NotNull
     private Boolean isDefaultAddress;
 
-
-    @ManyToOne
-    private Customer customer;
-
     public Address() {
     }
 
-    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) @NotNull String addressLandmark, @Size(max = 6) @NotNull String addressPincode, @NotNull City addressCity, @NotNull Boolean isDefaultAddress, @NotNull Customer customer) {
+    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) @NotNull String addressLandmark, @Size(max = 6) @NotNull String addressPincode, @NotNull City addressCity, @NotNull Boolean isDefaultAddress) {
         this.addressName = addressName;
         this.addressLine = addressLine;
         this.addressLandmark = addressLandmark;
         this.addressPincode = addressPincode;
         this.addressCity = addressCity;
         this.isDefaultAddress = isDefaultAddress;
-        this.customer = customer;
     }
 
     public Long getAddressId() {
@@ -92,10 +87,6 @@ public class Address implements Serializable {
         return isDefaultAddress;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
     public String getAddressPincode() {
         return addressPincode;
     }
@@ -122,9 +113,5 @@ public class Address implements Serializable {
 
     public void setDefaultAddress(Boolean defaultAddress) {
         isDefaultAddress = defaultAddress;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 }

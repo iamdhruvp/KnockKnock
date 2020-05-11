@@ -22,7 +22,7 @@ public class Service implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer serviceId;
+    private Long serviceId;
 
     @Column
     @Size(max=50)
@@ -48,11 +48,11 @@ public class Service implements Serializable {
     @OneToMany(mappedBy = "professional")
     private Set<ProfessionalService> professionalServices = new HashSet<>();
 
-    public Integer getServiceId() {
+    public Long getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(Integer serviceId) {
+    public void setServiceId(Long serviceId) {
         this.serviceId = serviceId;
     }
 

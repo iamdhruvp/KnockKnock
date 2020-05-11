@@ -20,6 +20,9 @@ public class AddressController {
     AddressRepository addressRepository;
 
     @Autowired
+    CustomerRepository customerRepository;
+
+    @Autowired
     CustomerService customerService;
 
     @Autowired
@@ -52,10 +55,11 @@ public class AddressController {
                     System.out.println("good to goo...................");
 
                     Address ad = new Address(a.getAddressName(), a.getAddressLine(),
-                            a.getAddressLandmark(), a.getAddressPincode(), c, a.getDefaultAddress(), cus);
+                            a.getAddressLandmark(), a.getAddressPincode(), c, a.getDefaultAddress());
 
                     System.out.println("address to be save..................");
-                    addressRepository.save(ad);
+                    //addressRepository.save(ad);
+                    customerRepository.save(cus);
                     System.out.println("saved..................");
                 }
 

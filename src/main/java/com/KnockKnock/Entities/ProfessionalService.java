@@ -13,7 +13,7 @@ import java.util.Objects;
  * Comments    :
  */
 @Entity
-class ProfessionalService implements Serializable {
+public class ProfessionalService implements Serializable {
 
     @EmbeddedId
     private ProfessionalServiceId id = new ProfessionalServiceId();
@@ -46,31 +46,31 @@ class ProfessionalService implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
-        private Long professionalId;
-        private Long serviceId;
-
-        public Long getProfessionalId() {
-            return professionalId;
-        }
-
-        public void setProfessionalId(Long professionalId) {
-            this.professionalId = professionalId;
-        }
-
-        public Long getServiceId() {
-            return serviceId;
-        }
-
-        public void setServiceId(Long serviceId) {
-            this.serviceId = serviceId;
-        }
-
-        public ProfessionalServiceId(Long professionalId, Long serviceId) {
-            this.professionalId = professionalId;
-            this.serviceId = serviceId;
-        }
+        private Long professionalProfessionalId;
+        private Long serviceServiceId;
 
         public ProfessionalServiceId() {
+        }
+
+        public ProfessionalServiceId(Long professionalProfessionalId, Long serviceServiceId) {
+            this.professionalProfessionalId = professionalProfessionalId;
+            this.serviceServiceId = serviceServiceId;
+        }
+
+        public Long getProfessionalProfessionalId() {
+            return professionalProfessionalId;
+        }
+
+        public void setProfessionalProfessionalId(Long professionalProfessionalId) {
+            this.professionalProfessionalId = professionalProfessionalId;
+        }
+
+        public Long getServiceServiceId() {
+            return serviceServiceId;
+        }
+
+        public void setServiceServiceId(Long serviceServiceId) {
+            this.serviceServiceId = serviceServiceId;
         }
 
         @Override
@@ -78,9 +78,9 @@ class ProfessionalService implements Serializable {
             final int prime = 31;
             int result = 1;
             result = prime * result
-                    + ((professionalId == null) ? 0 : professionalId.hashCode());
+                    + ((professionalProfessionalId == null) ? 0 : professionalProfessionalId.hashCode());
             result = prime * result
-                    + ((serviceId == null) ? 0 : serviceId.hashCode());
+                    + ((serviceServiceId == null) ? 0 : serviceServiceId.hashCode());
             return result;
         }
 
@@ -93,7 +93,7 @@ class ProfessionalService implements Serializable {
             if (getClass() != obj.getClass())
                 return false;
             ProfessionalServiceId other = (ProfessionalServiceId) obj;
-            return Objects.equals(getProfessionalId(), other.getProfessionalId()) && Objects.equals(getServiceId(), other.getServiceId());
+            return Objects.equals(getProfessionalProfessionalId(), other.getProfessionalProfessionalId()) && Objects.equals(getServiceServiceId(), other.getServiceServiceId());
         }
     }
 

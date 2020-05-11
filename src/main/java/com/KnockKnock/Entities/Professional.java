@@ -22,7 +22,7 @@ public class Professional implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer professionalId;
+    private Long professionalId;
 
     @Column
     @Size(max=50)
@@ -67,7 +67,7 @@ public class Professional implements Serializable {
 
 
     @Column
-    @NotNull
+//    @NotNull
     @Lob
     private Byte[] professionalGovtDoc;
 
@@ -82,7 +82,7 @@ public class Professional implements Serializable {
     private Date professionalExperience;
 
 
-    @NotNull
+//    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
@@ -92,20 +92,20 @@ public class Professional implements Serializable {
     private City servingCity;
 
 
-    @NotNull
+//    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private BankAccount bankAccount;
 
     @Column
-    @NotNull
+//    @NotNull
     @Lob
     private Byte[] customerPhoto;
 
-    public Integer getProfessionalId() {
+    public Long getProfessionalId() {
         return professionalId;
     }
 
-    public void setProfessionalId(Integer professionalId) {
+    public void setProfessionalId(Long professionalId) {
         this.professionalId = professionalId;
     }
 

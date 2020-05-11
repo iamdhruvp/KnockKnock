@@ -7,8 +7,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
@@ -39,6 +37,9 @@ public class Customer implements Serializable {
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private Login login;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 
 
 
@@ -143,5 +144,13 @@ public class Customer implements Serializable {
 
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

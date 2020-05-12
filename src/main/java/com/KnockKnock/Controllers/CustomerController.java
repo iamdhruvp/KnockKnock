@@ -1,17 +1,13 @@
 package com.KnockKnock.Controllers;
 
 
-import com.KnockKnock.Entities.Customer;
-import com.KnockKnock.Entities.Customer_Login;
-import com.KnockKnock.Entities.Login;
-import com.KnockKnock.Entities.UserRole;
+import com.KnockKnock.Entities.*;
 import com.KnockKnock.Services.CustomerService;
 import com.KnockKnock.Services.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -47,5 +43,20 @@ public class CustomerController<LoginService> {
 
         return "{\"status\":true, \"user\":{\"mobileNo\":\"" + cl.getMobileNo() + "\", \"password\":\"" + cl.getPassword() + "\"}}";
 
+    }
+
+    @GetMapping(value="/getaddress")
+    public ResponseEntity<Address_City>  getAddress()
+    {
+
+        System.out.println("here i your addresss....");
+        Customer cus=customerService.findById((long)1);
+        Address ad=cus.getAddress();
+        City c=ad.getAddressCity();
+        Address_City ac=new Address_City(ad.getAddressName() ,ad.getAddressLine(),ad.getAddressLandmark()
+                ,ad.getAddressPincode(),c.getCityName(),c.getCityState(),c.getCityCountry(),ad.getDefaultAddress());
+
+
+        return new ResponseEntity<Address_City>(ac, HttpStatus.OK);
     }
 }

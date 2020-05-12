@@ -38,13 +38,13 @@ const sidebarBackground = {
 
 const navComponents = [
 
-  { to: '/address', name: ' Add Address', exact: false, Icon: MdStar },
+  { to: '/address', name: ' Add/Edit Address', exact: false, Icon: MdStar },
   { to: '/viewAddress', name: 'View Address', exact: false, Icon: MdNotificationsActive },
 ];
 
 const navContents = [
-  { to: '/typography', name: 'Add Bank details', exact: false, Icon: MdTextFields },
-  { to: '/tables', name: 'View Bank details', exact: false, Icon: MdBorderAll },
+  { to: '/typography', name: 'Add/Edit Bank details', exact: false, Icon: MdTextFields },
+  { to: '/dropdowns', name: 'View Bank details', exact: false, Icon: MdBorderAll },
 ];
 
 const pageContents = [

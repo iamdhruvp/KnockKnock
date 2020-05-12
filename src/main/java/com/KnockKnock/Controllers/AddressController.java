@@ -59,6 +59,7 @@ public class AddressController {
 
                     System.out.println("address to be save..................");
                     //addressRepository.save(ad);
+                    cus.setAddress(ad);
                     customerRepository.save(cus);
                     System.out.println("saved..................");
                 }
@@ -75,17 +76,7 @@ public class AddressController {
 
     }
 
-    @GetMapping( value = "/getAddress")
-    public ResponseEntity<Iterable<Address>> getService() {
-        System.out.println("I am fetching Addresse.........");
-        try {
-            Customer cus=customerService.findById((long)1);
-            return new ResponseEntity<Iterable<Address>>( addressService.findByCustomer(cus), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Iterable<Address>>(HttpStatus.BAD_REQUEST);
-        }
 
-    }
 
 
 }

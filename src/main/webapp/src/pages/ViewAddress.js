@@ -7,12 +7,15 @@ import Table from "reactstrap/es/Table";
 
 
 class ViewAddress extends React.Component{
-    state = {
-        show: 1,
-        addresses:[],
-        selectedAddress: 0,
-        selectedCustomer: 1
-    };
+
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            address: []
+        };
+    }
+
 
     toggle = (event) =>{
         this.setState({
@@ -24,15 +27,16 @@ class ViewAddress extends React.Component{
     componentDidMount() {
 
         {
-            axios.get(`http://localhost:8081/getAddress/`)
+            axios.get(`http://localhost:8081/getaddress`)
                 .then(res => {
                     console.log(res.data)
-                    this.setState({addresses: res.data});
+                    this.setState({address: res.data});
                 })
+
         }
     }
-    handleChange(){
-        this.props.history.push("/category");
+    handleEdit(){
+        this.props.history.push("/address");
     }
 
 
@@ -53,32 +57,51 @@ class ViewAddress extends React.Component{
             </button>
         );
 
-        const Addresses = this.state.addresses.map((address, i) => (
-            <Card>
-                <CardBody>
-                    <CardTitle>Address {i} </CardTitle>
 
-                    <Table>
-                        <tbody>
-                        <tr className="table-active">
-                            <th scope="row">Address Name</th>
-                            <td>{address.addressName}</td>
-                        </tr>
-                        <tr className="table-active">
-                            <th scope="row">Address Line</th>
-                            <td>{address.addressLine}</td>
-                        </tr>
-                        </tbody>
-                    </Table>
-                    <Button >Edit</Button>
-                </CardBody>
-            </Card>
-        ));
+
         return (
             <div>
-                <Page title="Addresses"  breadcrumbs={[{ name: 'Address', active: true }]}>
+                <Page title="Address" >
                     <CardColumns>
-                        {Addresses}
+                        <Card>
+                            <CardBody>
+                                <CardTitle>Address  </CardTitle>
+
+                                <Table>
+                                    <tbody>
+                                    <tr className="table-active">
+                                        <th scope="row">Address Name</th>
+                                        <td>{this.state.address.addressName}</td>
+                                    </tr>
+                                    <tr className="table-active">
+                                        <th scope="row">Address Line</th>
+                                        <td>{this.state.address.addressLine}</td>
+                                    </tr>
+                                    <tr className="table-active">
+                                        <th scope="row">Address Landmark</th>
+                                        <td>{this.state.address.addressLandmark}</td>
+                                    </tr>
+                                    <tr className="table-active">
+                                        <th scope="row">Address Pincode</th>
+                                        <td>{this.state.address.addressPincode}</td>
+                                    </tr>
+                                    <tr className="table-active">
+                                        <th scope="row">Address City</th>
+                                        <td>{this.state.address.cityName}</td>
+                                    </tr>
+                                    <tr className="table-active">
+                                        <th scope="row">Address State</th>
+                                        <td>{this.state.address.cityState}</td>
+                                    </tr>
+                                    <tr className="table-active">
+                                        <th scope="row">Address Country</th>
+                                        <td>{this.state.address.cityCountry}</td>
+                                    </tr>
+                                    </tbody>
+                                </Table>
+                                <Button onclick={this.handleEdit}>Edit</Button>
+                            </CardBody>
+                        </Card>
                     </CardColumns>
                 </Page>
             </div>

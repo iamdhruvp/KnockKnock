@@ -12,8 +12,5 @@ public class AddressService {
     @Autowired
     AddressRepository addressRepository;
 
-    public Iterable<Address> findByCustomer(Customer cus)
-    {
-        return addressRepository.findByCustomer(cus);
-    }
+
 }

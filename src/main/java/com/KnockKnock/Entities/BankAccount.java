@@ -17,7 +17,7 @@ public class BankAccount implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer bankAccountId;
+    private Long bankAccountId;
 
     @Column(unique = true)
     @Size(max=50)
@@ -43,11 +43,11 @@ public class BankAccount implements Serializable {
         this.bankIFCI = bankIFCI;
     }
 
-    public Integer getBankAccountId() {
+    public Long getBankAccountId() {
         return bankAccountId;
     }
 
-    public void setBankAccountId(Integer bankAccountId) {
+    public void setBankAccountId(Long bankAccountId) {
         this.bankAccountId = bankAccountId;
     }
 

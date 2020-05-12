@@ -21,7 +21,7 @@ public class Login implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer loginId;
+    private Long loginId;
 
     @Column
     @NotNull
@@ -95,11 +95,11 @@ public class Login implements Serializable {
     public Login(Date date, Date date1, String mobile, String password, char a, int i) {
     }
 
-    public Integer getLoginId() {
+    public Long getLoginId() {
         return loginId;
     }
 
-    public void setLoginId(Integer loginId) {
+    public void setLoginId(Long loginId) {
         this.loginId = loginId;
     }
 

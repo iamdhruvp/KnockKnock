@@ -19,7 +19,7 @@ public class ServiceSubCategory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer serviceSubCategoryId;
+    private Long serviceSubCategoryId;
 
     @Column
     @Size(max=50)
@@ -33,14 +33,14 @@ public class ServiceSubCategory implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ServiceCategory serviceCategory;
 
-    public Integer getServiceSubCategoryId() {
+    public Long getServiceSubCategoryId() {
         return serviceSubCategoryId;
     }
 
-    public void setServiceSubCategoryId(Integer serviceSubCategoryId) {
+    public void setServiceSubCategoryId(Long serviceSubCategoryId) {
         this.serviceSubCategoryId = serviceSubCategoryId;
     }
 

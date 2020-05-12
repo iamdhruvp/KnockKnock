@@ -20,7 +20,7 @@ public class SubCategoryController {
    private SubCategoryService subCategoryService;
 
     @GetMapping( value = "/getSubCategory/{id}")
-    public ResponseEntity<Iterable<ServiceSubCategory>> getSubCategory(@PathVariable(value="id") Integer categoryId) {
+    public ResponseEntity<Iterable<ServiceSubCategory>> getSubCategory(@PathVariable(value="id") Long categoryId) {
         System.out.println("I am fetching SubCategories.........");
         try {
             ServiceCategory serviceCategory = new ServiceCategory();

@@ -9,9 +9,12 @@ import {
     CardDeck,
     CardFooter,
     CardImg,
+    CardLink,
     CardSubtitle,
     CardText,
     CardTitle,
+    ListGroup,
+    ListGroupItem,
     Nav,
     Navbar,
     NavbarText,
@@ -22,6 +25,8 @@ import axios from "axios";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import Container from "reactstrap/es/Container";
+import bg1Image from 'assets/img/bg/background_640-1.jpg';
+import bg18Image from 'assets/img/bg/background_1920-18.jpg';
 
 class CategoryCardPage extends React.Component{
     state = {
@@ -33,7 +38,7 @@ class CategoryCardPage extends React.Component{
         services:[],
         selectedServices:[],
         professionals:[],
-        selectedProfessional:0
+        selectedProfessional:null
 
     };
     
@@ -41,8 +46,10 @@ class CategoryCardPage extends React.Component{
         this.setState({
             show: this.state.show + 1,
         });
-        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
-        this.setState({ [event.target.name] : event.target.value })
+        console.log(this.state.show,"----------toggled")
+        console.log(this.state,"----------toggled")
+        if(this.state.show !== 4){console.log("++++++++++++++", event.target.value,"++++++++++++++++++")}
+        {this.state.show !== 4 && this.setState({ [event.target.name] : event.target.value })}
     };
     serviceBtnClick(selected) {
         const index = this.state.selectedServices.indexOf(selected);
@@ -52,7 +59,12 @@ class CategoryCardPage extends React.Component{
             this.state.selectedServices.splice(index, 1);
         }
         this.setState({ selectedServices: [...this.state.selectedServices] });
-        console.log()
+        console.log( this.state.selectedServices)
+    }
+
+    showDetails(selected) {
+        this.setState({ selectedProfessional: this.state.professionals[selected] });
+        console.log( this.state.selectedProfessional)
     }
 
     componentDidMount() {
@@ -78,12 +90,12 @@ class CategoryCardPage extends React.Component{
                 this.setState({services: res.data});
             })
         }
-        { this.state.show === 40 && this.state.professionals.length === 0 &&
+        { this.state.show === 4 && this.state.professionals.length === 0 &&
             axios.post(`http://localhost:8081/getProfessional/`,
                 this.state.selectedServices)
                 .then(res => {
-                    console.log(res.data)
-                    this.setState({services: res.data});
+                    console.log(res.data,"--------------response")
+                    this.setState({professionals: res.data});
                 })
                 .catch(error => {
                     console.log("profs error", error);
@@ -159,18 +171,19 @@ class CategoryCardPage extends React.Component{
             </Card>
 
         ));
-        const Professionals = this.state.subcategories.map((professional, i) => (
-            <Card>
-                <CardImg top width="100%" src={bg11Image} alt="Card image cap" />
+        const Professionals = this.state.professionals.map((professional, i) => (
+            <Card className="flex-row">
+                <CardImg
+                    className="card-img-left"
+                    src={bg1Image}
+                    style={{ width: 'auto', height: 150 }}
+                />
                 <CardBody>
-                    <CardTitle>{ professional }</CardTitle>
-                    <CardSubtitle>SubCategory Id : { professional }</CardSubtitle>
-                    <CardText>Desc : { professional }</CardText>
+                    <CardTitle>{professional.professionalName} <Badge style={{float: 'right'}} color="secondary">Experience: {professional.professionalExperience} Yrs</Badge> </CardTitle>
+                    <CardSubtitle>{professional.professionalGender}</CardSubtitle>
+                    <CardText>{professional.professionalEmail}</CardText>
+                    <Button onClick={() => this.showDetails(i)} style={{float: 'right'}} name="selectedProfessional" value={ professional.professionalId } >View Details ></Button>
                 </CardBody>
-                <CardFooter className="text-muted">
-                    <Button onClick={this.toggle} name="selectedSubCategory" value={ professional } block>Select</Button>
-
-                </CardFooter>
             </Card>
         ));
         return (
@@ -204,7 +217,43 @@ class CategoryCardPage extends React.Component{
                 )}
                 { this.state.show === 4 && (
                     <Page title="Professional" breadcrumbs={[{ name: 'Category', active: false }, { name: 'SubCategory', active: false }, { name: 'Service', active: false },{ name: 'Professional', active: true }]}>
-                        <CardColumns>{ Professionals }</CardColumns>
+                        <Row>
+                            <Col md={6} sm={6} xs={12} className="mb-3">
+                                { Professionals }
+                            </Col>
+                            { this.state.selectedProfessional !== null && (<Col md={6} sm={6} xs={12} className="mb-3">
+                                <Card>
+                                    <CardImg top src={bg18Image} />
+                                    <CardBody>
+                                        <CardTitle>{this.state.selectedProfessional.professionalName}</CardTitle>
+                                        <CardText>
+
+                                        </CardText>
+                                    </CardBody>
+                                    <ListGroup flush>
+                                        <ListGroupItem>
+                                            {this.state.selectedProfessional.professionalServices.map((s, i) =>(
+                                                <div>{ this.state.selectedServices.includes(s.service.serviceId) && (<Row>
+                                                    <Col>{s.service.serviceName}</Col>
+                                                    <Col>{s.service.serviceDesc}</Col>
+                                                    <Col>{s.serviceCost}</Col>
+                                                </Row>)}
+                                                </div>
+                                            ))}
+                                        </ListGroupItem>
+
+                                    </ListGroup>
+                                    <CardBody>
+                                        <CardLink tag="a" href="#">
+                                            Go to details
+                                        </CardLink>
+                                        <CardLink tag="a" href="#">
+                                            More
+                                        </CardLink>
+                                    </CardBody>
+                                </Card>
+                            </Col>)}
+                        </Row>
                     </Page>
                 )}
 

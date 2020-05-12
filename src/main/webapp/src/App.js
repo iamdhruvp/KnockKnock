@@ -69,8 +69,9 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    this.checkLoginStatus();
+    //this.checkLoginStatus();
     console.log(this.state.loggedInStatus, "update");
+    ///////////////////////Error
   }
 
   handleLogout() {

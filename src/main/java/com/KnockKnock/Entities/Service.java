@@ -41,11 +41,11 @@ public class Service implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ServiceSubCategory serviceSubCategory;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "professional")
+    @OneToMany(mappedBy = "service")
     private Set<ProfessionalService> professionalServices = new HashSet<>();
 
     public Long getServiceId() {

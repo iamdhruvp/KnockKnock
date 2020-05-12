@@ -27,18 +27,47 @@ class AddressForm extends React.Component {
             cityState: "",
             cityCountry: "",
             isDefaultAddress: "",
-            loginErrors: ""
+            loginErrors: "",
+            address: [],
+            countries: [],
+            selectedCountry: 0,
+            states: [],
+            selectedState: 0,
+            cities: [],
+            show: 1,
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event) {
+    toggle = (event) => {
         this.setState({
-            [event.target.name]: event.target.value
+            show: 2,
         });
-    }
+        this.setState({
+            states: []
+        });
+
+        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
+        this.setState({ [event.target.name] : event.target.value })
+
+    };
+    togg = (event) => {
+        this.setState({
+            show: 3,
+        });
+        this.setState({
+            cities: []
+        });
+
+
+        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
+        this.setState({ [event.target.name] : event.target.value })
+
+    };
+
+
 
     handleSubmit = () => {
 
@@ -55,6 +84,7 @@ class AddressForm extends React.Component {
                         cityState: cityState,
                         cityCountry: cityCountry,
                         isDefaultAddress:  isDefaultAddress
+
                     }
                     // ,
                     // { withCredentials: true }
@@ -74,10 +104,57 @@ class AddressForm extends React.Component {
 
 
 
-    };
+    }
+
+    componentDidMount()
+
+        {
+            axios.get(`http://localhost:8081/getaddress`)
+                .then(res => {
+                    console.log(res.data)
+                    this.setState({address: res.data});
+                })
+
+            this.state.show === 1 &&
+            axios.get(`http://localhost:8081/getCountry`)
+                .then(res => {
+                    console.log(res.data)
+                    this.setState({countries : res.data});
+                })
 
 
-    render() {
+        }
+
+    componentDidUpdate() {
+
+        {
+            this.state.show === 2 && this.state.states.length === 0 &&
+            axios.get(`http://localhost:8081/getState/` + this.state.selectedCountry)
+                .then(res => {
+                    console.log(res.data)
+                    this.setState({states: res.data});
+                })
+        }
+
+        {
+            this.state.show === 3 && this.state.cities.length === 0 &&
+            axios.get(`http://localhost:8081/getCity/` + this.state.selectedState)
+                .then(res => {
+                    console.log(res.data)
+                    this.setState({cities: res.data});
+                })
+        }
+
+
+    }
+
+    handleChange(event) {
+
+        this.setState({ [event.target.name] : event.target.value })
+    }
+
+
+        render() {
         const {
             showLogo,
             anameLabel,
@@ -100,6 +177,28 @@ class AddressForm extends React.Component {
             onLogoClick,
         } = this.props;
 
+            const Countries = this.state.countries.map((country) => (
+    <DropdownItem onClick={this.toggle} name="selectedCountry" value={ country }
+                            onChange={() => this.setState({ cityCountry: {country} })}>
+    {country}
+</DropdownItem>
+        ));
+            const States = this.state.states.map((state) => (
+
+
+    <DropdownItem onClick={this.togg} name="selectedState" value={ state }
+                            onChange={() => this.setState({ cityState: {state} })}>
+    {state}
+</DropdownItem>
+
+            ));
+            const Cities = this.state.cities.map((city) => (
+
+                <DropdownItem onChange={() => this.setState({ cityName: {city} })}>
+                    {city}
+                </DropdownItem>
+
+            ));
         return (
             <Form onSubmit={this.handleSubmit}>
                 {showLogo && (
@@ -118,8 +217,8 @@ class AddressForm extends React.Component {
                         <Label for={anameLabel}>{anameLabel}</Label>
                         <Input
                             {...anameInputProps}
-                            value={this.state.addressName}
-                            onChange={this.handleChange}
+                            value={this.state.address.addressName}
+                      onChange={this.handleChange}
                         />
                     </FormGroup>
 
@@ -127,7 +226,7 @@ class AddressForm extends React.Component {
                     <Label for={alineLabel}>{alineLabel}</Label>
                     <Input
                         {...alineInputProps}
-                        value={this.state.addressLine}
+                        value={this.state.address.addressLine}
                         onChange={this.handleChange}
                     />
                 </FormGroup>
@@ -136,8 +235,8 @@ class AddressForm extends React.Component {
                     <Label for={alandmarkLabel}>{alandmarkLabel}</Label>
                     <Input
                         {...alandmarkInputProps}
-                        value={this.state.addressLandmark}
-                        onChange={this.handleChange}
+                        value={this.state.address.addressLandmark}
+                        onChange={this.handleChange.bind(this)}
                     />
                 </FormGroup>
 
@@ -145,70 +244,45 @@ class AddressForm extends React.Component {
                     <Label for={apincodeLabel}>{apincodeLabel}</Label>
                     <Input
                         {...apincodeInputProps}
-                        value={this.state.addresspincode}
+                        value={this.state.address.addressPincode}
                         onChange={this.handleChange}
                     />
                 </FormGroup>
 
 
-                <FormGroup>
+                 <FormGroup>
                     <Label for={acountryLabel}>{acountryLabel}</Label>
-                    <UncontrolledButtonDropdown className="m-1">
-                        <DropdownToggle caret>Country</DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem {...acountryInputProps}
-                            value="india"
-                            color="primary"
-                            onClick={() => this.setState({ cityCountry: "india" })}
-                            active={this.state.cityCountry === "india"}>india</DropdownItem>
-                            <DropdownItem
-                                {...acountryInputProps}
-                                value="other"
-                                color="primary"
-                                onClick={() => this.setState({ cityCountry: "other" })}
-                                active={this.state.cityCountry === "other"}>Other</DropdownItem>
-                        </DropdownMenu>
-                    </UncontrolledButtonDropdown>
-
+        <UncontrolledButtonDropdown className="m-1">
+            <DropdownToggle caret  >
+                {this.state.cityCountry}
+            </DropdownToggle>
+            <DropdownMenu>
+                {Countries}</DropdownMenu>
+        </UncontrolledButtonDropdown>
                 </FormGroup>
+
 
                 <FormGroup>
                     <Label for={astateLabel}>{astateLabel}</Label>
                     <UncontrolledButtonDropdown className="m-1">
-                        <DropdownToggle caret>State  </DropdownToggle>
+                        <DropdownToggle caret  >
+                            {this.state.cityState}
+                        </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem {...astateInputProps}
-                                          value="karnataka"
-                                          color="primary"
-                                          onClick={() => this.setState({ cityState: "karnataka" })}
-                                          active={this.state.cityState === "karnataka"}>karnataka</DropdownItem>
-                            <DropdownItem
-                                {...acountryInputProps}
-                                value="gujarat"
-                                color="primary"
-                                onClick={() => this.setState({ cityCountry: "gujarat" })}
-                                active={this.state.cityState === "gujarat"}>gujarat</DropdownItem>
+                        {States}
                         </DropdownMenu>
                     </UncontrolledButtonDropdown>
 
                 </FormGroup>
 
+
+
                 <FormGroup>
                     <Label for={acityLabel}>{acityLabel}</Label>
                     <UncontrolledButtonDropdown className="m-1">
-                        <DropdownToggle caret>City   </DropdownToggle>
+                        <DropdownToggle caret>{this.state.cityName} </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem {...acityInputProps}
-                                          value="bangalore"
-                                          color="primary"
-                                          onClick={() => this.setState({ cityName: "bangalore" })}
-                                          active={this.state.cityName === "bangalore"}>bangalore</DropdownItem>
-                            <DropdownItem
-                                {...acityInputProps}
-                                value="mehsana"
-                                color="primary"
-                                onClick={() => this.setState({ cityName: "mehsana" })}
-                                active={this.state.cityName === "mehsana"}>mehsana</DropdownItem>
+                            {Cities}
                         </DropdownMenu>
                     </UncontrolledButtonDropdown>
 
@@ -296,7 +370,7 @@ AddressForm.defaultProps = {
     anameLabel: 'Address Name',
     anameInputProps: {
         type: 'text',
-        placeholder: 'your Address Name',
+        placeholder: 'Enter your Name',
         name:"addressName",
     },
     alineLabel: 'Address line',
@@ -331,8 +405,6 @@ AddressForm.defaultProps = {
     },
     acountryLabel: 'Country',
     acountryInputProps: {
-        type: 'text',
-        placeholder: 'your Country',
         name: "cityCountry",
     },
 

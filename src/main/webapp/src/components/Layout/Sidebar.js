@@ -38,30 +38,29 @@ const sidebarBackground = {
 
 const navComponents = [
 
-  { to: '/address', name: ' Add Address', exact: false, Icon: MdStar },
-  { to: '/alerts', name: 'View Address', exact: false, Icon: MdNotificationsActive },
+  { to: '/address', name: ' Add/Edit Address', exact: false, Icon: MdStar },
+  { to: '/viewAddress', name: 'View Address', exact: false, Icon: MdNotificationsActive },
 ];
 
 const navContents = [
-  { to: '/typography', name: 'Add Bank details', exact: false, Icon: MdTextFields },
-  { to: '/tables', name: 'View Bank details', exact: false, Icon: MdBorderAll },
+  { to: '/typography', name: 'Add/Edit Bank details', exact: false, Icon: MdTextFields },
+  { to: '/dropdowns', name: 'View Bank details', exact: false, Icon: MdBorderAll },
 ];
 
 const pageContents = [
-  { to: '/login', name: 'login / signup', exact: false, Icon: MdAccountCircle },
+  { to: '/login', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
   {
     to: '/login-modal',
-    name: 'login modal',
+    name: 'Previous Bookings',
     exact: false,
     Icon: MdViewCarousel,
   },
 ];
 
 const navItems = [
-  { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
+
   { to: '/category', name: 'category', exact: false, Icon: MdWeb },
-  { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
-  { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
+
 ];
 
 const bem = bn.create('sidebar');
@@ -206,7 +205,7 @@ class Sidebar extends React.Component {
               <BSNavLink className={bem.e('nav-item-collapse')}>
                 <div className="d-flex">
                   <MdPages className={bem.e('nav-item-icon')} />
-                  <span className="">Pages</span>
+                  <span className="">Booking</span>
                 </div>
                 <MdKeyboardArrowDown
                   className={bem.e('nav-item-icon')}

@@ -7,7 +7,7 @@ import componentQueries from 'react-component-queries';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import './styles/reduction.scss';
 
-const AlertPage = React.lazy(() => import('pages/AlertPage'));
+const ViewAddress = React.lazy(() => import('pages/ViewAddress'));
 const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
 const AddressPage = React.lazy(() => import('pages/AddressPage'));
 const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
@@ -142,14 +142,14 @@ class App extends React.Component {
             <MainLayout breakpoint={this.props.breakpoint}>
               <React.Suspense fallback={<PageSpinner />}>
                 
-                <Route exact path="/dashboard" component={DashboardPage} />
+                <Route exact path="/dashboard" component={CategoryCardPage} />
                 <Route exact path="/login-modal" component={AuthModalPage} />
                 <Route exact path="/category" component={CategoryCardPage} />
                 <Route exact path="/buttons" component={ButtonPage} />
                 <Route exact path="/cards" component={CardPage} />
                 <Route exact path="/widgets" component={WidgetPage} />
                 <Route exact path="/typography" component={TypographyPage} />
-                <Route exact path="/alerts" component={AlertPage} />
+                <Route exact path="/viewAddress" component={ViewAddress} />
                 <Route exact path="/tables" component={TablePage} />
                 <Route exact path="/address" component={AddressPage} />
                 <Route

@@ -75,13 +75,7 @@ const DropdownPage = () => {
             <CardHeader>Sizing</CardHeader>
             <CardBody>
               <UncontrolledButtonDropdown className="m-1">
-                <DropdownToggle caret size="lg">
-                  Large
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem>Another Action</DropdownItem>
-                  <DropdownItem>Another Action</DropdownItem>
-                </DropdownMenu>
+
               </UncontrolledButtonDropdown>
 
               <UncontrolledButtonDropdown className="m-1">

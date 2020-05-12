@@ -1,18 +1,15 @@
 package com.KnockKnock.Controllers;
 
-import com.KnockKnock.Entities.Address;
-import com.KnockKnock.Entities.Address_City;
-import com.KnockKnock.Entities.City;
-import com.KnockKnock.Entities.Customer;
+import com.KnockKnock.Entities.*;
 import com.KnockKnock.Repositories.AddressRepository;
 import com.KnockKnock.Repositories.CityRepository;
 import com.KnockKnock.Repositories.CustomerRepository;
+import com.KnockKnock.Services.AddressService;
 import com.KnockKnock.Services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +27,9 @@ public class AddressController {
 
     @Autowired
     CityRepository cityRepository;
+
+    @Autowired
+    AddressService addressService;
 
     @PostMapping(value="postAddress/{c_id}")
     public String postAddress(@RequestBody Address_City a, @PathVariable("c_id") Long id) {
@@ -59,6 +59,7 @@ public class AddressController {
 
                     System.out.println("address to be save..................");
                     //addressRepository.save(ad);
+                    cus.setAddress(ad);
                     customerRepository.save(cus);
                     System.out.println("saved..................");
                 }
@@ -74,6 +75,8 @@ public class AddressController {
         return "{\"status\":true}";
 
     }
+
+
 
 
 }

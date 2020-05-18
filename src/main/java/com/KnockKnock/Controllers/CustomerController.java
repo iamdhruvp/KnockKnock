@@ -59,4 +59,21 @@ public class CustomerController<LoginService> {
 
         return new ResponseEntity<Address_City>(ac, HttpStatus.OK);
     }
+
+
+    @GetMapping(value="/getcustomer/{id}")
+    public ResponseEntity<Customer_Login> getCustomer(@PathVariable("id") Long id)
+    {
+        try {
+            Customer cus = customerService.findById(id);
+            Login log = cus.getLogin();
+            Customer_Login cl = new Customer_Login(cus.getCustomerName(), cus.getCustomerGender(), cus.getCustomerEmail(), log.getPassword(), log.getMobileNo());
+            return new ResponseEntity<Customer_Login>(cl, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<Customer_Login>(HttpStatus.BAD_REQUEST);
+
+        }
+
+    }
 }

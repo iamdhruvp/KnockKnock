@@ -35,9 +35,7 @@ class ViewAddress extends React.Component{
 
         }
     }
-    handleEdit(){
-        this.props.history.push("/address");
-    }
+
 
 
     render() {

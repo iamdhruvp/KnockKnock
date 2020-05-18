@@ -92,6 +92,12 @@ public class Login implements Serializable {
         this.userRole = userRole;
     }
 
+    public Login(@NotNull @Pattern(regexp = "(^$|[0-9]{10})") String mobileNo, @NotNull @Size(min = 6, max = 32) @Pattern(regexp = "(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$)") String password, @NotNull UserRole userRole) {
+        this.mobileNo = mobileNo;
+        this.password = password;
+        this.userRole = userRole;
+    }
+
     public Login(Date date, Date date1, String mobile, String password, char a, int i) {
     }
 

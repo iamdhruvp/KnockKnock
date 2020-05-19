@@ -18,6 +18,7 @@ import {
 } from 'react-icons/md';
 import {Button, ListGroup, ListGroupItem, Nav, Navbar, NavItem, NavLink, Popover, PopoverBody,} from 'reactstrap';
 import bn from 'utils/bemnames';
+import axios from "axios";
 
 const bem = bn.create('header');
 
@@ -39,7 +40,21 @@ class Header extends React.Component {
     isOpenNotificationPopover: false,
     isNotificationConfirmed: false,
     isOpenUserCardPopover: false,
-  };
+    customer: []
+  }
+
+
+  componentDidMount() {
+
+    {
+      axios.get(`http://localhost:8081/getcustomer/`+sessionStorage.getItem("id"))
+          .then(res => {
+            console.log(res.data)
+            this.setState({customer: res.data});
+          })
+
+    }
+  }
 
   toggleNotificationPopover = () => {
     this.setState({
@@ -124,9 +139,9 @@ class Header extends React.Component {
             >
               <PopoverBody className="p-0 border-light">
                 <UserCard
-                  title="Jane"
-                  subtitle="jane@jane.com"
-                  text="Last updated 3 mins ago"
+                  title={this.state.customer.customerName}
+                  subtitle={this.state.customer.customerEmail}
+                  subtitle={this.state.customer.mobileNo}
                   className="border-light"
                 >
                   <ListGroup flush>
@@ -135,9 +150,6 @@ class Header extends React.Component {
                     </ListGroupItem>
                     <ListGroupItem tag="button" action className="border-light">
                       <MdInsertChart /> Stats
-                    </ListGroupItem>
-                    <ListGroupItem tag="button" action className="border-light">
-                      <MdMessage /> Messages
                     </ListGroupItem>
                     <ListGroupItem tag="button" action className="border-light">
                       <MdSettingsApplications /> Settings

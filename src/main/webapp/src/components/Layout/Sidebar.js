@@ -43,8 +43,8 @@ const navComponents = [
 ];
 
 const navContents = [
-  { to: '/typography', name: 'Add/Edit Bank details', exact: false, Icon: MdTextFields },
-  { to: '/dropdowns', name: 'View Bank details', exact: false, Icon: MdBorderAll },
+  { to: '/bank', name: 'Add/Edit Bank details', exact: false, Icon: MdTextFields },
+  { to: '/viewBank' , name: 'View Bank details', exact: false, Icon: MdBorderAll },
 ];
 
 const pageContents = [

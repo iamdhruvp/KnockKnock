@@ -10,6 +10,8 @@ import './styles/reduction.scss';
 const ViewAddress = React.lazy(() => import('pages/ViewAddress'));
 const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
 const AddressPage = React.lazy(() => import('pages/AddressPage'));
+const BankForm = React.lazy(() => import('pages/BankPage'));
+const ViewBank = React.lazy(() => import('pages/ViewBank'));
 const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
 const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
 const CategoryCardPage = React.lazy(() => import('pages/CategoryCardPage'));
@@ -86,10 +88,8 @@ class App extends React.Component {
       loggedInStatus: "LOGGED_IN",
       user: data.user
     });
-    sessionStorage.setItem("id", data.user.mobileNo);
-    sessionStorage.setItem("user", data.user);
+    sessionStorage.setItem("id", data);
     console.log("data", data);
-    console.log("data.user", data.user);
   }
 
 
@@ -150,8 +150,10 @@ class App extends React.Component {
                 <Route exact path="/widgets" component={WidgetPage} />
                 <Route exact path="/typography" component={TypographyPage} />
                 <Route exact path="/viewAddress" component={ViewAddress} />
+                <Route exact path="/viewBank" component={ViewBank} />
                 <Route exact path="/tables" component={TablePage} />
                 <Route exact path="/address" component={AddressPage} />
+                <Route exact path="/bank" component={BankForm} />
                 <Route
                   exact
                   path="/button-groups"

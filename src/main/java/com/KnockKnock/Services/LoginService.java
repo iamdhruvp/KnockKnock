@@ -16,4 +16,8 @@ public class LoginService {
     {
         loginRepository.save(login);
     }
+    public Login findByMobileNo(String mobile)
+    {
+        return loginRepository.findByMobileNo(mobile);
+    }
 }

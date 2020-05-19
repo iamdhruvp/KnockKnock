@@ -15,7 +15,8 @@ class AuthForm extends React.Component {
         customerGender: "",
         customerEmail: "",
         loginErrors: "",
-        registrationErrors: ""
+        registrationErrors: "",
+        iscust: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,7 +47,7 @@ class AuthForm extends React.Component {
     if(this.isLogin){
       const { mobileNo, password } = this.state;
       axios.post(
-        "http://localhost:8081/login",
+        'http://localhost:8081/verifyCustomer/'+this.state.iscust,
         {
           mobileNo: mobileNo,
           password: password
@@ -55,7 +56,7 @@ class AuthForm extends React.Component {
             console.log("login Response", response)
             console.log("login Response Data", response.data)
             console.log("login Response Data Status", response.data.status)
-            if (response.data.status) {
+            if (response.status==200) {
                 this.props.handleSuccessfulAuth(response.data);
             }
         })
@@ -121,6 +122,8 @@ class AuthForm extends React.Component {
       emailInputProps,
       genderLabel,
       genderInputProps,
+        iscustLabel,
+      iscustInputProps,
       children,
       onLogoClick,
     } = this.props;
@@ -153,6 +156,31 @@ class AuthForm extends React.Component {
             onChange={this.handleChange}
           />
         </FormGroup>
+          {this.isLogin && (
+              <FormGroup>
+                  <Label for={iscustLabel}>{iscustLabel}</Label>
+                  <ButtonGroup className="ml-3">
+                      <Button
+                          {...iscustInputProps}
+                          value="1"
+                          color="primary"
+                          onClick={() => this.setState({ iscust: "1" })}
+                          active={this.state.iscust === "1"}
+                      >
+                          Customer
+                      </Button>
+                      <Button
+                          {...iscustInputProps}
+                          value="2"
+                          color="primary"
+                          onClick={() => this.setState({ iscust: "2" })}
+                          active={this.state.iscust === "2"}
+                      >
+                          Professional
+                      </Button>
+                  </ButtonGroup>
+              </FormGroup>
+          )}
         {this.isSignup && (
           <FormGroup>
             <Label for={emailLabel}>{emailLabel}</Label>
@@ -259,6 +287,8 @@ AuthForm.propTypes = {
   emailInputProps: PropTypes.object,
   genderLabel: PropTypes.string,
   genderInputProps: PropTypes.object,
+    iscustLabel: PropTypes.string,
+    iscustInputProps: PropTypes.object,
   
   onLogoClick: PropTypes.func,
 };
@@ -294,6 +324,10 @@ AuthForm.defaultProps = {
   genderInputProps: {
     name: "customerGender",
   },
+    iscustLabel: 'User-Role',
+    iscustInputProps: {
+        name: "iscust",
+    },
   onLogoClick: () => {},
 };
 

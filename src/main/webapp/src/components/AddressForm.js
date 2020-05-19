@@ -217,7 +217,9 @@ class AddressForm extends React.Component {
                         <Label for={anameLabel}>{anameLabel}</Label>
                         <Input
                             {...anameInputProps}
-                            value={this.state.address.addressName}
+
+                            defaultValue={this.state.address.addressName}
+                            ref={this.input}
                       onChange={this.handleChange}
                         />
                     </FormGroup>

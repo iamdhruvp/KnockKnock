@@ -6,7 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created on  : 04/05/20 - 12:32 AM
@@ -42,6 +44,9 @@ public class ProfessionalService implements Serializable {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date ServiceEstimatedTime=new Date(2323223232L);
+
+    @ManyToMany(mappedBy = "professionalServices")
+    private Set<Booking> bookings = new HashSet<>();
 
     public ProfessionalService(ProfessionalServiceId id, Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime) {
         this.id = id;

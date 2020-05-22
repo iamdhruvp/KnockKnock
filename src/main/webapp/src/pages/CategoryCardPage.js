@@ -102,7 +102,8 @@ class CategoryCardPage extends React.Component{
                 });
         }
     }
-    
+
+
     render() {
         const externalCloseBtn = (
             <button
@@ -225,7 +226,7 @@ class CategoryCardPage extends React.Component{
                                 <Card>
                                     <CardImg top src={bg18Image} />
                                     <CardBody>
-                                        <CardTitle>{this.state.selectedProfessional.professionalName}</CardTitle>
+                                        <CardTitle>Photographer: {this.state.selectedProfessional.professionalName}</CardTitle>
                                         <CardText>
 
                                         </CardText>
@@ -234,9 +235,9 @@ class CategoryCardPage extends React.Component{
                                         <ListGroupItem>
                                             {this.state.selectedProfessional.professionalServices.map((s, i) =>(
                                                 <div>{ this.state.selectedServices.includes(s.service.serviceId) && (<Row>
-                                                    <Col>{s.service.serviceName}</Col>
-                                                    <Col>{s.service.serviceDesc}</Col>
-                                                    <Col>{s.serviceCost}</Col>
+                                                    <Col>service: {s.service.serviceName}</Col>
+                                                    <Col>Description: {s.service.serviceDesc}</Col>
+                                                    <Col>Price: {s.serviceCost}</Col>
                                                 </Row>)}
                                                 </div>
                                             ))}
@@ -244,12 +245,7 @@ class CategoryCardPage extends React.Component{
 
                                     </ListGroup>
                                     <CardBody>
-                                        <CardLink tag="a" href="#">
-                                            Go to details
-                                        </CardLink>
-                                        <CardLink tag="a" href="#">
-                                            More
-                                        </CardLink>
+                                        <Button onClick={this.toggle()}  name="selectedProfessionalBooking" value={ professional.professionalId } >Book Now ></Button>
                                     </CardBody>
                                 </Card>
                             </Col>)}

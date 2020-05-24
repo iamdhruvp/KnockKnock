@@ -1,5 +1,7 @@
 package com.KnockKnock.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -17,7 +19,7 @@ public class ProfessionalService implements Serializable {
 
     @EmbeddedId
     private ProfessionalServiceId id = new ProfessionalServiceId();
-
+    @JsonIgnore
     @ManyToOne
     @MapsId("professionalProfessionalId")
     private Professional professional;
@@ -40,6 +42,84 @@ public class ProfessionalService implements Serializable {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date ServiceEstimatedTime=new Date(2323223232L);
+
+    public ProfessionalService(ProfessionalServiceId id, Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime) {
+        this.id = id;
+        this.professional = professional;
+        this.service = service;
+        this.serviceCost = serviceCost;
+        this.serviceExtraCost = serviceExtraCost;
+        this.serviceExtraCostDesc = serviceExtraCostDesc;
+        ServiceEstimatedTime = serviceEstimatedTime;
+    }
+
+    public ProfessionalService(Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime) {
+        this.professional = professional;
+        this.service = service;
+        this.serviceCost = serviceCost;
+        this.serviceExtraCost = serviceExtraCost;
+        this.serviceExtraCostDesc = serviceExtraCostDesc;
+        ServiceEstimatedTime = serviceEstimatedTime;
+    }
+
+    public ProfessionalServiceId getId() {
+        return id;
+    }
+
+    public void setId(ProfessionalServiceId id) {
+        this.id = id;
+    }
+
+    public Professional getProfessional() {
+        return professional;
+    }
+
+    public void setProfessional(Professional professional) {
+        this.professional = professional;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public Float getServiceCost() {
+        return serviceCost;
+    }
+
+    public void setServiceCost(Float serviceCost) {
+        this.serviceCost = serviceCost;
+    }
+
+    public Float getServiceExtraCost() {
+        return serviceExtraCost;
+    }
+
+    public void setServiceExtraCost(Float serviceExtraCost) {
+        this.serviceExtraCost = serviceExtraCost;
+    }
+
+    public String getServiceExtraCostDesc() {
+        return serviceExtraCostDesc;
+    }
+
+    public void setServiceExtraCostDesc(String serviceExtraCostDesc) {
+        this.serviceExtraCostDesc = serviceExtraCostDesc;
+    }
+
+    public Date getServiceEstimatedTime() {
+        return ServiceEstimatedTime;
+    }
+
+    public void setServiceEstimatedTime(Date serviceEstimatedTime) {
+        ServiceEstimatedTime = serviceEstimatedTime;
+    }
+
+    public ProfessionalService() {
+    }
 
     @Embeddable
     public static class ProfessionalServiceId implements Serializable {

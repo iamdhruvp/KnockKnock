@@ -57,3 +57,15 @@ VALUES ("30", "[3hrs]Unlimited Clicks + Soft Copies Only", "Photography", "1"),
        ("15", "[3hrs]Unlimited Clicks + Video + Soft Copies Only", "Photography & Videography", "4"),
        ("10", "[3hrs]Unlimited Clicks + Video + Soft Copies + 20 Hard Copies", "Photography & Videography & 20 Hard Copies ", "4");
 
+INSERT INTO login (login_id, last_login_date, mobile_no, password, register_date,status, user_role_id) VALUES("1", now(), "7600216322","Abcd@1234", now(), "a", "3");
+INSERT INTO login (login_id, last_login_date, mobile_no, password, register_date,status, user_role_id) VALUES("2", now(), "7600216323","Abcd@1234", now(), "a", "3");
+INSERT INTO login (login_id, last_login_date, mobile_no, password, register_date,status, user_role_id) VALUES("3", now(), "7600216324","Abcd@1234", now(), "a", "3");
+
+INSERT INTO professional (professional_id, professional_birth_date, professional_email, professional_experience, professionalgstno, professional_gender, professional_name, login_login_id, service_category_service_category_id, serving_city_city_id) VALUES("1", now(), "a1@gmail.com", now(), "123", "Male", "Dhruv", "1", "1", "1");
+INSERT INTO professional (professional_id, professional_birth_date, professional_email, professional_experience, professionalgstno, professional_gender, professional_name, login_login_id, service_category_service_category_id, serving_city_city_id) VALUES("2", now(), "a2@gmail.com", now(), "123", "Femal", "Anmol", "2", "1", "1");
+INSERT INTO professional (professional_id, professional_birth_date, professional_email, professional_experience, professionalgstno, professional_gender, professional_name, login_login_id, service_category_service_category_id, serving_city_city_id) VALUES("3", now(), "a3@gmail.com", now(), "123", "Male", "Henil", "3", "1", "1");
+
+INSERT INTO professional_service (service_estimated_time, service_cost, service_extra_cost, service_extra_cost_desc, professional_professional_id, service_service_id) VALUES (now(), "101",	"10", "For an Extra Hr.", "1", "1");
+INSERT INTO professional_service (service_estimated_time, service_cost, service_extra_cost, service_extra_cost_desc, professional_professional_id, service_service_id) VALUES (now(), "202",	"20", "For an Extra Hr.", "1", "3");
+INSERT INTO professional_service (service_estimated_time, service_cost, service_extra_cost, service_extra_cost_desc, professional_professional_id, service_service_id) VALUES (now(), "404", "40", "For an Extra Hr.", "3", "2");
+INSERT INTO professional_service (service_estimated_time, service_cost, service_extra_cost, service_extra_cost_desc, professional_professional_id, service_service_id) VALUES (now(), "303",	"30", "For an Extra Hr.", "2", "1");

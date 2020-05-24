@@ -17,7 +17,7 @@ public class ServiceCategory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer serviceCategoryId;
+    private Long serviceCategoryId;
 
     @Column
     @Size(max=20)
@@ -27,11 +27,11 @@ public class ServiceCategory implements Serializable {
     public ServiceCategory() {
     }
 
-    public Integer getServiceCategoryId() {
+    public Long getServiceCategoryId() {
         return serviceCategoryId;
     }
 
-    public void setServiceCategoryId(Integer serviceCategoryId) {
+    public void setServiceCategoryId(Long serviceCategoryId) {
         this.serviceCategoryId = serviceCategoryId;
     }
 

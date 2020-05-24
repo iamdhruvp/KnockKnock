@@ -1,5 +1,5 @@
-import {STATE_LOGIN, STATE_SIGNUP} from 'components/AuthForm';
-import {EmptyLayout, LayoutRoute, MainLayout} from 'components/Layout';
+import {STATE_LOGIN, STATE_SIGNUP, STATE_SIGNUPASPROF} from 'components/AuthForm';
+import {EmptyLayout, LayoutRoute, MainLayout , MainLayout1} from 'components/Layout';
 import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
 import React from 'react';
@@ -91,6 +91,14 @@ class App extends React.Component {
     console.log("data", data);
   }
 
+  handleLoginProf(data) {
+    this.setState({
+      loggedInStatus: "LOGGED_IN",
+      user: data.user
+    });
+    sessionStorage.setItem("id", data);
+    console.log("data", data);
+  }
 
   render() {
     return (
@@ -123,6 +131,18 @@ class App extends React.Component {
                 authState={STATE_SIGNUP} />
               )}
             />
+            <LayoutRoute
+                exact
+                path="/signupAsProf"
+                layout={EmptyLayout}
+                component={props => (
+                    <AuthPage {...props}
+                              handleLogin={this.handleLoginProf}
+                              handleLogout={this.handleLogout}
+                              loggedInStatus={this.state.loggedInStatus}
+                              authState={STATE_SIGNUPASPROF} />
+                )}
+            />
             <Route exact path="/"
                   render={props => (
                     <EmptyLayout>
@@ -138,9 +158,18 @@ class App extends React.Component {
             />
             
 
+
+            <MainLayout1 breakpoint={this.props.breakpoint}>
+              <React.Suspense fallback={<PageSpinner />}>
+                <Route exact path="/tabul" component={TablePage} />
+
+
+
+              </React.Suspense>
+            </MainLayout1>
+
             <MainLayout breakpoint={this.props.breakpoint}>
               <React.Suspense fallback={<PageSpinner />}>
-                
                 <Route exact path="/dashboard" component={CategoryCardPage} />
                 <Route exact path="/login-modal" component={AuthModalPage} />
                 <Route exact path="/category" component={CategoryCardPage} />
@@ -154,9 +183,9 @@ class App extends React.Component {
                 <Route exact path="/address" component={AddressPage} />
                 <Route exact path="/bank" component={BankForm} />
                 <Route
-                  exact
-                  path="/button-groups"
-                  component={ButtonGroupPage}
+                    exact
+                    path="/button-groups"
+                    component={ButtonGroupPage}
                 />
                 <Route exact path="/dropdowns" component={DropdownPage} />
                 <Route exact path="/progress" component={ProgressPage} />
@@ -164,9 +193,10 @@ class App extends React.Component {
                 <Route exact path="/forms" component={FormPage} />
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
-                
+
               </React.Suspense>
             </MainLayout>
+
             <Redirect to="/" />
           </Switch>
         

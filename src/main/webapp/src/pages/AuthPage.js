@@ -1,4 +1,4 @@
-import AuthForm, {STATE_LOGIN} from 'components/AuthForm';
+import AuthForm, {STATE_LOGIN, STATE_SIGNUP, STATE_SIGNUPASPROF} from 'components/AuthForm';
 import React from 'react';
 import {Card, Col, Row} from 'reactstrap';
 
@@ -7,14 +7,23 @@ class AuthPage extends React.Component {
   constructor(props) {
     super(props);
 
+
+    this.handleSuccessfulAuth1 = this.handleSuccessfulAuth.bind(this);
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
 
   handleSuccessfulAuth(data) {
     this.props.handleLogin(data);
+    this.props.history.push("/tabul");
+
+  };
+
+  handleSuccessfulAuth1(data) {
+    this.props.handleLogin(data);
     this.props.history.push("/dashboard");
-  }
+
+  };
 
   handleLogoutClick() {
     sessionStorage.removeItem("id");
@@ -26,9 +35,15 @@ class AuthPage extends React.Component {
   handleAuthState = authState => {
     if (authState === STATE_LOGIN) {
       this.props.history.push('/login');
-    } else {
+    } else  if (authState === STATE_SIGNUP)
+    {
       this.props.history.push('/signup');
     }
+    else
+    {
+      this.props.history.push('/signupAsProf');
+    }
+
   };
 
   handleLogoClick = () => {
@@ -49,6 +64,7 @@ class AuthPage extends React.Component {
             <button onClick={() => this.handleLogoutClick()}>Logout</button>
             <AuthForm
               handleSuccessfulAuth={this.handleSuccessfulAuth}
+              handleSuccessfulAuth1={this.handleSuccessfulAuth1}
               authState={this.props.authState}
               onChangeAuthState={this.handleAuthState}
               onLogoClick={this.handleLogoClick}

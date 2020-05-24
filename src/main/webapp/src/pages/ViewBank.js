@@ -27,7 +27,7 @@ class ViewBank extends React.Component{
     componentDidMount() {
 
         {
-            axios.get(`http://localhost:8081/getbank`+sessionStorage("id"))
+            axios.get(`http://localhost:8081/getbank`+sessionStorage.getItem("id"))
                 .then(res => {
                     console.log(res.data)
                     this.setState({bank: res.data});

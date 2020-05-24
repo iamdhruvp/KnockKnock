@@ -1,10 +1,13 @@
 package com.KnockKnock.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,7 +49,7 @@ public class Professional implements Serializable {
     private Login login;
 
 
-    @NotNull
+   // @NotNull
     @ManyToMany(targetEntity = ServiceSubCategory.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<ServiceSubCategory> serviceSubCategories = new HashSet<>();
 
@@ -56,7 +59,7 @@ public class Professional implements Serializable {
 //            joinColumns = { @JoinColumn(name = "professional_id") },
 //            inverseJoinColumns = { @JoinColumn(name = "service_id") })
 //    [Ref.]https://thoughts-on-java.org/hibernate-tip-many-to-many-association-with-additional-attributes/
-    @NotNull
+  //  @NotNull
     @OneToMany(mappedBy = "service")
     private Set<ProfessionalService> professionalServices = new HashSet<>();
 
@@ -73,13 +76,12 @@ public class Professional implements Serializable {
 
     @Column
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date professionalBirthDate=new Date(2323223232L);
+
+    private String professionalBirthDate;
 
     @Column
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date professionalExperience;
+    private Integer professionalExperience;
 
 
 //    @NotNull
@@ -87,7 +89,7 @@ public class Professional implements Serializable {
     private Address address;
 
 
-    @NotNull
+   // @NotNull
     @OneToOne
     private City servingCity;
 
@@ -173,19 +175,19 @@ public class Professional implements Serializable {
         this.professionalGovtDoc = professionalGovtDoc;
     }
 
-    public Date getProfessionalBirthDate() {
+    public String getProfessionalBirthDate() {
         return professionalBirthDate;
     }
 
-    public void setProfessionalBirthDate(Date professionalBirthDate) {
+    public void setProfessionalBirthDate(String professionalBirthDate) {
         this.professionalBirthDate = professionalBirthDate;
     }
 
-    public Date getProfessionalExperience() {
+    public Integer getProfessionalExperience() {
         return professionalExperience;
     }
 
-    public void setProfessionalExperience(Date professionalExperience) {
+    public void setProfessionalExperience(Integer professionalExperience) {
         this.professionalExperience = professionalExperience;
     }
 
@@ -221,21 +223,16 @@ public class Professional implements Serializable {
         this.customerPhoto = customerPhoto;
     }
 
-    public Professional(@Size(max = 50) @NotNull String professionalName, @Size(max = 20) @NotNull String professionalGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String professionalEmail, @NotNull Login login, @NotNull Set<ServiceSubCategory> serviceSubCategories, @NotNull Set<ProfessionalService> professionalServices, @Size(max = 50) @NotNull String professionalGSTNo, @NotNull Byte[] professionalGovtDoc, @NotNull Date professionalBirthDate, @NotNull Date professionalExperience, @NotNull Address address, @NotNull City servingCity, @NotNull BankAccount bankAccount, @NotNull Byte[] customerPhoto) {
+
+
+    public Professional(@Size(max = 50) @NotNull String professionalName, @Size(max = 20) @NotNull String professionalGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String professionalEmail, @NotNull Login login, @Size(max = 50) @NotNull String professionalGSTNo, @NotNull  String professionalBirthDate, @NotNull Integer professionalExperience) {
         this.professionalName = professionalName;
         this.professionalGender = professionalGender;
         this.professionalEmail = professionalEmail;
         this.login = login;
-        this.serviceSubCategories = serviceSubCategories;
-        this.professionalServices = professionalServices;
         this.professionalGSTNo = professionalGSTNo;
-        this.professionalGovtDoc = professionalGovtDoc;
         this.professionalBirthDate = professionalBirthDate;
         this.professionalExperience = professionalExperience;
-        this.address = address;
-        this.servingCity = servingCity;
-        this.bankAccount = bankAccount;
-        this.customerPhoto = customerPhoto;
     }
 
     public Professional() {

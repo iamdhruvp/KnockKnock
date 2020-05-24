@@ -25,7 +25,7 @@ public class CustomerController<LoginService> {
   private UserRoleService userRoleService;
 
     @PostMapping( value = "/postCustomer")
-    public String postCustomer( @RequestBody Customer_Login cl  ) {
+    public ResponseEntity<Customer_Login> postCustomer( @RequestBody Customer_Login cl  ) {
         System.out.println("I am posting a customer.........");
         Date date=new Date();
 
@@ -41,7 +41,7 @@ public class CustomerController<LoginService> {
 
         customerService.save(customer);
 
-        return "{\"status\":true, \"user\":{\"mobileNo\":\"" + cl.getMobileNo() + "\", \"password\":\"" + cl.getPassword() + "\"}}";
+        return new ResponseEntity<Customer_Login>(cl, HttpStatus.OK);
 
     }
 

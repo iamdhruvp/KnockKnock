@@ -16,6 +16,9 @@ class AuthForm extends React.Component {
         customerEmail: "",
         loginErrors: "",
         registrationErrors: "",
+        professionalGSTNo: "",
+        professionalBirthDate: "",
+        professionalExperience: "",
         iscust: ""
     };
 
@@ -37,6 +40,10 @@ class AuthForm extends React.Component {
     return this.props.authState === STATE_SIGNUP;
   }
 
+    get isSignupAsProf() {
+        return this.props.authState === STATE_SIGNUPASPROF;
+    }
+
   changeAuthState = authState => event => {
     event.preventDefault();
 
@@ -56,7 +63,7 @@ class AuthForm extends React.Component {
             console.log("login Response", response)
             console.log("login Response Data", response.data)
             console.log("login Response Data Status", response.data.status)
-            if (response.status==200) {
+            if (response.status===200) {
                 this.props.handleSuccessfulAuth(response.data);
             }
         })
@@ -91,6 +98,39 @@ class AuthForm extends React.Component {
               console.log("registration error", error);
           });
     }
+    else if(this.isSignupAsProf){
+        const {customerName, customerGender, customerEmail, password, mobileNo,professionalGSTNo,
+            professionalBirthDate,
+            professionalExperience} = this.state;
+        axios
+            .post(
+                "http://localhost:8081/postProfessional",
+                {
+                    customerName: customerName,
+                    customerGender: customerGender,
+                    customerEmail: customerEmail,
+                    password: password,
+                    mobileNo: mobileNo,
+                    professionalGSTNo: professionalGSTNo,
+                    professionalBirthDate: professionalBirthDate,
+                    professionalExperience: professionalExperience
+                }
+                // ,
+                // { withCredentials: true }
+            )
+            .then(response => {
+                console.log("Registration Response", response)
+                console.log("Registration Response Data", response.data)
+                console.log("Registration Response Data Status", response.status)
+
+                if (response.status == 200) {
+                    this.props.handleSuccessfulAuth(response.data);
+                }
+            })
+            .catch(error => {
+                console.log("registration error", error);
+            });
+    }
     
     event.preventDefault();
   };
@@ -105,7 +145,9 @@ class AuthForm extends React.Component {
     if (!buttonText && this.isSignup) {
       return 'Signup';
     }
-
+      if (!buttonText && this.isSignupAsProf) {
+          return 'Signup';
+      }
     return buttonText;
   }
 
@@ -124,8 +166,15 @@ class AuthForm extends React.Component {
       genderInputProps,
         iscustLabel,
       iscustInputProps,
+        professionalGSTNoLabel,
+        professionalGSTNoInputProps,
+        professionalBirthDateLabel,
+        professionalBirthDateInputProps,
+        professionalExperienceLabel,
+        professionalExperienceInputProps,
       children,
       onLogoClick,
+
     } = this.props;
 
     return (
@@ -181,7 +230,7 @@ class AuthForm extends React.Component {
                   </ButtonGroup>
               </FormGroup>
           )}
-        {this.isSignup && (
+        {(this.isSignup || this.isSignupAsProf) && (
           <FormGroup>
             <Label for={emailLabel}>{emailLabel}</Label>
             <Input
@@ -191,7 +240,7 @@ class AuthForm extends React.Component {
             />
           </FormGroup>
         )}
-        {this.isSignup && (
+        {(this.isSignup || this.isSignupAsProf) && (
           <FormGroup>
             <Label for={nameLabel}>{nameLabel}</Label>
             <Input
@@ -201,7 +250,7 @@ class AuthForm extends React.Component {
             />
           </FormGroup>
         )}
-        {this.isSignup && (
+        {(this.isSignup || this.isSignupAsProf)  && (
           <FormGroup>
             <Label for={genderLabel}>{genderLabel}</Label>
             <ButtonGroup className="ml-3">
@@ -235,10 +284,41 @@ class AuthForm extends React.Component {
             </ButtonGroup>
           </FormGroup>
         )}
+          {this.isSignupAsProf && (
+              <FormGroup>
+                  <Label for={professionalGSTNoLabel}>{professionalGSTNoLabel}</Label>
+                  <Input
+                      {...professionalGSTNoInputProps}
+                      value={this.state.professionalGSTNo}
+                      onChange={this.handleChange}
+                  />
+              </FormGroup>
+          )}
+          {this.isSignupAsProf && (
+              <FormGroup>
+                  <Label for={professionalExperienceLabel}>{professionalExperienceLabel}</Label>
+                  <Input
+                      {...professionalExperienceInputProps}
+                      value={this.state.professionalExperience}
+                      onChange={this.handleChange}
+                  />
+              </FormGroup>
+          )}
+          {this.isSignupAsProf && (
+              <FormGroup>
+                  <Label for={professionalBirthDateLabel}>{professionalBirthDateLabel}</Label>
+                  <Input
+                      {...professionalBirthDateInputProps}
+                      value={this.state.professionalBirthDate}
+                      onChange={this.handleChange}
+                  />
+              </FormGroup>
+
+          )}
         <FormGroup check>
           <Label check>
             <Input type="checkbox" />{' '}
-            {this.isSignup ? 'Agree the terms and policy' : 'Remember me'}
+            {(this.isSignup || this.isSignupAsProf) ? 'Agree the terms and policy' : 'Remember me'}
           </Label>
         </FormGroup>
         <hr />
@@ -253,15 +333,41 @@ class AuthForm extends React.Component {
         <div className="text-center pt-1">
           <h6>or</h6>
           <h6>
-            {this.isSignup ? (
-              <a href="#login" onClick={this.changeAuthState(STATE_LOGIN)}>
-                Login
+              {this.isSignupAsProf &&
+              ( <a href="#login" onClick={this.changeAuthState(STATE_LOGIN)}>
+                  Login
               </a>
-            ) : (
-              <a href="#signup" onClick={this.changeAuthState(STATE_SIGNUP)}>
-                Signup
-              </a>
-            )}
+                  )}
+          </h6>
+            <h6>
+
+
+                { this.isLogin &&
+                  (<a href="#signup" onClick={this.changeAuthState(STATE_SIGNUP)}>
+                      Signup
+                  </a>
+                  )}
+            </h6>
+            <h6>
+
+                {this.isLogin && (
+                  <a href="#signup" onClick={this.changeAuthState(STATE_SIGNUPASPROF)}>
+                  Signup as professional
+                  </a> )}
+            </h6>
+            <h6>
+
+
+
+                {this.isSignup &&
+                ( <a href="#login" onClick={this.changeAuthState(STATE_LOGIN)}>
+                      Login
+                  </a>
+                )}
+
+
+
+
           </h6>
         </div>
 
@@ -273,9 +379,10 @@ class AuthForm extends React.Component {
 
 export const STATE_LOGIN = 'LOGIN';
 export const STATE_SIGNUP = 'SIGNUP';
+export const STATE_SIGNUPASPROF = 'SIGNUPASPROF';
 
 AuthForm.propTypes = {
-  authState: PropTypes.oneOf([STATE_LOGIN, STATE_SIGNUP]).isRequired,
+  authState: PropTypes.oneOf([STATE_LOGIN, STATE_SIGNUP, STATE_SIGNUPASPROF]).isRequired,
   showLogo: PropTypes.bool,
   usernameLabel: PropTypes.string,
   usernameInputProps: PropTypes.object,
@@ -289,6 +396,13 @@ AuthForm.propTypes = {
   genderInputProps: PropTypes.object,
     iscustLabel: PropTypes.string,
     iscustInputProps: PropTypes.object,
+    professionalGSTNoLabel: PropTypes.string,
+    professionalGSTNoInputProps: PropTypes.object,
+
+    professionalBirthDateLabel: PropTypes.string,
+    professionalBirthDateInputProps: PropTypes.object,
+    professionalExperienceLabel: PropTypes.string,
+    professionalExperienceInputProps: PropTypes.object,
   
   onLogoClick: PropTypes.func,
 };
@@ -324,10 +438,24 @@ AuthForm.defaultProps = {
   genderInputProps: {
     name: "customerGender",
   },
+    professionalGSTNoLabel: 'professional gst no',
+    professionalGSTNoInputProps: {
+        name: "professionalGSTNo",
+    },
+    professionalExperienceLabel: 'professional experience',
+    professionalExperienceInputProps: {
+        name: "professionalExperience",
+    },
+    professionalBirthDateLabel: 'professional birthdate',
+    professionalBirthDateInputProps: {
+        name: "professionalBirthDate",
+    },
+
     iscustLabel: 'User-Role',
     iscustInputProps: {
         name: "iscust",
     },
+
   onLogoClick: () => {},
 };
 

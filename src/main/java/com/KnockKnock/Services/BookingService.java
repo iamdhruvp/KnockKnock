@@ -13,9 +13,14 @@ public class BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
-    public List<Booking> findByCustomerCustomerId(Long cID){
+    public List<Booking> findAllByCustomerCustomerId(Long cID){
         System.out.println(cID);
-        return bookingRepository.findByCustomerCustomerId( cID);
+        return bookingRepository.findAllByCustomerCustomerId( cID);
+    }
+
+    public List<Booking> findAllByCustomerCustomerIdAndBookingStatus(Long cID, String status){
+        System.out.println(cID);
+        return bookingRepository.findAllByCustomerCustomerIdAndBookingStatus( cID, status);
     }
 
     public Booking save(Booking booking)

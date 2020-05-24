@@ -1,5 +1,6 @@
 import React from 'react';
 import Page from 'components/Page';
+import {ButtonGroup, Form, FormGroup, Input, Label} from 'reactstrap';
 import {
     Badge,
     Button,
@@ -29,7 +30,10 @@ import bg1Image from 'assets/img/bg/background_640-1.jpg';
 import bg18Image from 'assets/img/bg/background_1920-18.jpg';
 
 class CategoryCardPage extends React.Component{
-    state = {
+    constructor(props) {
+        super(props);
+
+        this.state = {
         show: 1,
         categories:[],
         selectedCategory:0,
@@ -38,9 +42,17 @@ class CategoryCardPage extends React.Component{
         services:[],
         selectedServices:[],
         professionals:[],
-        selectedProfessional:null
+        selectedProfessional:null,
+        bookingComments: "",
+        professionalServices: [],
+        professionalProfessionalId:0,
+        serviceServiceId:0
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
-    };
+    }
+
     
     toggle = (event) => {
         this.setState({
@@ -59,12 +71,12 @@ class CategoryCardPage extends React.Component{
             this.state.selectedServices.splice(index, 1);
         }
         this.setState({ selectedServices: [...this.state.selectedServices] });
-        console.log( this.state.selectedServices)
+        console.log( this.state.selectedServices,"...........SelectedServiceResponse")
     }
 
     showDetails(selected) {
-        this.setState({ selectedProfessional: this.state.professionals[selected] });
-        console.log( this.state.selectedProfessional)
+        this.setState({ selectedProfessional: this.state.professionals[selected]});
+        console.log( this.state.selectedProfessional,"...........SelectedProfessional")
     }
 
     componentDidMount() {
@@ -103,6 +115,37 @@ class CategoryCardPage extends React.Component{
         }
     }
 
+    ////......... Booking ..........
+    handleChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
+    handleSubmit = event => {
+        event.preventDefault();
+        this.setState({professionalServices : this.state.selectedProfessional.professionalServices})
+
+
+        const {bookingComments,professionalServices} = this.state;
+
+        axios.post(
+                "http://localhost:8081/addBooking/"+sessionStorage.getItem("id"),
+                {
+                    bookingComments: bookingComments,
+                    professionalServices: professionalServices
+                }
+            )
+            .then(response => {
+                console.log(response)
+                console.log(response.data)
+                console.log(response.data.status)
+            })
+            .catch(error => {
+                console.log(this.state.bookingComments,this.state.professionalServices);
+                console.log("booking error", error);
+            });
+    }
 
     render() {
         const externalCloseBtn = (
@@ -245,7 +288,11 @@ class CategoryCardPage extends React.Component{
 
                                     </ListGroup>
                                     <CardBody>
-                                        <Button onClick={this.toggle()}  name="selectedProfessionalBooking" value={ professional.professionalId } >Book Now ></Button>
+                                        <FormGroup>
+                                        <Label for="bookingComments">Comments</Label>
+                                        <Input type="textarea" name="bookingComments" value={this.state.bookingComments} onChange={this.handleChange}/>
+                                        </FormGroup>
+                                        <Button onClick={this.handleSubmit}>Book Now</Button>
                                     </CardBody>
                                 </Card>
                             </Col>)}

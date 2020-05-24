@@ -8,6 +8,8 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import './styles/reduction.scss';
 
 const ProfessionalView = React.lazy(() => import('pages/ProfessionalView'));
+const OnGoingBookingsPage = React.lazy(() => import('pages/OnGoingBookingsPage'));
+const PreviousBookingsPage = React.lazy(() => import('pages/PreviousBookingsPage'));
 const ViewAddress = React.lazy(() => import('pages/ViewAddress'));
 const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
 const AddressPage = React.lazy(() => import('pages/AddressPage'));
@@ -156,6 +158,8 @@ class App extends React.Component {
                 <Route exact path="/address" component={AddressPage} />
                 <Route exact path="/bank" component={BankForm} />
                 <Route exact path="/professionalView" component={ProfessionalView} />
+                <Route exact path="/onGoingBookings" component={OnGoingBookingsPage} />
+                <Route exact path="/previousBookings" component={PreviousBookingsPage} />
                 <Route exact
                   path="/button-groups"
                   component={ButtonGroupPage}

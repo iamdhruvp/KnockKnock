@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonFilter("customerBookingOnly")
 @Entity
 @Table(name = "Booking")
 public class Booking implements Serializable {
@@ -35,13 +34,15 @@ public class Booking implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
-    @ManyToMany(targetEntity = ProfessionalService.class)
+    @ManyToMany(targetEntity = ProfessionalService.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<ProfessionalService> professionalServices = new HashSet<>();
 
     @NotNull
     @Column
     private String bookingStatus;
 
+    public Booking() {
+    }
 
     public Booking(@NotNull Date bookingDate, Date bookingServStartDate, Date bookingServEndDate, String bookingComments, @NotNull Customer customer, Set<ProfessionalService> professionalServices, @NotNull String bookingStatus) {
         this.bookingDate = bookingDate;
@@ -101,6 +102,13 @@ public class Booking implements Serializable {
         this.customer = customer;
     }
 
+    public Set<ProfessionalService> getProfessionalServices() {
+        return professionalServices;
+    }
+
+    public void setProfessionalServices(Set<ProfessionalService> professionalServices) {
+        this.professionalServices = professionalServices;
+    }
 
     public String getBookingStatus() {
         return bookingStatus;

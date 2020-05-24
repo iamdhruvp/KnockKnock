@@ -1,5 +1,6 @@
 package com.KnockKnock.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.util.Set;
  * Author      : dhruv
  * Comments    :
  */
+
 @Entity
 public class ProfessionalService implements Serializable {
 
@@ -45,10 +47,16 @@ public class ProfessionalService implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ServiceEstimatedTime=new Date(2323223232L);
 
-    @ManyToMany(mappedBy = "professionalServices")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "professionalServices")
     private Set<Booking> bookings = new HashSet<>();
 
-    public ProfessionalService(ProfessionalServiceId id, Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime) {
+
+
+    public ProfessionalService(ProfessionalServiceId id, Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime, Set<Booking> bookings) {
         this.id = id;
         this.professional = professional;
         this.service = service;
@@ -56,15 +64,7 @@ public class ProfessionalService implements Serializable {
         this.serviceExtraCost = serviceExtraCost;
         this.serviceExtraCostDesc = serviceExtraCostDesc;
         ServiceEstimatedTime = serviceEstimatedTime;
-    }
-
-    public ProfessionalService(Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime) {
-        this.professional = professional;
-        this.service = service;
-        this.serviceCost = serviceCost;
-        this.serviceExtraCost = serviceExtraCost;
-        this.serviceExtraCostDesc = serviceExtraCostDesc;
-        ServiceEstimatedTime = serviceEstimatedTime;
+        this.bookings = bookings;
     }
 
     public ProfessionalServiceId getId() {

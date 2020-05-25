@@ -45,8 +45,7 @@ class CategoryCardPage extends React.Component{
         selectedProfessional:null,
         bookingComments: "",
         professionalServices: [],
-        professionalProfessionalId:0,
-        serviceServiceId:0
+        total:0
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -115,7 +114,7 @@ class CategoryCardPage extends React.Component{
         }
     }
 
-    ////......... Booking ..........
+    ////......... Booking ..........////
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
@@ -124,7 +123,20 @@ class CategoryCardPage extends React.Component{
 
     handleSubmit = event => {
         event.preventDefault();
-        this.setState({professionalServices : this.state.selectedProfessional.professionalServices})
+
+        //this.setState({professionalServices : this.state.selectedProfessional.professionalServices})
+        this.state.professionalServices = this.state.selectedProfessional.professionalServices
+        console.log(this.state.professionalServices,"...........ProfessionalServices")
+
+        /// ......... filter section .......... ///
+
+        /*
+        const filteredProfessional = this.state.professionalServices.filter( p =>
+             p.id.serviceServiceId === 3
+         )
+        console.log(filteredProfessional,".........filterProfessional")
+        */
+        /// ........ filter section ....... ///
 
 
         const {bookingComments,professionalServices} = this.state;

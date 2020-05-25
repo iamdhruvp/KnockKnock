@@ -61,7 +61,7 @@ public class Professional implements Serializable {
 //            inverseJoinColumns = { @JoinColumn(name = "service_id") })
 //    [Ref.]https://thoughts-on-java.org/hibernate-tip-many-to-many-association-with-additional-attributes/
     @NotNull
-    @OneToMany(mappedBy = "professional", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY)
     private Set<ProfessionalService> professionalServices = new HashSet<>();
 
     @Column
@@ -173,9 +173,7 @@ public class Professional implements Serializable {
         this.serviceCategory = serviceCategory;
     }
 
-    public Set<ProfessionalService> getProfessionalServices() {
-        return professionalServices;
-    }
+    public Set<ProfessionalService> getProfessionalServices() { return professionalServices; }
 
     public void setProfessionalServices(Set<ProfessionalService> professionalServices) {
         this.professionalServices = professionalServices;

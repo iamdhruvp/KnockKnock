@@ -17,13 +17,13 @@ import java.util.Set;
  * Author      : dhruv
  * Comments    :
  */
-
+@JsonFilter("professionalOnly")
 @Entity
 public class ProfessionalService implements Serializable {
 
     @EmbeddedId
     private ProfessionalServiceId id = new ProfessionalServiceId();
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @MapsId("professionalProfessionalId")
     private Professional professional;
@@ -75,9 +75,7 @@ public class ProfessionalService implements Serializable {
         this.id = id;
     }
 
-    public Professional getProfessional() {
-        return professional;
-    }
+    public Professional getProfessional() { return professional; }
 
     public void setProfessional(Professional professional) {
         this.professional = professional;

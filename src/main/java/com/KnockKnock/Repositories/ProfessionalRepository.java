@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ProfessionalRepository extends JpaRepository<Professional, Long> {
     List<Professional> findByProfessionalIdIn(List<Long> pIds);
+    Professional findByProfessionalId(Long pid);
 }

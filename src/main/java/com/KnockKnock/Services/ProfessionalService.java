@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfessionalService {
@@ -18,5 +19,14 @@ public class ProfessionalService {
     }
     public List<Professional> findAll(){
         return professionalRepository.findAll();
+    }
+
+    public Professional findByProfessionalId(Long pid) {
+        return professionalRepository.findByProfessionalId(pid);
+    }
+
+    public Professional save(Professional professional)
+    {
+        return professionalRepository.save(professional);
     }
 }

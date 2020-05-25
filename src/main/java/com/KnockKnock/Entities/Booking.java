@@ -34,7 +34,7 @@ public class Booking implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
-    @ManyToMany(targetEntity = ProfessionalService.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = ProfessionalService.class, fetch = FetchType.LAZY)
     private Set<ProfessionalService> professionalServices = new HashSet<>();
 
     @NotNull

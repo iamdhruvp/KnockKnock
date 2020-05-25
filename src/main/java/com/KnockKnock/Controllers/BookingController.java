@@ -2,6 +2,7 @@ package com.KnockKnock.Controllers;
 
 import com.KnockKnock.Entities.Booking;
 import com.KnockKnock.Entities.Customer;
+import com.KnockKnock.Entities.Professional;
 import com.KnockKnock.Services.BookingService;
 import com.KnockKnock.Services.CustomerService;
 import com.KnockKnock.Services.ProfessionalService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.*;
 import java.awt.print.Book;
 import java.util.Date;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
@@ -34,18 +36,14 @@ public class BookingController {
     @PostMapping("/addBooking/{id}")
     public String addBooking(@RequestBody Booking booking,@PathVariable Long id){
         System.out.println("I am booking service for customer id:" + id);
-        System.out.println(booking.getProfessionalServices());
-        //System.out.println("I am booking service for customer id:" + sid);
-        System.out.println(booking.getBookingComments());
-        System.out.println();
 
         Date date = new Date();
         Customer customer = customerService.findById(id);
         Booking book = new Booking(date,booking.getBookingServStartDate(),booking.getBookingServEndDate(),booking.getBookingComments(),customer,booking.getProfessionalServices(),"p");
 
-        //bookingService.save(book);
+        bookingService.save(book);
 
-        return "{\"status\":true, \"Booking\":{\"bookingComments\":\"" + booking.getProfessionalServices() +"\"}}";
+        return "{\"status\":true, \"Booking\":{\"bookingComments\":\"" + booking.getBookingComments() +"\"}}";
     }
 
     @GetMapping("/getBookings/{id}")
@@ -53,9 +51,11 @@ public class BookingController {
 
         try{
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+
+            filterProvider.addFilter("professionalOnly",
+                    SimpleBeanPropertyFilter.serializeAll());
             filterProvider.addFilter("professionalNameOnly",
                     SimpleBeanPropertyFilter.filterOutAllExcept("professionalName"));
-
 
             ObjectMapper om = new ObjectMapper();
             om.setFilterProvider(filterProvider);
@@ -74,12 +74,15 @@ public class BookingController {
 
         try{
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+
+            filterProvider.addFilter("professionalOnly",
+                    SimpleBeanPropertyFilter.serializeAll());
             filterProvider.addFilter("professionalNameOnly",
                     SimpleBeanPropertyFilter.filterOutAllExcept("professionalName"));
 
-
             ObjectMapper om = new ObjectMapper();
             om.setFilterProvider(filterProvider);
+
 
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_JSON)
@@ -95,9 +98,11 @@ public class BookingController {
 
         try{
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+
+            filterProvider.addFilter("professionalOnly",
+                    SimpleBeanPropertyFilter.serializeAll());
             filterProvider.addFilter("professionalNameOnly",
                     SimpleBeanPropertyFilter.filterOutAllExcept("professionalName"));
-
 
             ObjectMapper om = new ObjectMapper();
             om.setFilterProvider(filterProvider);
@@ -116,8 +121,11 @@ public class BookingController {
 
         try{
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
-            filterProvider.addFilter("professionalNameOnly",
+
+            filterProvider.addFilter("professionalOnly",
                     SimpleBeanPropertyFilter.serializeAll());
+            filterProvider.addFilter("professionalNameOnly",
+                    SimpleBeanPropertyFilter.filterOutAllExcept("professionalName"));
 
             ObjectMapper om = new ObjectMapper();
             om.setFilterProvider(filterProvider);

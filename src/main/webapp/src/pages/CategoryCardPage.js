@@ -157,6 +157,8 @@ class CategoryCardPage extends React.Component{
                 console.log(this.state.bookingComments,this.state.professionalServices);
                 console.log("booking error", error);
             });
+
+        this.props.history.push("/dashboard");
     }
 
     render() {

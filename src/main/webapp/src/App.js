@@ -10,6 +10,7 @@ import './styles/reduction.scss';
 const OnGoingBookingsPage = React.lazy(() => import('pages/OnGoingBookingsPage'));
 const PreviousBookingsPage = React.lazy(() => import('pages/PreviousBookingsPage'));
 const ViewAddress = React.lazy(() => import('pages/ViewAddress'));
+const ProfessionalView = React.lazy(() => import('pages/ProfessionalView'));
 const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
 const AddressPage = React.lazy(() => import('pages/AddressPage'));
 const BankForm = React.lazy(() => import('pages/BankPage'));
@@ -28,6 +29,7 @@ const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
 const TablePage = React.lazy(() => import('pages/TablePage'));
 const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
+
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -185,10 +187,11 @@ class App extends React.Component {
 
 </Route>
 
-            <Route exact path={["/dashboard","/viewAddress","/viewBank","/bank","/address","/onGoingBookings","/previousBookings"]}>
+            <Route exact path={["/dashboard","/category/","/viewAddress","/viewBank","/bank","/address","/onGoingBookings","/previousBookings","/professionalView"]}>
               <MainLayout breakpoint={this.props.breakpoint}>
                 <React.Suspense fallback={<PageSpinner />}>
                   <Route exact path="/dashboard" component={CategoryCardPage} />
+                  <Route exact path="/professionalView" component={ProfessionalView} />
                   <Route exact path="/category" component={CategoryCardPage} />
                   <Route exact path="/viewAddress" component={ViewAddress} />
                   <Route exact path="/viewBank" component={ViewBank} />

@@ -33,7 +33,8 @@ class BankForm extends React.Component {
         const {bankAccountNo, bankAccountName, bankIFCI} = this.state;
         axios
             .post(
-                'http://localhost:8081/postbank/'+sessionStorage.getItem("id"),
+                'http://localhost:8081/postbank/'+sessionStorage.getItem("id")+"/"+
+                sessionStorage.getItem("role"),
                 {
                     bankAccountNo: bankAccountNo,
                     bankAccountName: bankAccountName,
@@ -48,7 +49,7 @@ class BankForm extends React.Component {
                 console.log("Bank Response Data Status", response.data.status)
 
                 if (response.data.status) {
-                    this.props.handleSuccessfulAuth(response.data);
+                    this.props.handleSuccessful(response.data);
                 }
             })
             .catch(error => {
@@ -62,7 +63,8 @@ class BankForm extends React.Component {
     componentDidMount()
 
     {
-        axios.get(`http://localhost:8081/getbank`+sessionStorage.getItem("id"))
+        axios.get(`http://localhost:8081/getbank/`+sessionStorage.getItem("id")+"/"+
+            sessionStorage.getItem("role"))
             .then(res => {
                 console.log(res.data)
                 this.setState({bank: res.data});

@@ -1,15 +1,16 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
+import {MainLayout1} from "./index";
 
-const LayoutRoute = ({ component: Component, layout: Layout, ...rest }) => (
+const LayoutRoute1 = ({ component: Component, layout: Layout, ...rest }) => (
   <Route
     {...rest}
     render={props => (
-      <Layout>
+      <MainLayout1>
         <Component {...props} />
-      </Layout>
+      </MainLayout1>
     )}
   />
 );
 
-export default LayoutRoute;
+export default LayoutRoute1;

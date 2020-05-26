@@ -1,10 +1,10 @@
 import {STATE_LOGIN, STATE_SIGNUP, STATE_SIGNUPASPROF} from 'components/AuthForm';
-import {EmptyLayout, LayoutRoute, MainLayout , MainLayout1} from 'components/Layout';
+import {EmptyLayout, LayoutRoute, LayoutRoute1, MainLayout , MainLayout1} from 'components/Layout';
 import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
 import React from 'react';
 import componentQueries from 'react-component-queries';
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch , RouteWithLayout} from 'react-router-dom';
 import './styles/reduction.scss';
 
 const ViewAddress = React.lazy(() => import('pages/ViewAddress'));
@@ -41,6 +41,7 @@ class App extends React.Component {
       user: {}
       };
 
+    this.handleLoginProf = this.handleLoginProf.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -113,6 +114,8 @@ class App extends React.Component {
               component={props => (
                 <AuthPage
                   {...props}
+
+                  handleLoginProf={this.handleLoginProf}
                   handleLogin={this.handleLogin}
                   handleLogout={this.handleLogout}
                   loggedInStatus={this.state.loggedInStatus}
@@ -127,6 +130,7 @@ class App extends React.Component {
               component={props => (
                 <AuthPage {...props}
                 handleLogin={this.handleLogin}
+                handleLoginProf={this.handleLoginProf}
                 handleLogout={this.handleLogout}
                 loggedInStatus={this.state.loggedInStatus}
                 authState={STATE_SIGNUP} />
@@ -138,18 +142,21 @@ class App extends React.Component {
                 layout={EmptyLayout}
                 component={props => (
                     <AuthPage {...props}
-                              handleLogin={this.handleLoginProf}
+                              handleLoginProf={this.handleLoginProf}
                               handleLogout={this.handleLogout}
                               loggedInStatus={this.state.loggedInStatus}
                               authState={STATE_SIGNUPASPROF} />
                 )}
             />
+
+
             <Route exact path="/"
                   render={props => (
                     <EmptyLayout>
                       <AuthPage
                         {...props}
                         handleLogin={this.handleLogin}
+                        handleLoginProf={this.handleLoginProf}
                         handleLogout={this.handleLogout}
                         loggedInStatus={this.state.loggedInStatus}
                         authState={STATE_LOGIN}
@@ -157,48 +164,43 @@ class App extends React.Component {
                     </EmptyLayout>
                   )}
             />
-            
-
-
-            <MainLayout1 breakpoint={this.props.breakpoint}>
-              <React.Suspense fallback={<PageSpinner />}>
-                <Route exact path="/tabul" component={TablePage} />
 
 
 
-              </React.Suspense>
-            </MainLayout1>
 
-            <MainLayout breakpoint={this.props.breakpoint}>
-              <React.Suspense fallback={<PageSpinner />}>
-                <Route exact path="/dashboard" component={CategoryCardPage} />
-                <Route exact path="/login-modal" component={AuthModalPage} />
-                <Route exact path="/category" component={CategoryCardPage} />
-                <Route exact path="/buttons" component={ButtonPage} />
-                <Route exact path="/cards" component={CardPage} />
-                <Route exact path="/widgets" component={WidgetPage} />
-                <Route exact path="/typography" component={TypographyPage} />
-                <Route exact path="/viewAddress" component={ViewAddress} />
-                <Route exact path="/viewBank" component={ViewBank} />
-                <Route exact path="/tables" component={TablePage} />
-                <Route exact path="/address" component={AddressPage} />
-                <Route exact path="/bank" component={BankForm} />
-                <Route
-                    exact
-                    path="/button-groups"
-                    component={ButtonGroupPage}
-                />
-                <Route exact path="/dropdowns" component={DropdownPage} />
-                <Route exact path="/progress" component={ProgressPage} />
-                <Route exact path="/modals" component={ModalPage} />
-                <Route exact path="/forms" component={FormPage} />
-                <Route exact path="/input-groups" component={InputGroupPage} />
-                <Route exact path="/charts" component={ChartPage} />
 
-              </React.Suspense>
-            </MainLayout>
+<Route exact path={["/tabul", "/address1","/viewAddress1","/viewBank1","/bank1"]}>
+
+  <MainLayout1 breakpoint={this.props.breakpoint}>
+    <React.Suspense fallback={<PageSpinner />}>
+      <Route exact path="/tabul" component={TablePage} />
+      <Route exact path="/address1" component={AddressPage} />
+      <Route exact path="/viewAddress1" component={ViewAddress} />
+      <Route exact path="/viewBank1" component={ViewBank} />
+      <Route exact path="/bank1" component={BankForm} />
+    </React.Suspense>
+  </MainLayout1>
+
+</Route>
+
+            <Route exact path={["/dashboard","/viewAddress","/viewBank","/bank","/address"]}>
+              <MainLayout breakpoint={this.props.breakpoint}>
+                <React.Suspense fallback={<PageSpinner />}>
+                  <Route exact path="/dashboard" component={CategoryCardPage} />
+                  <Route exact path="/category" component={CategoryCardPage} />
+                  <Route exact path="/viewAddress" component={ViewAddress} />
+                  <Route exact path="/viewBank" component={ViewBank} />
+                  <Route exact path="/address" component={AddressPage} />
+                  <Route exact path="/bank" component={BankForm} />
+                </React.Suspense>
+              </MainLayout>
+            </Route>
+
 
             <Redirect to="/" />
+
+
+
           </Switch>
         
       </BrowserRouter>

@@ -52,7 +52,7 @@ class AuthForm extends React.Component {
 
   handleSubmit = event => {
     if(this.isLogin){
-      const { mobileNo, password } = this.state;
+      const { mobileNo, password,iscust } = this.state;
       axios.post(
         'http://localhost:8081/verifyCustomer/'+this.state.iscust,
         {
@@ -62,15 +62,18 @@ class AuthForm extends React.Component {
         .then(response => {
             console.log("login Response", response)
             console.log("login Response Data", response.data)
-            console.log("login Response Data Status", response.data.status)
-            if (response.status===200) {
+            console.log("login Response Data Status", iscust)
+            if(response.status===200 ) {
+                sessionStorage.setItem("role", iscust);
                 this.props.handleSuccessfulAuth(response.data);
             }
+
         })
         .catch(error => {
             console.log("login error", error);
         });  
-    } else if(this.isSignup){
+    }
+    else if(this.isSignup){
       const {customerName, customerGender, customerEmail, password, mobileNo} = this.state;
       axios
           .post(
@@ -90,7 +93,7 @@ class AuthForm extends React.Component {
               console.log("Registration Response Data", response.data)
               console.log("Registration Response Data Status", response.data.status)
 
-              if (response.data.status) {
+              if (response.status=== 200) {
                   this.props.handleSuccessfulAuth(response.data);
               }
           })
@@ -123,14 +126,14 @@ class AuthForm extends React.Component {
                 console.log("Registration Response Data", response.data)
                 console.log("Registration Response Data Status", response.status)
 
-                if (response.status == 200) {
-                    this.props.handleSuccessfulAuth(response.data);
+                if (response.status === 200) {
+                    this.props.handleSuccessfulAuth1(response.data);
                 }
             })
             .catch(error => {
                 console.log("registration error", error);
             });
-    }
+    };
     
     event.preventDefault();
   };
@@ -315,12 +318,7 @@ class AuthForm extends React.Component {
               </FormGroup>
 
           )}
-        <FormGroup check>
-          <Label check>
-            <Input type="checkbox" />{' '}
-            {(this.isSignup || this.isSignupAsProf) ? 'Agree the terms and policy' : 'Remember me'}
-          </Label>
-        </FormGroup>
+
         <hr />
         <Button
           size="lg"

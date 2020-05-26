@@ -90,7 +90,7 @@ class MainLayout1 extends React.Component {
         <Content fluid onClick={this.handleContentClick}>
           <Header1 />
           {children}
-          <Footer1 />
+
         </Content>
 
         <NotificationSystem

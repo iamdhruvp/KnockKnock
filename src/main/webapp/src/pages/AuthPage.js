@@ -8,26 +8,38 @@ class AuthPage extends React.Component {
     super(props);
 
 
-    this.handleSuccessfulAuth1 = this.handleSuccessfulAuth.bind(this);
+    this.handleSuccessfulAuth1 = this.handleSuccessfulAuth1.bind(this);
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
 
   handleSuccessfulAuth(data) {
-    this.props.handleLogin(data);
-    this.props.history.push("/tabul");
+
+   if(sessionStorage.getItem("role")==2)
+   {
+     this.props.handleLoginProf(data);
+     console.log("login Response Data Status", sessionStorage.getItem("role"))
+     this.props.history.push("/tabul");
+   }
+   else
+   {
+     this.props.handleLogin(data);
+
+     this.props.history.push("/dashboard");
+   }
 
   };
 
   handleSuccessfulAuth1(data) {
-    this.props.handleLogin(data);
-    this.props.history.push("/dashboard");
+    this.props.handleLoginProf(data);
+    this.props.history.push("/tabul");
 
   };
 
   handleLogoutClick() {
     sessionStorage.removeItem("id");
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("role");
     this.props.handleLogout();
     this.props.history.push("/login");
   }

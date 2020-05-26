@@ -7,8 +7,24 @@ class BankPage extends React.Component {
     constructor(props) {
         super(props);
 
-    }
+        this.handleSuccessful = this.handleSuccessful.bind(this);
 
+    }
+    handleSuccessful(data) {
+
+        if(sessionStorage.getItem("role")==2)
+        {
+
+            console.log("login Response Data Status", sessionStorage.getItem("role"))
+            this.props.history.push("/tabul");
+        }
+        else
+        {
+
+            this.props.history.push("/dashboard");
+        }
+
+    };
 
 
     handleLogoClick = () => {
@@ -28,7 +44,7 @@ class BankPage extends React.Component {
                         <h1>Status: {this.props.loggedInStatus}</h1>
 
                     <BankForm
-                        handleSuccessfulAuth={this.handleSuccessfulAuth}
+                        handleSuccessful={this.handleSuccessful}
                         onLogoClick={this.handleLogoClick}
                     />
                 </Card>

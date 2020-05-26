@@ -1,7 +1,7 @@
 export { default as Content } from './Content';
 export { default as Footer1 } from './Footer1';
 export { default as Header1 } from './Header1';
-
+export { default as LayoutRoute1 } from './LayoutRoute1';
 export { default as Sidebar1 } from './Sidebar1';
 export { default as EmptyLayout } from './EmptyLayout';
 export { default as Footer } from './Footer';

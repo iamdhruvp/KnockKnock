@@ -48,9 +48,9 @@ const navContents = [
 ];
 
 const pageContents = [
-  { to: '/login', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
+  { to: '/booking1', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
   {
-    to: '/login-modal',
+    to: '/bookingHistory1',
     name: 'Previous Bookings',
     exact: false,
     Icon: MdViewCarousel,

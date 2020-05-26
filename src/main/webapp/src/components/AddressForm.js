@@ -63,7 +63,7 @@ class AddressForm extends React.Component {
 
 
         console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
-        this.setState({ [event.target.name] : event.target.value })
+        this.setState({ [event.target.name] : event.target.val })
 
     };
 
@@ -178,7 +178,8 @@ class AddressForm extends React.Component {
         } = this.props;
 
             const Countries = this.state.countries.map((country) => (
-    <DropdownItem name="selectedCountry" value={country}
+    <DropdownItem key={country.value} value={country.value}
+        name="selectedCountry" val={country}
 
                             onChange={() => this.setState({ cityCountry: {country} })}
                   onClick={this.toggle} >

@@ -27,7 +27,8 @@ class ProfessionalView extends React.Component{
     componentDidMount() {
 
         {
-            axios.get(`http://localhost:8081/getP`)
+            axios.get(//`http://localhost:8081/getP`)
+                process.env.REACT_APP_API_URL+`/getP`)
                 .then(res => {
                     console.log(res.data)
                     this.setState({professional: res.data});

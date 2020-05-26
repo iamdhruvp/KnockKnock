@@ -27,7 +27,8 @@ class OnGoingBookingsPage extends React.Component{
     componentDidMount() {
 
         {
-            axios.get(`http://localhost:8081/getPendingBookings/`+sessionStorage.getItem("id"))
+            axios.get(//`http://localhost:8081/getPendingBookings/`+sessionStorage.getItem("id"))
+                process.env.REACT_APP_API_URL+`/getPendingBookings/`+sessionStorage.getItem("id"))
                 .then(res => {
                     console.log(res.data)
                     this.setState({bookings: res.data});
@@ -89,6 +90,10 @@ class OnGoingBookingsPage extends React.Component{
                                         {booking.professionalServices.map((prof =>
                                                 <td>{prof.service.serviceCommission}</td>
                                         ))}
+                                    </tr>
+                                    <tr className="table-active">
+                                        <td scope="row">Booking Comments</td>
+                                        <td>{booking.bookingComments}</td>
                                     </tr>
                                     <tr className="table-active">
                                         <td scope="row">Booking Status</td>

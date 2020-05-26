@@ -6,15 +6,15 @@ import axios from "axios";
 import Table from "reactstrap/es/Table";
 
 
-class ViewAddress extends React.Component{
+class ViewAddress extends React.Component {
     state = {
         show: 1,
-        addresses:[],
+        addresses: [],
         selectedAddress: 0,
         selectedCustomer: 1
     };
 
-    toggle = (event) =>{
+    toggle = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -24,21 +24,23 @@ class ViewAddress extends React.Component{
     componentDidMount() {
 
         {
-            axios.get(`http://localhost:8081/getAddress/`)
+            axios.get(//`http://localhost:8081/getAddress/`)
+                process.env.REACT_APP_API_URL + `/getAddress/`)
                 .then(res => {
                     console.log(res.data)
                     this.setState({addresses: res.data});
                 })
         }
     }
-    handleChange(data){
+
+    handleChange(data) {
         this.prop.onselect(data);
         this.props.history.push("/category");
     }
 
 
     render() {
-        const{
+        const {
             onselect,
         } = this.props;
 
@@ -73,13 +75,13 @@ class ViewAddress extends React.Component{
                         </tr>
                         </tbody>
                     </Table>
-                    <Button onClick={this.handleChange({data: address.addressId})} >Edit</Button>
+                    <Button onClick={this.handleChange({data: address.addressId})}>Edit</Button>
                 </CardBody>
             </Card>
         ));
         return (
             <div>
-                <Page title="Addresses"  breadcrumbs={[{ name: 'Address', active: true }]}>
+                <Page title="Addresses" breadcrumbs={[{name: 'Address', active: true}]}>
                     <CardColumns>
                         {Addresses}
                     </CardColumns>

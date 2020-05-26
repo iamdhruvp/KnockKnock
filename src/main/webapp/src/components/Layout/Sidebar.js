@@ -48,18 +48,15 @@ const navContents = [
 ];
 
 const pageContents = [
-  { to: '/login', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
-  {
-    to: '/login-modal',
-    name: 'Previous Bookings',
-    exact: false,
-    Icon: MdViewCarousel,
+  { to: '/onGoingBookings', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
+  { to: '/previousBookings', name: 'Previous Bookings', exact: false, Icon: MdViewCarousel,
   },
 ];
 
 const navItems = [
 
   { to: '/category', name: 'category', exact: false, Icon: MdWeb },
+  { to: '/professionalView', name: 'Professional View', exact: false, Icon: MdPages },
 
 ];
 
@@ -102,21 +99,21 @@ class Sidebar extends React.Component {
             </SourceLink>
           </Navbar>
           <Nav vertical>
-            {navItems.map(({ to, name, exact, Icon }, index) => (
-              <NavItem key={index} className={bem.e('nav-item')}>
-                <BSNavLink
-                  id={`navItem-${name}-${index}`}
-                  className="text-uppercase"
-                  tag={NavLink}
-                  to={to}
-                  activeClassName="active"
-                  exact={exact}
-                >
-                  <Icon className={bem.e('nav-item-icon')} />
-                  <span className="">{name}</span>
-                </BSNavLink>
-              </NavItem>
-            ))}
+              {navItems.map(({ to, name, exact, Icon }, index) => (
+                  <NavItem key={index} className={bem.e('nav-item')}>
+                      <BSNavLink
+                          id={`navItem-${name}-${index}`}
+                          className="text-uppercase"
+                          tag={NavLink}
+                          to={to}
+                          activeClassName="active"
+                          exact={exact}
+                      >
+                          <Icon className={bem.e('nav-item-icon')} />
+                          <span className="">{name}</span>
+                      </BSNavLink>
+                  </NavItem>
+              ))}
 
             <NavItem
               className={bem.e('nav-item')}

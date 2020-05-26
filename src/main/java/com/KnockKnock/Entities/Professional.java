@@ -1,5 +1,7 @@
 package com.KnockKnock.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -16,6 +18,7 @@ import java.util.Set;
  * Comments    : Read below article to work with photos in database
  * https://stackoverflow.com/questions/50363639/how-spring-boot-jpahibernate-saves-images
  */
+@JsonFilter("professionalNameOnly")
 @Entity
 @Table(name="Professional")
 public class Professional implements Serializable {
@@ -46,18 +49,19 @@ public class Professional implements Serializable {
     private Login login;
 
 
-    //@NotNull
-    @ManyToMany(targetEntity = ServiceSubCategory.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<ServiceSubCategory> serviceSubCategories = new HashSet<>();
-
-
+    @NotNull
+//    @ManyToMany(targetEntity = ServiceSubCategory.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<ServiceSubCategory> serviceSubCategories = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    private ServiceCategory serviceCategory;
+//@JsonIgnore
 //    @ManyToMany(targetEntity = Service.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JoinTable(name = "professional_services",
 //            joinColumns = { @JoinColumn(name = "professional_id") },
 //            inverseJoinColumns = { @JoinColumn(name = "service_id") })
 //    [Ref.]https://thoughts-on-java.org/hibernate-tip-many-to-many-association-with-additional-attributes/
-   // @NotNull
-    @OneToMany(mappedBy = "service")
+    @NotNull
+    @OneToMany(mappedBy = "professional", fetch = FetchType.EAGER)
     private Set<ProfessionalService> professionalServices = new HashSet<>();
 
     @Column
@@ -73,13 +77,13 @@ public class Professional implements Serializable {
 
     @Column
     @NotNull
-
-    private String professionalBirthDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date professionalBirthDate=new Date(2323223232L);
 
     @Column
     @NotNull
-
-    private Integer professionalExperience;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date professionalExperience;
 
 
 //    @NotNull
@@ -87,7 +91,7 @@ public class Professional implements Serializable {
     private Address address;
 
 
-  //  @NotNull
+    @NotNull
     @OneToOne
     private City servingCity;
 
@@ -101,14 +105,24 @@ public class Professional implements Serializable {
     @Lob
     private Byte[] customerPhoto;
 
-    public Professional(@Size(max = 50) @NotNull String professionalName, @Size(max = 20) @NotNull String professionalGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String professionalEmail, @NotNull Login login, @Size(max = 50) @NotNull String professionalGSTNo, @NotNull String professionalBirthDate, @NotNull Integer professionalExperience) {
+    public Professional() {
+    }
+
+    public Professional(@Size(max = 50) @NotNull String professionalName, @Size(max = 20) @NotNull String professionalGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String professionalEmail, @NotNull Login login, @NotNull ServiceCategory serviceCategory, @NotNull Set<ProfessionalService> professionalServices, @Size(max = 50) @NotNull String professionalGSTNo, Byte[] professionalGovtDoc, @NotNull Date professionalBirthDate, @NotNull Date professionalExperience, Address address, @NotNull City servingCity, BankAccount bankAccount, Byte[] customerPhoto) {
         this.professionalName = professionalName;
         this.professionalGender = professionalGender;
         this.professionalEmail = professionalEmail;
         this.login = login;
+        this.serviceCategory = serviceCategory;
+        this.professionalServices = professionalServices;
         this.professionalGSTNo = professionalGSTNo;
+        this.professionalGovtDoc = professionalGovtDoc;
         this.professionalBirthDate = professionalBirthDate;
         this.professionalExperience = professionalExperience;
+        this.address = address;
+        this.servingCity = servingCity;
+        this.bankAccount = bankAccount;
+        this.customerPhoto = customerPhoto;
     }
 
     public Long getProfessionalId() {
@@ -151,12 +165,12 @@ public class Professional implements Serializable {
         this.login = login;
     }
 
-    public Set<ServiceSubCategory> getServiceSubCategories() {
-        return serviceSubCategories;
+    public ServiceCategory getServiceCategory() {
+        return serviceCategory;
     }
 
-    public void setServiceSubCategories(Set<ServiceSubCategory> serviceSubCategories) {
-        this.serviceSubCategories = serviceSubCategories;
+    public void setServiceCategory(ServiceCategory serviceCategory) {
+        this.serviceCategory = serviceCategory;
     }
 
     public Set<ProfessionalService> getProfessionalServices() {
@@ -183,19 +197,19 @@ public class Professional implements Serializable {
         this.professionalGovtDoc = professionalGovtDoc;
     }
 
-    public String getProfessionalBirthDate() {
+    public Date getProfessionalBirthDate() {
         return professionalBirthDate;
     }
 
-    public void setProfessionalBirthDate(String professionalBirthDate) {
+    public void setProfessionalBirthDate(Date professionalBirthDate) {
         this.professionalBirthDate = professionalBirthDate;
     }
 
-    public Integer getProfessionalExperience() {
+    public Date getProfessionalExperience() {
         return professionalExperience;
     }
 
-    public void setProfessionalExperience(Integer professionalExperience) {
+    public void setProfessionalExperience(Date professionalExperience) {
         this.professionalExperience = professionalExperience;
     }
 
@@ -229,9 +243,5 @@ public class Professional implements Serializable {
 
     public void setCustomerPhoto(Byte[] customerPhoto) {
         this.customerPhoto = customerPhoto;
-    }
-
-
-    public Professional() {
     }
 }

@@ -90,10 +90,17 @@ public class ProfessionalServiceController {
 
             System.out.println(p);
 
+//            SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+//            filterProvider.addFilter("professionalNameOnly",
+//                    SimpleBeanPropertyFilter.filterOutAllExcept("professionalId", "professionalName", "professionalGender", "professionalEmail",
+//                            "professionalServices", "professionalExperience", "servingCity", "customerPhoto"));
+
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+            filterProvider.addFilter("professionalOnly",
+                        SimpleBeanPropertyFilter.serializeAllExcept("professional"));
             filterProvider.addFilter("professionalNameOnly",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("professionalId", "professionalName", "professionalGender", "professionalEmail",
-                            "professionalServices", "professionalExperience", "servingCity", "customerPhoto"));
+                    SimpleBeanPropertyFilter.serializeAll());
+
 
             ObjectMapper om = new ObjectMapper();
             om.setFilterProvider(filterProvider);

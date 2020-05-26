@@ -1,12 +1,15 @@
 package com.KnockKnock.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created on  : 04/05/20 - 12:32 AM
@@ -14,12 +17,13 @@ import java.util.Objects;
  * Author      : dhruv
  * Comments    :
  */
+@JsonFilter("professionalOnly")
 @Entity
 public class ProfessionalService implements Serializable {
 
     @EmbeddedId
     private ProfessionalServiceId id = new ProfessionalServiceId();
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @MapsId("professionalProfessionalId")
     private Professional professional;
@@ -43,7 +47,16 @@ public class ProfessionalService implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ServiceEstimatedTime=new Date(2323223232L);
 
-    public ProfessionalService(ProfessionalServiceId id, Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime) {
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "professionalServices")
+    private Set<Booking> bookings = new HashSet<>();
+
+
+
+    public ProfessionalService(ProfessionalServiceId id, Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime, Set<Booking> bookings) {
         this.id = id;
         this.professional = professional;
         this.service = service;
@@ -51,15 +64,7 @@ public class ProfessionalService implements Serializable {
         this.serviceExtraCost = serviceExtraCost;
         this.serviceExtraCostDesc = serviceExtraCostDesc;
         ServiceEstimatedTime = serviceEstimatedTime;
-    }
-
-    public ProfessionalService(Professional professional, Service service, @NotNull Float serviceCost, Float serviceExtraCost, String serviceExtraCostDesc, @NotNull Date serviceEstimatedTime) {
-        this.professional = professional;
-        this.service = service;
-        this.serviceCost = serviceCost;
-        this.serviceExtraCost = serviceExtraCost;
-        this.serviceExtraCostDesc = serviceExtraCostDesc;
-        ServiceEstimatedTime = serviceEstimatedTime;
+        this.bookings = bookings;
     }
 
     public ProfessionalServiceId getId() {
@@ -70,9 +75,7 @@ public class ProfessionalService implements Serializable {
         this.id = id;
     }
 
-    public Professional getProfessional() {
-        return professional;
-    }
+    public Professional getProfessional() { return professional; }
 
     public void setProfessional(Professional professional) {
         this.professional = professional;

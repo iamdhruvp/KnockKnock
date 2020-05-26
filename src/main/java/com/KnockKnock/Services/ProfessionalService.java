@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -38,5 +39,14 @@ public class ProfessionalService {
     public void save(Professional professional)
     {
         professionalRepository.save(professional);
+    }
+
+    public Professional findByProfessionalId(Long pid) {
+        return professionalRepository.findByProfessionalId(pid);
+    }
+
+    public Professional save(Professional professional)
+    {
+        return professionalRepository.save(professional);
     }
 }

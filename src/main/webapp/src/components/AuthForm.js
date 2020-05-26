@@ -312,6 +312,7 @@ class AuthForm extends React.Component {
                   <Label for={professionalBirthDateLabel}>{professionalBirthDateLabel}</Label>
                   <Input
                       {...professionalBirthDateInputProps}
+                      type = "date"
                       value={this.state.professionalBirthDate}
                       onChange={this.handleChange}
                   />

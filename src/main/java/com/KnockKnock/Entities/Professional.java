@@ -18,6 +18,7 @@ import java.util.Set;
  * Comments    : Read below article to work with photos in database
  * https://stackoverflow.com/questions/50363639/how-spring-boot-jpahibernate-saves-images
  */
+
 @JsonFilter("professionalNameOnly")
 @Entity
 @Table(name="Professional")
@@ -49,19 +50,21 @@ public class Professional implements Serializable {
     private Login login;
 
 
-    @NotNull
-//    @ManyToMany(targetEntity = ServiceSubCategory.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<ServiceSubCategory> serviceSubCategories = new HashSet<>();
-    @OneToOne(cascade = CascadeType.ALL)
-    private ServiceCategory serviceCategory;
-//@JsonIgnore
+    //@NotNull
+    @ManyToMany(targetEntity = ServiceSubCategory.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<ServiceSubCategory> serviceSubCategories = new HashSet<>();
+
+
 //    @ManyToMany(targetEntity = Service.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JoinTable(name = "professional_services",
 //            joinColumns = { @JoinColumn(name = "professional_id") },
 //            inverseJoinColumns = { @JoinColumn(name = "service_id") })
 //    [Ref.]https://thoughts-on-java.org/hibernate-tip-many-to-many-association-with-additional-attributes/
-    @NotNull
+
+    //@NotNull
     @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY)
+   // @NotNull
+    //@OneToMany(mappedBy = "service")
     private Set<ProfessionalService> professionalServices = new HashSet<>();
 
     @Column
@@ -77,13 +80,13 @@ public class Professional implements Serializable {
 
     @Column
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date professionalBirthDate=new Date(2323223232L);
+
+    private String professionalBirthDate;
 
     @Column
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date professionalExperience;
+
+    private Integer professionalExperience;
 
 
 //    @NotNull
@@ -91,7 +94,7 @@ public class Professional implements Serializable {
     private Address address;
 
 
-    @NotNull
+  //  @NotNull
     @OneToOne
     private City servingCity;
 
@@ -105,27 +108,14 @@ public class Professional implements Serializable {
     @Lob
     private Byte[] customerPhoto;
 
-    public Professional() {
-    }
-
-    public Professional(@Size(max = 50) @NotNull String professionalName, @Size(max = 20) @NotNull String professionalGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String professionalEmail, @NotNull Login login, @NotNull ServiceCategory serviceCategory, @NotNull Set<ProfessionalService> professionalServices, @Size(max = 50) @NotNull String professionalGSTNo, Byte[] professionalGovtDoc, @NotNull Date professionalBirthDate, @NotNull Date professionalExperience, Address address, @NotNull City servingCity, BankAccount bankAccount, Byte[] customerPhoto) {
+    public Professional(@Size(max = 50) @NotNull String professionalName, @Size(max = 20) @NotNull String professionalGender, @Size(max = 100) @NotNull @Pattern(regexp = "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)") String professionalEmail, @NotNull Login login, @Size(max = 50) @NotNull String professionalGSTNo, @NotNull String professionalBirthDate, @NotNull Integer professionalExperience) {
         this.professionalName = professionalName;
         this.professionalGender = professionalGender;
         this.professionalEmail = professionalEmail;
         this.login = login;
-        this.serviceCategory = serviceCategory;
-        this.professionalServices = professionalServices;
         this.professionalGSTNo = professionalGSTNo;
-        this.professionalGovtDoc = professionalGovtDoc;
         this.professionalBirthDate = professionalBirthDate;
         this.professionalExperience = professionalExperience;
-        this.address = address;
-        this.servingCity = servingCity;
-        this.bankAccount = bankAccount;
-        this.customerPhoto = customerPhoto;
-    }
-
-    public Professional(String customerName, String customerGender, String customerEmail, Login login, String professionalGSTNo, String professionalBirthDate, Integer professionalExperience) {
     }
 
     public Long getProfessionalId() {
@@ -168,12 +158,12 @@ public class Professional implements Serializable {
         this.login = login;
     }
 
-    public ServiceCategory getServiceCategory() {
-        return serviceCategory;
+    public Set<ServiceSubCategory> getServiceSubCategories() {
+        return serviceSubCategories;
     }
 
-    public void setServiceCategory(ServiceCategory serviceCategory) {
-        this.serviceCategory = serviceCategory;
+    public void setServiceSubCategories(Set<ServiceSubCategory> serviceSubCategories) {
+        this.serviceSubCategories = serviceSubCategories;
     }
 
     public Set<ProfessionalService> getProfessionalServices() { return professionalServices; }
@@ -198,19 +188,19 @@ public class Professional implements Serializable {
         this.professionalGovtDoc = professionalGovtDoc;
     }
 
-    public Date getProfessionalBirthDate() {
+    public String getProfessionalBirthDate() {
         return professionalBirthDate;
     }
 
-    public void setProfessionalBirthDate(Date professionalBirthDate) {
+    public void setProfessionalBirthDate(String professionalBirthDate) {
         this.professionalBirthDate = professionalBirthDate;
     }
 
-    public Date getProfessionalExperience() {
+    public Integer getProfessionalExperience() {
         return professionalExperience;
     }
 
-    public void setProfessionalExperience(Date professionalExperience) {
+    public void setProfessionalExperience(Integer professionalExperience) {
         this.professionalExperience = professionalExperience;
     }
 
@@ -244,5 +234,9 @@ public class Professional implements Serializable {
 
     public void setCustomerPhoto(Byte[] customerPhoto) {
         this.customerPhoto = customerPhoto;
+    }
+
+
+    public Professional() {
     }
 }

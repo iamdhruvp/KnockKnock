@@ -17,6 +17,8 @@ public class ProfessionalService {
 
     @Autowired
     ProfessionalRepository professionalRepository;
+
+
     public Professional findByLogin(Login log) {
 
 
@@ -36,14 +38,14 @@ public class ProfessionalService {
         return professionalRepository.findById(id).orElse(null);
     }
 
-    //public void save(Professional professional) { professionalRepository.save(professional); }
+    public void save(Professional professional)
+    {
+        professionalRepository.save(professional);
+    }
 
     public Professional findByProfessionalId(Long pid) {
         return professionalRepository.findByProfessionalId(pid);
     }
 
-    public Professional save(Professional professional)
-    {
-        return professionalRepository.save(professional);
-    }
+
 }

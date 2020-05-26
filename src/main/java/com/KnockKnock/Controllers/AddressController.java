@@ -4,8 +4,10 @@ import com.KnockKnock.Entities.*;
 import com.KnockKnock.Repositories.AddressRepository;
 import com.KnockKnock.Repositories.CityRepository;
 import com.KnockKnock.Repositories.CustomerRepository;
+import com.KnockKnock.Repositories.ProfessionalRepository;
 import com.KnockKnock.Services.AddressService;
 import com.KnockKnock.Services.CustomerService;
+import com.KnockKnock.Services.ProfessionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 public class AddressController {
 
@@ -31,40 +34,37 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
-    @PostMapping(value="postAddress/{c_id}")
-    public String postAddress(@RequestBody Address_City a, @PathVariable("c_id") Long id) {
+    @Autowired
+    ProfessionalService professionalService;
+
+    @PostMapping(value="postAddress/{c_id}/{rid}")
+    public String postAddress(@RequestBody Address_City a, @PathVariable("c_id") Long id, @PathVariable("rid") Long rid) {
         System.out.println("I am posting a customer.........");
         System.out.println(a.getCityCountry());
 
 
-        List<City> city;
-
-        city=cityRepository.findAll();
 
         try{
+            City c=new City(a.getCityName(),a.getCityState(),a.getCityCountry());
 
-        Customer cus = customerService.findById((long)1);
+                        Address ad = new Address(a.getAddressName(), a.getAddressLine(),
+                                a.getAddressLandmark(), a.getAddressPincode(),c, a.getDefaultAddress());
+                        if(rid==1) {
+                            Customer cus = customerService.findById(id);
+                        cus.setAddress(ad);
+                        customerRepository.save(cus);
+                        System.out.println("saved..................");
+                    }
+                        else
 
-        System.out.println(cus.getCustomerName());
+                        if(rid==2) {
+                            Professional professional=professionalService.findById(id);
+                            professional.setAddress(ad);
+                            professionalService.save(professional);
+                            System.out.println("saved..................");
+                        }
 
 
-
-            for (City c : city) {
-                if ((a.getCityName().equals(c.getCityName())) && (a.getCityState().equals(c.getCityState())) &&
-                        (a.getCityCountry().equals(c.getCityCountry()))) {
-                    System.out.println("good to goo...................");
-
-                    Address ad = new Address(a.getAddressName(), a.getAddressLine(),
-                            a.getAddressLandmark(), a.getAddressPincode(), c, a.getDefaultAddress());
-
-                    System.out.println("address to be save..................");
-                    //addressRepository.save(ad);
-                    cus.setAddress(ad);
-                    customerRepository.save(cus);
-                    System.out.println("saved..................");
-                }
-
-            }
         }
         catch (Exception e)
         {

@@ -7,12 +7,23 @@ class AddressPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+        this.handleSuccess = this.handleSuccess.bind(this);
         this.handleLogoutClick = this.handleLogoutClick.bind(this);
     }
 
-    handleSuccessfulAuth(data) {
-        this.props.history.push("/dashboard");
+    handleSuccess(data) {
+        if(sessionStorage.getItem("role")==2)
+        {
+
+            console.log("login Response Data Status", sessionStorage.getItem("role"))
+            this.props.history.push("/tabul");
+        }
+        else
+        {
+
+            this.props.history.push("/dashboard");
+        }
+
     }
 
     handleLogoutClick() {
@@ -38,7 +49,7 @@ class AddressPage extends React.Component {
                         <h1>Status: {this.props.loggedInStatus}</h1>
                         <button onClick={() => this.handleLogoutClick()}>CLOSE</button>
                         <AddressForm
-                            handleSuccessfulAuth={this.handleSuccessfulAuth}
+                            handleSuccess={this.handleSuccess}
                             onLogoClick={this.handleLogoClick}
                         />
                     </Card>

@@ -28,6 +28,10 @@ public class Address_City {
         this.isDefaultAddress = isDefaultAddress;
     }
 
+    public Address_City() {
+
+    }
+
     public String getAddressName() {
         return addressName;
     }

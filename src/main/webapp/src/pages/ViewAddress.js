@@ -27,7 +27,8 @@ class ViewAddress extends React.Component{
     componentDidMount() {
 
         {
-            axios.get(`http://localhost:8081/getaddress`)
+            axios.get(//`http://localhost:8081/getaddress/`+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"))
+                process.env.REACT_APP_API_URL+`/getaddress/`+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"))
                 .then(res => {
                     console.log(res.data)
                     this.setState({address: res.data});

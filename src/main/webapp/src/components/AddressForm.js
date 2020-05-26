@@ -74,7 +74,8 @@ class AddressForm extends React.Component {
             const {addressName, addressLine, addressLandmark, addressPincode, cityName, cityState,cityCountry, isDefaultAddress} = this.state;
             axios
                 .post(
-                    "http://localhost:8081/postAddress/1",
+                    //"http://localhost:8081/postAddress/"+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"),
+                    process.env.REACT_APP_API_URL+"/postAddress/"+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"),
                     {
                         addressName: addressName,
                         addressLine: addressLine,
@@ -95,7 +96,7 @@ class AddressForm extends React.Component {
                     console.log("Address Response Data Status", response.data.status)
 
                     if (response.data.status) {
-                        this.props.handleSuccessfulAuth(response.data);
+                        this.props.handleSuccess(response.data);
                     }
                 })
                 .catch(error => {
@@ -109,14 +110,16 @@ class AddressForm extends React.Component {
     componentDidMount()
 
         {
-            axios.get(`http://localhost:8081/getaddress`)
+            axios.get(//`http://localhost:8081/getaddress/`+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"))
+                process.env.REACT_APP_API_URL+`/getaddress/`+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"))
                 .then(res => {
                     console.log(res.data)
                     this.setState({address: res.data});
                 })
 
             this.state.show === 1 &&
-            axios.get(`http://localhost:8081/getCountry`)
+            axios.get(//`http://localhost:8081/getCountry`)
+                process.env.REACT_APP_API_URL+`/getCountry`)
                 .then(res => {
                     console.log(res.data)
                     this.setState({countries : res.data});
@@ -129,7 +132,8 @@ class AddressForm extends React.Component {
 
         {
             this.state.show === 2 && this.state.states.length === 0 &&
-            axios.get(`http://localhost:8081/getState/` + this.state.selectedCountry)
+            axios.get(//`http://localhost:8081/getState/` + this.state.selectedCountry)
+                process.env.REACT_APP_API_URL+`/getState/` + this.state.selectedCountry)
                 .then(res => {
                     console.log(res.data)
                     this.setState({states: res.data});
@@ -138,7 +142,8 @@ class AddressForm extends React.Component {
 
         {
             this.state.show === 3 && this.state.cities.length === 0 &&
-            axios.get(`http://localhost:8081/getCity/` + this.state.selectedState)
+            axios.get(//`http://localhost:8081/getCity/` + this.state.selectedState)
+                process.env.REACT_APP_API_URL+`/getCity/` + this.state.selectedState)
                 .then(res => {
                     console.log(res.data)
                     this.setState({cities: res.data});
@@ -178,8 +183,10 @@ class AddressForm extends React.Component {
         } = this.props;
 
             const Countries = this.state.countries.map((country) => (
-    <DropdownItem onClick={this.toggle} name="selectedCountry" value={ country }
-                            onChange={() => this.setState({ cityCountry: {country} })}>
+    <DropdownItem name="selectedCountry" value={country}
+
+                            onChange={() => this.setState({ cityCountry: {country} })}
+                  onClick={this.toggle} >
     {country}
 </DropdownItem>
         ));
@@ -194,7 +201,8 @@ class AddressForm extends React.Component {
             ));
             const Cities = this.state.cities.map((city) => (
 
-                <DropdownItem onChange={() => this.setState({ cityName: {city} })}>
+                <DropdownItem value={ city }
+                              onChange={() => this.setState({ cityName: {city} })}>
                     {city}
                 </DropdownItem>
 
@@ -218,7 +226,7 @@ class AddressForm extends React.Component {
                         <Input
                             {...anameInputProps}
 
-                            defaultValue={this.state.address.addressName}
+                            value={this.state.address.addressName}
                             ref={this.input}
                       onChange={this.handleChange}
                         />
@@ -238,7 +246,7 @@ class AddressForm extends React.Component {
                     <Input
                         {...alandmarkInputProps}
                         value={this.state.address.addressLandmark}
-                        onChange={this.handleChange.bind(this)}
+                        onChange={this.handleChange}
                     />
                 </FormGroup>
 
@@ -256,9 +264,9 @@ class AddressForm extends React.Component {
                     <Label for={acountryLabel}>{acountryLabel}</Label>
         <UncontrolledButtonDropdown className="m-1">
             <DropdownToggle caret  >
-                {this.state.cityCountry}
+                {this.state.address.cityCountry}
             </DropdownToggle>
-            <DropdownMenu>
+            <DropdownMenu >
                 {Countries}</DropdownMenu>
         </UncontrolledButtonDropdown>
                 </FormGroup>
@@ -268,7 +276,7 @@ class AddressForm extends React.Component {
                     <Label for={astateLabel}>{astateLabel}</Label>
                     <UncontrolledButtonDropdown className="m-1">
                         <DropdownToggle caret  >
-                            {this.state.cityState}
+                            {this.state.address.cityState}
                         </DropdownToggle>
                         <DropdownMenu>
                         {States}
@@ -282,7 +290,7 @@ class AddressForm extends React.Component {
                 <FormGroup>
                     <Label for={acityLabel}>{acityLabel}</Label>
                     <UncontrolledButtonDropdown className="m-1">
-                        <DropdownToggle caret>{this.state.cityName} </DropdownToggle>
+                        <DropdownToggle caret>{this.state.address.cityName} </DropdownToggle>
                         <DropdownMenu>
                             {Cities}
                         </DropdownMenu>

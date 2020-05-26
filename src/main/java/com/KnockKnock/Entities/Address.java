@@ -31,7 +31,6 @@ public class Address implements Serializable {
 
     @Column
     @Size(max=200)
-    @NotNull
     private String addressLandmark;
 
     @Column
@@ -56,6 +55,14 @@ public class Address implements Serializable {
         this.addressLandmark = addressLandmark;
         this.addressPincode = addressPincode;
         this.addressCity = addressCity;
+        this.isDefaultAddress = isDefaultAddress;
+    }
+
+    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) String addressLandmark, @Size(max = 6) @NotNull String addressPincode, @NotNull Boolean isDefaultAddress) {
+        this.addressName = addressName;
+        this.addressLine = addressLine;
+        this.addressLandmark = addressLandmark;
+        this.addressPincode = addressPincode;
         this.isDefaultAddress = isDefaultAddress;
     }
 

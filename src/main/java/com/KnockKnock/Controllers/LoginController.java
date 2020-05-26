@@ -3,6 +3,7 @@ package com.KnockKnock.Controllers;
 
 import com.KnockKnock.Entities.*;
 import com.KnockKnock.Repositories.LoginRepository;
+import com.KnockKnock.Repositories.ProfessionalRepository;
 import com.KnockKnock.Services.CustomerService;
 import com.KnockKnock.Services.LoginService;
 import com.KnockKnock.Services.UserRoleService;
@@ -28,6 +29,9 @@ public class LoginController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    ProfessionalRepository professionalRepository;
+
 
 
     @PostMapping("/verifyCustomer/{role}")
@@ -47,9 +51,18 @@ System.out.println(mobile+"..................");
             {
                 Date date=new Date();
                 log.setLastLoginDate(date);
-                Customer cus=customerService.findByLogin(log);
-               Long id=cus.getCustomerId();
-                return new ResponseEntity<Long>(id, HttpStatus.OK);
+                if(roleId==1) {
+                    Customer cus = customerService.findByLogin(log);
+                    Long id = cus.getCustomerId();
+                    return new ResponseEntity<Long>(id, HttpStatus.OK);
+                }
+                else
+                {
+                    Professional professional=professionalRepository.findByLogin(log);
+                    Long id=professional.getProfessionalId();
+                    return new ResponseEntity<Long>(id, HttpStatus.OK);
+                }
+
             }
         }
 

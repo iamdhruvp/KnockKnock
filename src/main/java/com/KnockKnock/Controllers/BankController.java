@@ -3,8 +3,11 @@ package com.KnockKnock.Controllers;
 
 import com.KnockKnock.Entities.BankAccount;
 import com.KnockKnock.Entities.Customer;
+import com.KnockKnock.Entities.Professional;
+import com.KnockKnock.Repositories.ProfessionalRepository;
 import com.KnockKnock.Services.BankAccountService;
 import com.KnockKnock.Services.CustomerService;
+import com.KnockKnock.Services.ProfessionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +23,31 @@ public class BankController {
     @Autowired
    public CustomerService customerService;
 
-    @PostMapping(value="/postbank/{id}")
-    public String postBank(@PathVariable("id") Long id , @RequestBody BankAccount b)
+    @Autowired
+    public ProfessionalService professionalService;
+
+    @PostMapping(value="/postbank/{id}/{rid}")
+    public String postBank(@PathVariable("id") Long id ,@PathVariable("rid") Long rid, @RequestBody BankAccount b)
     {
         try {
-            Customer cus = customerService.findById(id);
+            if(rid==1) {
+                Customer cus = customerService.findById(id);
 
-            System.out.println(cus.getCustomerName());
+                System.out.println(cus.getCustomerName());
 
-                    cus.setBankAccount(b);
-                    customerService.save(cus);
+                cus.setBankAccount(b);
+                customerService.save(cus);
+                System.out.println("saved..................");
+            }
+
+                if(rid==2)
+                {
+                    Professional professional=professionalService.findById(id);
+
+                    professional.setBankAccount(b);
+                    professionalService.save(professional);
                     System.out.println("saved..................");
+                }
                 }
         catch (Exception e)
         {
@@ -43,17 +60,30 @@ public class BankController {
 
     }
 
-    @GetMapping(value="/getbank/{id}")
-    public ResponseEntity<BankAccount>  getBank(@PathVariable("id") Long id)
+    @GetMapping(value="/getbank/{id}/{rid}")
+    public ResponseEntity<BankAccount>  getBank(@PathVariable("id") Long id, @PathVariable("rid") Long rid)
     {
-
+BankAccount b=new BankAccount();
         try{
-        System.out.println("here i your addresss....");
-        Customer cus=customerService.findById(id);
-        BankAccount b=cus.getBankAccount();
 
+            if(rid==1) {
+                System.out.println("here i your addresss....");
+                Customer cus = customerService.findById(id);
+                 b = cus.getBankAccount();
 
-        return new ResponseEntity<BankAccount>(b, HttpStatus.OK);
+            }
+
+            else
+                if(rid==2) {
+                    System.out.println("here i your addresss....");
+                    Professional professional = professionalService.findById(id);
+
+                    assert professional != null;
+                    b = professional.getBankAccount();
+
+                }
+                    return new ResponseEntity<BankAccount>(b, HttpStatus.OK);
+
     }
         catch (Exception e)
         {

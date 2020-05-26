@@ -1,7 +1,9 @@
 package com.KnockKnock.Controllers;
 
-
+import com.KnockKnock.Entities.*;
+import com.KnockKnock.Repositories.ProfessionalRepository;
 import com.KnockKnock.Services.ProfessionalService;
+import com.KnockKnock.Services.UserRoleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
@@ -9,19 +11,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
-@RestController
+@RestController("/prof")
 public class ProfessionalController {
 
     @Autowired
-    ProfessionalService professionalService = new ProfessionalService();
+    private  com.KnockKnock.Services.LoginService loginService;
+
+    @Autowired
+    private UserRoleService userRoleService;
+
+    @Autowired
+    private ProfessionalRepository professionalRepository;
+
+
+    @Autowired
+    private ProfessionalService professionalService;
+
+    @PostMapping( value = "/postProfessional")
+    public ResponseEntity<Long> postProfessonal(@RequestBody Professional_Login pl) {
+        System.out.println("I am posting a professional........");
+
+        try {
+            Date date = new Date();
+
+
+            UserRole ur = userRoleService.findById(2);
+
+
+            Login login = new Login(date, date, pl.getMobileNo(), pl.getPassword(), 'a', ur);
+
+
+            loginService.save(login);
+            Professional professional = new Professional(pl.getCustomerName(), pl.getCustomerGender(), pl.getCustomerEmail(),
+                    login, pl.getProfessionalGSTNo(), pl.getProfessionalBirthDate(), pl.getProfessionalExperience());
+            System.out.println("I am here ........");
+            professionalRepository.save(professional);
+            System.out.println("saved professional........");
+
+            return new ResponseEntity<Long>(professional.getProfessionalId(), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+
+        }
+
+    }
+
+
 
 
 

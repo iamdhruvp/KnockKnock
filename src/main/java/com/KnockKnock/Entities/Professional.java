@@ -125,6 +125,9 @@ public class Professional implements Serializable {
         this.customerPhoto = customerPhoto;
     }
 
+    public Professional(String customerName, String customerGender, String customerEmail, Login login, String professionalGSTNo, String professionalBirthDate, Integer professionalExperience) {
+    }
+
     public Long getProfessionalId() {
         return professionalId;
     }

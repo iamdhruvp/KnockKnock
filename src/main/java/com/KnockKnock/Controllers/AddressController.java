@@ -40,29 +40,41 @@ public class AddressController {
     @PostMapping(value="postAddress/{c_id}/{rid}")
     public String postAddress(@RequestBody Address_City a, @PathVariable("c_id") Long id, @PathVariable("rid") Long rid) {
         System.out.println("I am posting a customer.........");
-        System.out.println(a.getCityCountry());
+        Integer is=a.getIsDefaultAddress();
+        System.out.println(is);
 
+        List<City> city;
 
-
+        city=cityRepository.findAll();
         try{
-            City c=new City(a.getCityName(),a.getCityState(),a.getCityCountry());
+        for (City c : city) {
+            if ((a.getCityName().equals(c.getCityName())) && (a.getCityState().equals(c.getCityState())) &&
+                    (a.getCityCountry().equals(c.getCityCountry()))) {
+                System.out.println("good to goo...................");
 
-                        Address ad = new Address(a.getAddressName(), a.getAddressLine(),
-                                a.getAddressLandmark(), a.getAddressPincode(),c, a.getDefaultAddress());
-                        if(rid==1) {
-                            Customer cus = customerService.findById(id);
-                        cus.setAddress(ad);
-                        customerRepository.save(cus);
-                        System.out.println("saved..................");
-                    }
-                        else
+                Address ad = new Address(a.getAddressName(), a.getAddressLine(),
+                        a.getAddressLandmark(), a.getAddressPincode(), c, a.getIsDefaultAddress());
 
-                        if(rid==2) {
-                            Professional professional=professionalService.findById(id);
-                            professional.setAddress(ad);
-                            professionalService.save(professional);
-                            System.out.println("saved..................");
-                        }
+                System.out.println("address to be save..................");
+                //addressRepository.save(ad);
+                if (rid == 1) {
+                    Customer cus = customerService.findById(id);
+                    cus.setAddress(ad);
+                    customerRepository.save(cus);
+                    System.out.println("saved..................");
+                } else if (rid == 2) {
+
+                    Professional professional = professionalService.findById(id);
+                   // addressRepository.save(ad);
+                    System.out.println("byeee..................");
+                    professional.setAddress(ad);
+                    professionalService.save(professional);
+                    System.out.println("saved..................");
+                }
+            }
+
+        }
+
 
 
         }
@@ -75,6 +87,9 @@ public class AddressController {
         return "{\"status\":true}";
 
     }
+
+
+
 
 
 

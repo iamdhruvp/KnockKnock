@@ -15,9 +15,9 @@ public class Address_City {
 
     private String cityCountry;
 
-    private Boolean isDefaultAddress;
+    private Integer isDefaultAddress;
 
-    public Address_City(String addressName, String addressLine, String addressLandmark, String addressPincode, String cityName, String cityState, String cityCountry,Boolean isDefaultAddress) {
+    public Address_City(String addressName, String addressLine, String addressLandmark, String addressPincode, String cityName, String cityState, String cityCountry,Integer isDefaultAddress) {
         this.addressName = addressName;
         this.addressLine = addressLine;
         this.addressLandmark = addressLandmark;
@@ -64,12 +64,12 @@ public class Address_City {
         this.addressPincode = addressPincode;
     }
 
-    public Boolean getDefaultAddress() {
+    public Integer getIsDefaultAddress() {
         return isDefaultAddress;
     }
 
-    public void setDefaultAddress(Boolean defaultAddress) {
-        isDefaultAddress = defaultAddress;
+    public void setIsDefaultAddress(Integer isDefaultAddress) {
+        this.isDefaultAddress = isDefaultAddress;
     }
 
     public String getCityName() {

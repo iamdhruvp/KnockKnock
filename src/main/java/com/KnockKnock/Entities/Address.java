@@ -39,17 +39,17 @@ public class Address implements Serializable {
     private String addressPincode;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne
     private City addressCity;
 
     @Column
     @NotNull
-    private Boolean isDefaultAddress;
+    private Integer isDefaultAddress;
 
     public Address() {
     }
 
-    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) @NotNull String addressLandmark, @Size(max = 6) @NotNull String addressPincode, @NotNull City addressCity, @NotNull Boolean isDefaultAddress) {
+    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) @NotNull String addressLandmark, @Size(max = 6) @NotNull String addressPincode, City addressCity, @NotNull Integer isDefaultAddress) {
         this.addressName = addressName;
         this.addressLine = addressLine;
         this.addressLandmark = addressLandmark;
@@ -58,7 +58,7 @@ public class Address implements Serializable {
         this.isDefaultAddress = isDefaultAddress;
     }
 
-    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) String addressLandmark, @Size(max = 6) @NotNull String addressPincode, @NotNull Boolean isDefaultAddress) {
+    public Address(@Size(max = 50) @NotNull String addressName, @Size(max = 200) @NotNull String addressLine, @Size(max = 200) String addressLandmark, @Size(max = 6) @NotNull String addressPincode, @NotNull Integer isDefaultAddress) {
         this.addressName = addressName;
         this.addressLine = addressLine;
         this.addressLandmark = addressLandmark;
@@ -90,8 +90,12 @@ public class Address implements Serializable {
         return addressCity;
     }
 
-    public Boolean getDefaultAddress() {
+    public Integer getIsDefaultAddress() {
         return isDefaultAddress;
+    }
+
+    public void setIsDefaultAddress(Integer isDefaultAddress) {
+        this.isDefaultAddress = isDefaultAddress;
     }
 
     public String getAddressPincode() {
@@ -118,7 +122,5 @@ public class Address implements Serializable {
         this.addressCity = addressCity;
     }
 
-    public void setDefaultAddress(Boolean defaultAddress) {
-        isDefaultAddress = defaultAddress;
-    }
+
 }

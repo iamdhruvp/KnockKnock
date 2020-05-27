@@ -2,6 +2,7 @@ package com.KnockKnock.Controllers;
 
 import com.KnockKnock.Entities.Booking;
 import com.KnockKnock.Entities.Customer;
+import com.KnockKnock.Entities.Customer_Booking;
 import com.KnockKnock.Entities.Professional;
 import com.KnockKnock.Services.BookingService;
 import com.KnockKnock.Services.CustomerService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.awt.print.Book;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -119,7 +121,7 @@ public class BookingController {
     @GetMapping("/getBookings")
     public ResponseEntity<String> getBookings() {
 
-        try{
+        try {
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 
             filterProvider.addFilter("professionalOnly",
@@ -138,4 +140,36 @@ public class BookingController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+        @GetMapping("/getPending/{id}")
+         public ResponseEntity<List<Customer_Booking>> getPending(@PathVariable("id") Long id)
+        {
+           //Professional professional=professionalService.findById(id);
+           List<Booking> booking=bookingService.findByProfessionalId(id);
+
+           List<Customer_Booking> customers=new ArrayList<>();
+
+           for(Booking b: booking)
+           {
+               Customer cus=b.getCustomer();
+               Customer_Booking cb=new Customer_Booking(b.getBookingId(),b.getBookingDate(),b.getBookingComments(),cus.getCustomerName());
+               customers.add(cb);
+           }
+           return new ResponseEntity<List<Customer_Booking>>(customers,HttpStatus.OK);
+
+        }
+
+        @PostMapping("/changestatus/{id}/{s}")
+    public void changestatus(@PathVariable("id") Long id,@PathVariable("s") Long s)
+        {
+           // Long id=b.getBookingId();
+            System.out.println(id+"..............................");
+            Booking booking=bookingService.findById(id);
+            if(s==1)
+            booking.setBookingStatus("a");
+            else
+                if(s==2)
+                    booking.setBookingStatus("r");
+            bookingService.save(booking);
+        }
+
 }

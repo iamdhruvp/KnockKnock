@@ -59,7 +59,7 @@ try {
         Address ad = cus.getAddress();
         City c = ad.getAddressCity();
        ac = new Address_City(ad.getAddressName(), ad.getAddressLine(), ad.getAddressLandmark()
-                , ad.getAddressPincode(), c.getCityName(), c.getCityState(), c.getCityCountry(), ad.getDefaultAddress());
+                , ad.getAddressPincode(), c.getCityName(), c.getCityState(), c.getCityCountry(), ad.getIsDefaultAddress());
 
     }
     else
@@ -69,7 +69,7 @@ try {
             Address ad = professional.getAddress();
             City c = ad.getAddressCity();
             ac = new Address_City(ad.getAddressName(), ad.getAddressLine(), ad.getAddressLandmark()
-                    , ad.getAddressPincode(), c.getCityName(), c.getCityState(), c.getCityCountry(), ad.getDefaultAddress());
+                    , ad.getAddressPincode(), c.getCityName(), c.getCityState(), c.getCityCountry(), ad.getIsDefaultAddress());
 
 
 

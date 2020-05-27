@@ -8,6 +8,7 @@ import {BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './styles/reduction.scss';
 
 const ViewAddress = React.lazy(() => import('pages/ViewAddress'));
+const ProfessionalServPage = React.lazy(() => import('pages/ProfessionalServPage'));
 const AddressPage = React.lazy(() => import('pages/AddressPage'));
 const BankForm = React.lazy(() => import('pages/BankPage'));
 const ViewBank = React.lazy(() => import('pages/ViewBank'));
@@ -159,7 +160,7 @@ class App extends React.Component {
 
 
 
-<Route exact path={["/tabul", "/address1","/viewAddress1","/viewBank1","/bank1","/booking1","/bookingHistory1"]}>
+<Route exact path={["/tabul", "/address1","/viewAddress1","/viewBank1","/bank1","/booking1","/bookingHistory1", "/service"]}>
 
   <MainLayout1 breakpoint={this.props.breakpoint}>
     <React.Suspense fallback={<PageSpinner />}>
@@ -170,6 +171,7 @@ class App extends React.Component {
       <Route exact path="/bank1" component={BankForm} />
       <Route exact path="/booking1" component={OnGoingBookingsPage} />
       <Route exact path="/bookingHistory1" component={PreviousBookingsPage} />
+      <Route exact path="/service" component={ProfessionalServPage} />
     </React.Suspense>
   </MainLayout1>
 

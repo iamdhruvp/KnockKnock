@@ -59,7 +59,7 @@ const pageContents = [
 
 const navItems = [
 
-  { to: '/category', name: 'category', exact: false, Icon: MdWeb },
+  { to: '/service', name: 'Add/Edit Serving City ', exact: false, Icon: MdWeb },
 
 ];
 

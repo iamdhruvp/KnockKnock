@@ -10,6 +10,8 @@ import com.KnockKnock.Services.ProfessionalService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +28,8 @@ import java.util.List;
 @RestController
 public class BookingController {
 
+    public static final Logger logger = LogManager.getLogger(BankController.class);
+
     @Autowired
     private BookingService bookingService;
 
@@ -37,7 +41,7 @@ public class BookingController {
 
     @PostMapping("/addBooking/{id}")
     public String addBooking(@RequestBody Booking booking,@PathVariable Long id){
-        System.out.println("I am booking service for customer id:" + id);
+        logger.info("I am booking service for customer id: " + id);
 
         Date date = new Date();
         Customer customer = customerService.findById(id);
@@ -162,14 +166,15 @@ public class BookingController {
     public void changestatus(@PathVariable("id") Long id,@PathVariable("s") Long s)
         {
            // Long id=b.getBookingId();
-            System.out.println(id+"..............................");
-            Booking booking=bookingService.findById(id);
-            if(s==1)
-            booking.setBookingStatus("a");
-            else
-                if(s==2)
+            if(id!=0) {
+
+                Booking booking = bookingService.findById(id);
+                if (s == 1)
+                    booking.setBookingStatus("a");
+                else if (s == 2)
                     booking.setBookingStatus("r");
-            bookingService.save(booking);
+                bookingService.save(booking);
+            }
         }
 
 }

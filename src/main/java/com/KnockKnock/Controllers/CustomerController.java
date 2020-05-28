@@ -5,6 +5,8 @@ import com.KnockKnock.Entities.*;
 import com.KnockKnock.Services.CustomerService;
 import com.KnockKnock.Services.ProfessionalService;
 import com.KnockKnock.Services.UserRoleService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import java.util.Date;
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController("/customer")
 public class CustomerController<LoginService> {
+
+    public static final Logger logger = LogManager.getLogger(CustomerController.class);
 
     @Autowired
     private CustomerService customerService;
@@ -30,7 +34,7 @@ public class CustomerController<LoginService> {
 
     @PostMapping( value = "/postCustomer")
     public ResponseEntity<Long> postCustomer( @RequestBody Customer_Login cl  ) {
-        System.out.println("I am posting a customer.........");
+
         Date date=new Date();
 
         UserRole ur=userRoleService.findById(1);
@@ -44,6 +48,7 @@ public class CustomerController<LoginService> {
         Customer customer=new Customer(cl.getCustomerName(),cl.getCustomerGender(),cl.getCustomerEmail() , login);
 
         customerService.save(customer);
+        logger.info("new customer has signed up "+customer.getCustomerName());
 
         return new ResponseEntity<Long>(customer.getCustomerId(), HttpStatus.OK);
 
@@ -74,6 +79,8 @@ try {
 
 
         }
+
+    logger.info("address fetched");
     return new ResponseEntity<Address_City>(ac, HttpStatus.OK);
 }
 catch (Exception e) {
@@ -92,7 +99,7 @@ catch (Exception e) {
                 Login log = cus.getLogin();
                 Customer_Login cl = new Customer_Login(cus.getCustomerName(), cus.getCustomerGender(), cus.getCustomerEmail(), log.getPassword(), log.getMobileNo());
 
-
+            logger.info("fetching the profile for the customer "+cl.getCustomerName());
                     return new ResponseEntity<Customer_Login>(cl, HttpStatus.OK);
 
         }

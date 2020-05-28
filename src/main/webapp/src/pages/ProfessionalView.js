@@ -64,7 +64,7 @@ class ProfessionalView extends React.Component{
                 console.log("Response", response)
                 console.log("Response Data", response.data)
 
-                if(response.status === 200)
+                if(this.state.bookingId !== 0)
                 window.location.reload();
 
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import Page from 'components/Page';
+import Header from "../components/Layout/Header";
+
 import {ButtonGroup, Form, FormGroup, Input, Label} from 'reactstrap';
 import {
     Badge,
@@ -79,7 +81,8 @@ class CategoryCardPage extends React.Component{
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:8081/getCategory`)
+        axios.get(//
+            process.env.REACT_APP_API_URL+`/getCategory`)
             .then(res => {
                 console.log(res.data)
                 this.setState({ categories : res.data });
@@ -88,21 +91,24 @@ class CategoryCardPage extends React.Component{
     componentDidUpdate() {
 
         { this.state.show === 2 && this.state.subcategories.length === 0 &&
-            axios.get(`http://localhost:8081/getSubCategory/` + this.state.selectedCategory)
+            axios.get(//`http://localhost:8081/getSubCategory/` + this.state.selectedCategory)
+                process.env.REACT_APP_API_URL+`/getSubCategory/` + this.state.selectedCategory)
                 .then(res => {
                     console.log(res.data)
                     this.setState({subcategories: res.data});
                 })
         }
         { this.state.show === 3 && this.state.services.length === 0 &&
-        axios.get(`http://localhost:8081/getService/` + this.state.selectedSubCategory)
+        axios.get(//`http://localhost:8081/getService/` + this.state.selectedSubCategory)
+            process.env.REACT_APP_API_URL+`/getService/` + this.state.selectedSubCategory)
             .then(res => {
                 console.log(res.data)
                 this.setState({services: res.data});
             })
         }
         { this.state.show === 4 && this.state.professionals.length === 0 &&
-            axios.post(`http://localhost:8081/getProfessional/`,
+            axios.post(//`http://localhost:8081/getProfessional/`,
+                process.env.REACT_APP_API_URL+`/getProfessional/`,
                 this.state.selectedServices)
                 .then(res => {
                     console.log(res.data,"--------------response")
@@ -142,7 +148,8 @@ class CategoryCardPage extends React.Component{
         const {bookingComments,professionalServices} = this.state;
 
         axios.post(
-                "http://localhost:8081/addBooking/"+sessionStorage.getItem("id"),
+                //"http://localhost:8081/addBooking/"+sessionStorage.getItem("id"),
+            process.env.REACT_APP_API_URL+"/addBooking/"+sessionStorage.getItem("id"),
                 {
                     bookingComments: bookingComments,
                     professionalServices: professionalServices
@@ -157,6 +164,8 @@ class CategoryCardPage extends React.Component{
                 console.log(this.state.bookingComments,this.state.professionalServices);
                 console.log("booking error", error);
             });
+
+        this.props.history.push("/dashboard");
     }
 
     render() {

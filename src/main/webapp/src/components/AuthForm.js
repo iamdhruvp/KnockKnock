@@ -54,7 +54,8 @@ class AuthForm extends React.Component {
     if(this.isLogin){
       const { mobileNo, password,iscust } = this.state;
       axios.post(
-        'http://localhost:8081/verifyCustomer/'+this.state.iscust,
+        //'http://localhost:8081/verifyCustomer/'+this.state.iscust,
+          process.env.REACT_APP_API_URL+'/verifyCustomer/'+this.state.iscust,
         {
           mobileNo: mobileNo,
           password: password
@@ -77,7 +78,8 @@ class AuthForm extends React.Component {
       const {customerName, customerGender, customerEmail, password, mobileNo} = this.state;
       axios
           .post(
-              "http://localhost:8081/postCustomer",
+              //"http://localhost:8081/postCustomer",
+              process.env.REACT_APP_API_URL+"/postCustomer",
               {
                   customerName: customerName,
                   customerGender: customerGender,
@@ -107,7 +109,8 @@ class AuthForm extends React.Component {
             professionalExperience} = this.state;
         axios
             .post(
-                "http://localhost:8081/postProfessional",
+                //"http://localhost:8081/postProfessional",
+                process.env.REACT_APP_API_URL+"/postProfessional",
                 {
                     customerName: customerName,
                     customerGender: customerGender,
@@ -312,6 +315,7 @@ class AuthForm extends React.Component {
                   <Label for={professionalBirthDateLabel}>{professionalBirthDateLabel}</Label>
                   <Input
                       {...professionalBirthDateInputProps}
+                      type = "date"
                       value={this.state.professionalBirthDate}
                       onChange={this.handleChange}
                   />

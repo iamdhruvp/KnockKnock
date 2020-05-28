@@ -86,7 +86,8 @@ class AddressForm extends React.Component {
             const {addressName, addressLine, addressLandmark, addressPincode, cityName, cityState,cityCountry,isDefaultAddress} = this.state.address;
             axios
                 .post(
-                    "http://localhost:8081/postAddress/"+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"),
+                    //"http://localhost:8081/postAddress/"+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"),
+                    process.env.REACT_APP_API_URL+"/postAddress/"+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"),
                     {
                         addressName: addressName,
                         addressLine: addressLine,
@@ -122,14 +123,16 @@ class AddressForm extends React.Component {
     componentDidMount()
 
         {
-            axios.get(`http://localhost:8081/getaddress/`+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"))
+            axios.get(//`http://localhost:8081/getaddress/`+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"))
+                process.env.REACT_APP_API_URL+`/getaddress/`+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"))
                 .then(res => {
                     console.log(res.data)
                     this.setState({address: res.data});
                 })
 
             this.state.show === 1 &&
-            axios.get(`http://localhost:8081/getCountry`)
+            axios.get(//`http://localhost:8081/getCountry`)
+                process.env.REACT_APP_API_URL+`/getCountry`)
                 .then(res => {
                     console.log(res.data)
                     this.setState({countries : res.data});
@@ -142,7 +145,8 @@ class AddressForm extends React.Component {
 
         {
             this.state.show === 2 && this.state.states.length === 0 &&
-            axios.get(`http://localhost:8081/getState/` + this.state.selectedCountry)
+            axios.get(//`http://localhost:8081/getState/` + this.state.selectedCountry)
+                process.env.REACT_APP_API_URL+`/getState/` + this.state.selectedCountry)
                 .then(res => {
                     console.log(res.data)
                     this.setState({states: res.data});
@@ -151,7 +155,8 @@ class AddressForm extends React.Component {
 
         {
             this.state.show === 3 && this.state.cities.length === 0 &&
-            axios.get(`http://localhost:8081/getCity/` + this.state.selectedState)
+            axios.get(//`http://localhost:8081/getCity/` + this.state.selectedState)
+                process.env.REACT_APP_API_URL+`/getCity/` + this.state.selectedState)
                 .then(res => {
                     console.log(res.data)
                     this.setState({cities: res.data});

@@ -78,6 +78,11 @@ public class BookingController {
     @GetMapping("/getPendingBookings/{id}")
     public ResponseEntity<String> getCustomerPendingBookings(@PathVariable Long id) {
 
+        List<String> l = new ArrayList<>();
+        l.add("p");
+        l.add("a");
+        l.add("r");
+
         try{
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 
@@ -92,7 +97,7 @@ public class BookingController {
 
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(om.writeValueAsString(bookingService.findAllByCustomerCustomerIdAndBookingStatus(id,"p")));
+                    .body(om.writeValueAsString(bookingService.findAllByCustomerCustomerIdAndBookingStatusIn(id,l)));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -102,6 +107,8 @@ public class BookingController {
     @GetMapping("/getCompletedBookings/{id}")
     public ResponseEntity<String> getCustomerCompletedBookings(@PathVariable Long id) {
 
+        List<String> l = new ArrayList<>();
+        l.add("c");
         try{
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 
@@ -115,7 +122,7 @@ public class BookingController {
 
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(om.writeValueAsString(bookingService.findAllByCustomerCustomerIdAndBookingStatus(id,"c")));
+                    .body(om.writeValueAsString(bookingService.findAllByCustomerCustomerIdAndBookingStatusIn(id,l)));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -81,9 +81,12 @@ public class ProfessionalController {
 
         try{
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+
             filterProvider.addFilter("professionalNameOnly",
                     SimpleBeanPropertyFilter.filterOutAllExcept("professionalId","professionalName", "professionalGender", "professionalEmail",
                             "professionalServices", "professionalExperience", "servingCity", "customerPhoto"));
+            filterProvider.addFilter("professionalOnly",
+                    SimpleBeanPropertyFilter.serializeAllExcept("professional"));
 
             ObjectMapper om = new ObjectMapper();
             om.setFilterProvider(filterProvider);
@@ -101,6 +104,10 @@ public class ProfessionalController {
     public ResponseEntity<String> getProfessionals() {
         try{
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+
+            filterProvider.addFilter("professionalNameOnly",
+                    SimpleBeanPropertyFilter.filterOutAllExcept("professionalId","professionalName", "professionalGender", "professionalEmail",
+                            "professionalServices", "professionalExperience", "servingCity", "customerPhoto"));
             filterProvider.addFilter("professionalOnly",
                     SimpleBeanPropertyFilter.serializeAllExcept("professional"));
 

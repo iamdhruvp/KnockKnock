@@ -5,6 +5,7 @@ import NotificationSystem from 'react-notification-system';
 import {NOTIFICATION_SYSTEM_STYLE} from 'utils/constants';
 
 class MainLayout extends React.Component {
+
   static isSidebarOpen() {
     return document
       .querySelector('.cr-sidebar')
@@ -81,6 +82,8 @@ class MainLayout extends React.Component {
     }
     document.querySelector('.cr-sidebar').classList.remove('cr-sidebar--open');
   }
+
+
 
   render() {
     const { children } = this.props;

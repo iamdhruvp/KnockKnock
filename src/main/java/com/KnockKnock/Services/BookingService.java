@@ -18,9 +18,9 @@ public class BookingService {
         return bookingRepository.findAllByCustomerCustomerId( cID);
     }
 
-    public List<Booking> findAllByCustomerCustomerIdAndBookingStatus(Long cID, String status){
+    public List<Booking> findAllByCustomerCustomerIdAndBookingStatusIn(Long cID, List<String> status){
         System.out.println(cID);
-        return bookingRepository.findAllByCustomerCustomerIdAndBookingStatus( cID, status);
+        return bookingRepository.findAllByCustomerCustomerIdAndBookingStatusIn( cID, status);
     }
 
     public Booking save(Booking booking)
@@ -31,4 +31,5 @@ public class BookingService {
     public List<Booking> findAll(){
         return bookingRepository.findAll();
     }
+
 }

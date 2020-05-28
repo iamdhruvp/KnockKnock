@@ -1,5 +1,7 @@
 import React from 'react';
 import Page from 'components/Page';
+import Header from "../components/Layout/Header";
+
 import {ButtonGroup, Form, FormGroup, Input, Label} from 'reactstrap';
 import {
     Badge,

@@ -8,6 +8,8 @@ import com.KnockKnock.Repositories.ProfessionalRepository;
 import com.KnockKnock.Services.BankAccountService;
 import com.KnockKnock.Services.CustomerService;
 import com.KnockKnock.Services.ProfessionalService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 public class BankController {
+    public static final Logger logger = LogManager.getLogger(BankController.class);
 
     @Autowired
     public BankAccountService bankAccountService;
@@ -33,11 +36,12 @@ public class BankController {
             if(rid==1) {
                 Customer cus = customerService.findById(id);
 
-                System.out.println(cus.getCustomerName());
+                logger.info("bank details for this customer "+cus.getCustomerName());
 
                 cus.setBankAccount(b);
                 customerService.save(cus);
-                System.out.println("saved..................");
+                logger.info("bank details saved for the customer "+cus.getCustomerName());
+
             }
 
                 if(rid==2)
@@ -46,7 +50,7 @@ public class BankController {
 
                     professional.setBankAccount(b);
                     professionalService.save(professional);
-                    System.out.println("saved..................");
+                    logger.info("bank details saved for the professional "+professional.getProfessionalName());
                 }
                 }
         catch (Exception e)
@@ -67,17 +71,18 @@ BankAccount b=new BankAccount();
         try{
 
             if(rid==1) {
-                System.out.println("here i your addresss....");
+
                 Customer cus = customerService.findById(id);
+                logger.info("fetching bank details for the customer "+cus.getCustomerName());
                  b = cus.getBankAccount();
 
             }
 
             else
                 if(rid==2) {
-                    System.out.println("here i your addresss....");
-                    Professional professional = professionalService.findById(id);
 
+                    Professional professional = professionalService.findById(id);
+                    logger.info("fetching bank details for the professional "+professional.getProfessionalName());
                     assert professional != null;
                     b = professional.getBankAccount();
 

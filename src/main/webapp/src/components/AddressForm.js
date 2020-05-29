@@ -23,10 +23,10 @@ class AddressForm extends React.Component {
             addressLine: "",
             addressLandmark: "",
             addressPincode: "",
-            cityName: "",
-            cityState: "",
-            cityCountry: "",
-            isDefaultAddress: "",
+            cityName: "mehsana",
+            cityState: "gujarat",
+            cityCountry: "india",
+            isDefaultAddress: 1,
             loginErrors: "",
             address: [],
             countries: [],
@@ -48,9 +48,12 @@ class AddressForm extends React.Component {
         this.setState({
             states: []
         });
+        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
+        this.setState({[event.target.name] : event.target.value })
+
 
         console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
-        this.setState({ [event.target.name] : event.target.value })
+        this.setState({address: {...this.state.address, cityCountry : event.target.value }})
 
     };
     togg = (event) => {
@@ -61,17 +64,26 @@ class AddressForm extends React.Component {
             cities: []
         });
 
+        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
+        this.setState({[event.target.name] : event.target.value })
 
         console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
-        this.setState({ [event.target.name] : event.target.value })
+        this.setState({address:{ ...this.state.address, cityState : event.target.value }})
 
     };
 
 
+    tog = (event) => {
+
+        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
+        this.setState({address:{ ...this.state.address, cityName : event.target.value }})
+
+    };
+
 
     handleSubmit = () => {
 
-            const {addressName, addressLine, addressLandmark, addressPincode, cityName, cityState,cityCountry, isDefaultAddress} = this.state;
+            const {addressName, addressLine, addressLandmark, addressPincode, cityName, cityState,cityCountry,isDefaultAddress} = this.state.address;
             axios
                 .post(
                     //"http://localhost:8081/postAddress/"+sessionStorage.getItem("id")+"/"+sessionStorage.getItem("role"),
@@ -85,6 +97,7 @@ class AddressForm extends React.Component {
                         cityState: cityState,
                         cityCountry: cityCountry,
                         isDefaultAddress:  isDefaultAddress
+
 
                     }
                     // ,
@@ -152,14 +165,12 @@ class AddressForm extends React.Component {
 
 
     }
-
     handleChange(event) {
-
-        this.setState({ [event.target.name] : event.target.value })
+        this.setState({ address: { ...this.state.address, [event.target.name] : event.target.value} });
     }
 
 
-        render() {
+    render() {
         const {
             showLogo,
             anameLabel,
@@ -182,31 +193,8 @@ class AddressForm extends React.Component {
             onLogoClick,
         } = this.props;
 
-            const Countries = this.state.countries.map((country) => (
-    <DropdownItem name="selectedCountry" value={country}
-
-                            onChange={() => this.setState({ cityCountry: {country} })}
-                  onClick={this.toggle} >
-    {country}
-</DropdownItem>
-        ));
-            const States = this.state.states.map((state) => (
 
 
-    <DropdownItem onClick={this.togg} name="selectedState" value={ state }
-                            onChange={() => this.setState({ cityState: {state} })}>
-    {state}
-</DropdownItem>
-
-            ));
-            const Cities = this.state.cities.map((city) => (
-
-                <DropdownItem value={ city }
-                              onChange={() => this.setState({ cityName: {city} })}>
-                    {city}
-                </DropdownItem>
-
-            ));
         return (
             <Form onSubmit={this.handleSubmit}>
                 {showLogo && (
@@ -227,7 +215,6 @@ class AddressForm extends React.Component {
                             {...anameInputProps}
 
                             value={this.state.address.addressName}
-                            ref={this.input}
                       onChange={this.handleChange}
                         />
                     </FormGroup>
@@ -267,7 +254,17 @@ class AddressForm extends React.Component {
                 {this.state.address.cityCountry}
             </DropdownToggle>
             <DropdownMenu >
-                {Countries}</DropdownMenu>
+                {this.state.countries.map((country) => (
+                    <DropdownItem onClick={this.toggle}
+                    name="selectedCountry" value={country}
+
+                                  >
+                    {country}
+                    </DropdownItem>
+                    ))
+
+                }
+                </DropdownMenu>
         </UncontrolledButtonDropdown>
                 </FormGroup>
 
@@ -279,7 +276,16 @@ class AddressForm extends React.Component {
                             {this.state.address.cityState}
                         </DropdownToggle>
                         <DropdownMenu>
-                        {States}
+                            {this.state.states.map((state) => (
+
+
+                                <DropdownItem onClick={this.togg} name="selectedState" value={state}
+                                             >
+                                    {state}
+                                </DropdownItem>
+
+                            ))
+                            }
                         </DropdownMenu>
                     </UncontrolledButtonDropdown>
 
@@ -292,7 +298,15 @@ class AddressForm extends React.Component {
                     <UncontrolledButtonDropdown className="m-1">
                         <DropdownToggle caret>{this.state.address.cityName} </DropdownToggle>
                         <DropdownMenu>
-                            {Cities}
+                            {this.state.cities.map((city) => (
+
+                                <DropdownItem value={ city }
+                                              onClick={this.tog}>
+                                {city}
+                                </DropdownItem>
+
+                                ))
+                            }
                         </DropdownMenu>
                     </UncontrolledButtonDropdown>
 
@@ -303,22 +317,24 @@ class AddressForm extends React.Component {
 
                 <FormGroup>
                     <Label for={isdefaultLabel}>{isdefaultLabel}</Label>
-                    <ButtonGroup className="ml-3">
+                    <ButtonGroup className="ml-3" onChange={this.handleChange}>
                         <Button
                             {...isdefaultInputProps}
-                            value="true"
+                            value="1"
                             color="primary"
-                            onClick={() => this.setState({ isDefaultAddress: "true" })}
-                            active={this.state.isDefaultAddress === "true"}
+
+                            onClick={() => this.setState({address: { ...this.state.address, isDefaultAddress: 1 }} )}
+                            active={this.state.isDefaultAddress === "1"}
                         >
                             Yes
                         </Button>
                         <Button
                             {...isdefaultInputProps}
-                            value="false"
+                            value="0"
                             color="primary"
-                            onClick={() => this.setState({ isDefaultAddress: "false" })}
-                            active={this.state.isDefaultAddress === "false"}
+
+                            onClick={() => this.setState({ address: { ...this.state.address, isDefaultAddress: 0 }} )}
+                            active={this.state.isDefaultAddress === "0" }
                         >
                            No
                         </Button>

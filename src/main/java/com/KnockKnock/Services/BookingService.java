@@ -18,6 +18,11 @@ public class BookingService {
         return bookingRepository.findAllByCustomerCustomerId( cID);
     }
 
+    public Booking findById(Long id)
+    {
+        return bookingRepository.findById(id).orElse(null);
+    }
+
     public List<Booking> findAllByCustomerCustomerIdAndBookingStatusIn(Long cID, List<String> status){
         System.out.println(cID);
         return bookingRepository.findAllByCustomerCustomerIdAndBookingStatusIn( cID, status);
@@ -30,6 +35,11 @@ public class BookingService {
 
     public List<Booking> findAll(){
         return bookingRepository.findAll();
+    }
+
+    public List<Booking> findByProfessionalId(Long id)
+    {
+        return bookingRepository.findByProfessionalId(id);
     }
 
 }

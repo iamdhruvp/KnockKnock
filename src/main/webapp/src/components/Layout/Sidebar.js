@@ -48,8 +48,8 @@ const navContents = [
 ];
 
 const pageContents = [
-  { to: '/onGoingBookings', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
-  { to: '/previousBookings', name: 'Previous Bookings', exact: false, Icon: MdViewCarousel,
+  { to: '/booking', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
+  { to: '/bookingHistory', name: 'Previous Bookings', exact: false, Icon: MdViewCarousel,
   },
 ];
 

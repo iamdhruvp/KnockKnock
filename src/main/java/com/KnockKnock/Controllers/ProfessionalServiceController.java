@@ -7,6 +7,8 @@ import com.KnockKnock.Services.ProfessionalServiceService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +21,8 @@ import java.util.List;
 @RestController
 public class ProfessionalServiceController {
 
+    public static final Logger logger = LogManager.getLogger(ProfessionalServiceController.class);
+
    @Autowired
    private ProfessionalServiceService professionalServiceService;
 
@@ -27,16 +31,16 @@ public class ProfessionalServiceController {
 
     @GetMapping( value = "/getProfessionalService")
     public ResponseEntity<String> getProfessionalService() {
-        System.out.println("I am feeling danger.........");
+        logger.info("fetching services to be displayed");
         try {
 //            ProfessionalService professionalService = new ProfessionalService();
             Iterable<ProfessionalService> data = professionalServiceService.findAll();
             Integer counter=0;
-            System.out.println("Init"+counter);
+            logger.info("Initial counter size "+counter);
             for (Object i : data) {
                 counter++;
             }
-            System.out.println("Final"+counter);
+            logger.info("Final counter size for services "+counter);
 
 
             SimpleFilterProvider filterProvider = new SimpleFilterProvider();
@@ -46,7 +50,7 @@ public class ProfessionalServiceController {
             ObjectMapper om = new ObjectMapper();
             om.setFilterProvider(filterProvider);
 
-            System.out.println(om.writeValueAsString(data));
+            logger.info("the data for service "+om.writeValueAsString(data));
            /* for(ProfessionalService o : data){
                 System.out.println(om.writeValueAsString(data));
             }*/
@@ -74,21 +78,20 @@ public class ProfessionalServiceController {
 
     @PostMapping(value = "/getProfessional")
     public ResponseEntity<String> getProfessionalService2(@RequestBody List<Long> serviceIDs) {
-        System.out.println("I am feeling more danger.........");
+
         try {
 
-            System.out.println(serviceIDs);
+
 
             List<Long> pIDs = professionalServiceService.findProfessionalIdGivenServices(serviceIDs);
             int counter = 0;
             for (Object i : pIDs) {
                 counter++;
             }
-            System.out.println("Final"+ counter);
+            logger.info("counter for professional "+ counter);
 
             List<Professional> p = professionalService.findByProfessionalIdIn(pIDs);
 
-            System.out.println(p);
 
 //            SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 //            filterProvider.addFilter("professionalNameOnly",
@@ -105,14 +108,14 @@ public class ProfessionalServiceController {
             ObjectMapper om = new ObjectMapper();
             om.setFilterProvider(filterProvider);
 
-            System.out.println(om.writeValueAsString(p));
+            logger.info(om.writeValueAsString(p)+" is the professional");
 
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(om.writeValueAsString(p));
         } catch (Exception e) {
-            System.out.println("Failed");
-            e.printStackTrace();
+           logger.error("error");
+
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 

@@ -4,6 +4,7 @@ import {Button, Card, CardBody, CardColumns, CardFooter, CardImg, CardSubtitle, 
 import bg11Image from 'assets/img/bg/background_1920-11.jpg';
 import axios from "axios";
 import Table from "reactstrap/es/Table";
+import {BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 
 class ProfessionalView extends React.Component{
@@ -12,14 +13,27 @@ class ProfessionalView extends React.Component{
     {
         super(props);
         this.state = {
-            professional: []
+            professionals: [],
+            bookingId: 0,
+            bookingDate: 0,
+            status: 0
         };
+
+
     }
 
 
     toggle = (event) =>{
         this.setState({
-            [event.target.name]: event.target.value
+            status: 1,
+        });
+        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
+        this.setState({ [event.target.name] : event.target.value })
+
+    };
+    togg = (event) =>{
+        this.setState({
+            status: 2,
         });
 
     };
@@ -31,7 +45,7 @@ class ProfessionalView extends React.Component{
                 process.env.REACT_APP_API_URL+`/getP`)
                 .then(res => {
                     console.log(res.data)
-                    this.setState({professional: res.data});
+                    this.setState({professionals: res.data});
                 })
 
         }
@@ -60,7 +74,7 @@ class ProfessionalView extends React.Component{
         return (
             <div>
                 <Page title="Professional" breadcrumbs={[{ name: 'ServiceRequest', active: true }]}>
-                    <CardColumns>
+                        {this.state.professionals.map(professional =>
                         <Card>
                             <CardBody>
                                 <CardTitle>Customer Request   </CardTitle>
@@ -68,25 +82,26 @@ class ProfessionalView extends React.Component{
                                 <Table>
                                     <tbody>
                                     <tr className="table-active">
+                                        <th scope="row">Booking Serving date</th>
+                                        <td>{professional.bookingDate}</td>
+                                    </tr>
+                                    <tr className="table-active">
+                                        <th scope="row">Booking Comments</th>
+                                        <td>{professional.bookingComments}</td>
+                                    </tr>
+                                    <tr className="table-active">
                                         <th scope="row">Customer Name</th>
-                                        <td>{this.state.professional.customerName}</td>
-                                    </tr>
-                                    <tr className="table-active">
-                                        <th scope="row">Customer Address</th>
-                                        <td>{this.state.professional.customerAddesss}</td>
-                                    </tr>
-                                    <tr className="table-active">
-                                        <th scope="row">Service Description</th>
-                                        <td>{this.state.professional.customerDescription}</td>
+                                        <td>{professional.customerName}</td>
                                     </tr>
                                     </tbody>
                                 </Table>
-                                <Button color='success' onclick={this.handleAccept}>Accept</Button>
+                                <Button color='success' onClick={this.toggle} name="bookingId" value={professional.bookingId}>Accept</Button>
                                 &nbsp;&nbsp;
-                                <Button color='danger' onclick={this.handleAccept}>Reject</Button>
+                                <Button color='danger' onClick={this.togg} name="bookingId" value={professional.bookingId}>Reject</Button>
                             </CardBody>
                         </Card>
-                    </CardColumns>
+                        )}
+
                 </Page>
             </div>
         );

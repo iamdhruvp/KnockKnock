@@ -59,6 +59,7 @@ const pageContents = [
 
 const navItems = [
 
+  { to: '/tabul', name: 'Dashboard ', exact: false, Icon: MdDashboard },
   { to: '/service', name: 'Add/Edit Serving City ', exact: false, Icon: MdWeb },
 
 ];

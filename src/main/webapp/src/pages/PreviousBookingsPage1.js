@@ -6,7 +6,7 @@ import axios from "axios";
 import Table from "reactstrap/es/Table";
 
 
-class ProfessionalView extends React.Component{
+class PreviousBookingsPage1 extends React.Component{
 
     constructor(props)
     {
@@ -16,27 +16,19 @@ class ProfessionalView extends React.Component{
             profs: [],
             bookingId: 0,
             bookingDate: 0,
-            status: 0 //////// 0 for pending, 1 for accept , 2 for reject , 3 for complete
+            status: 3 //////// 0 for pending, 1 for accept , 2 for reject , 3 for complete
         };
     }
 
-
+/*
     accept = (event) =>{
         this.setState({
-            status: 1,
+            status: 3,
         });
         this.setState({ [event.target.name] : event.target.value })
         console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
     };
-
-    reject = (event) =>{
-        this.setState({
-            status: 2,
-        });
-        this.setState({ [event.target.name] : event.target.value })
-        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
-    };
-
+*/
 
     componentDidMount() {
 
@@ -51,6 +43,7 @@ class ProfessionalView extends React.Component{
         }
     }
 
+/*
     componentDidUpdate() {
 
         axios.post(
@@ -68,7 +61,7 @@ class ProfessionalView extends React.Component{
                 console.log("error", error);
             });
     }
-
+*/
 
     render() {
 
@@ -90,11 +83,11 @@ class ProfessionalView extends React.Component{
 
         return (
             <div>
-                <Page title="Professional" breadcrumbs={[{ name: 'ServiceRequest', active: true }]}>
-                        {this.state.profs.map(p =>
+                <Page title="Bookings" breadcrumbs={[{ name: 'Previous', active: true }]}>
+                    {this.state.profs.map(p =>
                         <Card>
                             <CardBody>
-                                <CardTitle>Customer Request   </CardTitle>
+                                <CardTitle>Completed Requests   </CardTitle>
 
                                 <Table>
                                     <tbody>
@@ -116,12 +109,9 @@ class ProfessionalView extends React.Component{
                                     </tr>
                                     </tbody>
                                 </Table>
-                                <Button color='success' onClick={this.accept} name="bookingId" value={p.bookingId}>Accept</Button>
-                                &nbsp;&nbsp;
-                                <Button color='danger' onClick={this.reject} name="bookingId" value={p.bookingId}>Reject</Button>
                             </CardBody>
                         </Card>
-                        )}
+                    )}
 
                 </Page>
             </div>
@@ -130,5 +120,5 @@ class ProfessionalView extends React.Component{
     }
 }
 
-export default ProfessionalView;
+export default PreviousBookingsPage1;
 

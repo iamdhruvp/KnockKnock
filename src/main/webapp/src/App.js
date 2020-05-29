@@ -14,8 +14,10 @@ const AddressPage = React.lazy(() => import('pages/AddressPage'));
 const BankForm = React.lazy(() => import('pages/BankPage'));
 const ViewBank = React.lazy(() => import('pages/ViewBank'));
 const OnGoingBookingsPage = React.lazy(() => import('pages/OnGoingBookingsPage'));
+const OnGoingBookingsPage1 = React.lazy(() => import('pages/OnGoingBookingsPage1'));
 const ProfessionalView = React.lazy(() => import('pages/ProfessionalView'));
 const PreviousBookingsPage = React.lazy(() => import('pages/PreviousBookingsPage'));
+const PreviousBookingsPage1 = React.lazy(() => import('pages/PreviousBookingsPage1'));
 const CategoryCardPage = React.lazy(() => import('pages/CategoryCardPage'));
 
 
@@ -171,15 +173,15 @@ class App extends React.Component {
       <Route exact path="/viewAddress1" component={ViewAddress} />
       <Route exact path="/viewBank1" component={ViewBank} />
       <Route exact path="/bank1" component={BankForm} />
-      <Route exact path="/booking1" component={OnGoingBookingsPage} />
-      <Route exact path="/bookingHistory1" component={PreviousBookingsPage} />
+      <Route exact path="/booking1" component={OnGoingBookingsPage1} />
+      <Route exact path="/bookingHistory1" component={PreviousBookingsPage1} />
       <Route exact path="/service" component={ProfessionalServPage} />
     </React.Suspense>
   </MainLayout1>
 
 </Route>
 
-            <Route exact path={["/dashboard","/viewAddress","/viewBank","/bank","/address","/booking","/bookingHistory"]}>
+            <Route exact path={["/dashboard","/category","/viewAddress","/viewBank","/bank","/address","/booking","/bookingHistory"]}>
               <MainLayout breakpoint={this.props.breakpoint}>
                 <React.Suspense fallback={<PageSpinner />}>
                   <Route exact path="/dashboard" component={CategoryCardPage} />
@@ -195,7 +197,6 @@ class App extends React.Component {
             </Route>
 
 
->>>>>>>>> Temporary merge branch 2
             <Redirect to="/" />
 
           </Switch>

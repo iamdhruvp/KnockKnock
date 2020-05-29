@@ -1,12 +1,15 @@
 package com.KnockKnock.Services;
 
 import com.KnockKnock.Entities.Booking;
+import com.KnockKnock.Entities.Professional;
+import com.KnockKnock.Entities.ProfessionalService;
 import com.KnockKnock.Repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Book;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BookingService {
@@ -40,6 +43,10 @@ public class BookingService {
     public List<Booking> findByProfessionalId(Long id)
     {
         return bookingRepository.findByProfessionalId(id);
+    }
+
+    public List<Booking> findAllByProfessionalServicesProfessionalProfessionalIdAndBookingStatus(Long pid, String status){
+        return bookingRepository.findAllByProfessionalServicesProfessionalProfessionalIdAndBookingStatus(pid,status);
     }
 
 }

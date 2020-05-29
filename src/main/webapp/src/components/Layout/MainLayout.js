@@ -5,11 +5,10 @@ import NotificationSystem from 'react-notification-system';
 import {NOTIFICATION_SYSTEM_STYLE} from 'utils/constants';
 
 class MainLayout extends React.Component {
-
   static isSidebarOpen() {
     return document
-      .querySelector('.cr-sidebar')
-      .classList.contains('cr-sidebar--open');
+        .querySelector('.cr-sidebar')
+        .classList.contains('cr-sidebar--open');
   }
 
   componentWillReceiveProps({ breakpoint }) {
@@ -28,7 +27,7 @@ class MainLayout extends React.Component {
 
       this.notificationSystem.addNotification({
         title: <MdImportantDevices />,
-        message: 'Welome to KnockKnock!',
+        message: 'Welome to Knock Knock!',
         level: 'info',
       });
     }, 1500);
@@ -41,7 +40,7 @@ class MainLayout extends React.Component {
       this.notificationSystem.addNotification({
         title: <MdLoyalty />,
         message:
-          'One Stop For All Services!',
+            'One Stop For All Services!',
         level: 'info',
       });
     }, 2500);
@@ -51,10 +50,10 @@ class MainLayout extends React.Component {
   handleContentClick = event => {
     // close sidebar if sidebar is open and screen size is less than `md`
     if (
-      MainLayout.isSidebarOpen() &&
-      (this.props.breakpoint === 'xs' ||
-        this.props.breakpoint === 'sm' ||
-        this.props.breakpoint === 'md')
+        MainLayout.isSidebarOpen() &&
+        (this.props.breakpoint === 'xs' ||
+            this.props.breakpoint === 'sm' ||
+            this.props.breakpoint === 'md')
     ) {
       this.openSidebar('close');
     }
@@ -77,33 +76,31 @@ class MainLayout extends React.Component {
   openSidebar(openOrClose) {
     if (openOrClose === 'open') {
       return document
-        .querySelector('.cr-sidebar')
-        .classList.add('cr-sidebar--open');
+          .querySelector('.cr-sidebar')
+          .classList.add('cr-sidebar--open');
     }
     document.querySelector('.cr-sidebar').classList.remove('cr-sidebar--open');
   }
 
-
-
   render() {
     const { children } = this.props;
     return (
-      <main className="cr-app bg-light">
-        <Sidebar />
-        <Content fluid onClick={this.handleContentClick}>
-          <Header />
-          {children}
+        <main className="cr-app bg-light">
+          <Sidebar />
+          <Content fluid onClick={this.handleContentClick}>
+            <Header />
+            {children}
 
-        </Content>
+          </Content>
 
-        <NotificationSystem
-          dismissible={false}
-          ref={notificationSystem =>
-            (this.notificationSystem = notificationSystem)
-          }
-          style={NOTIFICATION_SYSTEM_STYLE}
-        />
-      </main>
+          <NotificationSystem
+              dismissible={false}
+              ref={notificationSystem =>
+                  (this.notificationSystem = notificationSystem)
+              }
+              style={NOTIFICATION_SYSTEM_STYLE}
+          />
+        </main>
     );
   }
 }

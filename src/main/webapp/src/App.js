@@ -1,35 +1,25 @@
 import {STATE_LOGIN, STATE_SIGNUP, STATE_SIGNUPASPROF} from 'components/AuthForm';
-import {EmptyLayout, LayoutRoute, MainLayout, MainLayout1, Header, Header1} from 'components/Layout';
+import {EmptyLayout, LayoutRoute,  MainLayout , MainLayout1} from 'components/Layout';
 import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
 import React from 'react';
 import componentQueries from 'react-component-queries';
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './styles/reduction.scss';
 import CategoryCardPage2 from "./pages/CategoryCardPage2";
 
-const ProfessionalView = React.lazy(() => import('pages/ProfessionalView'));
-const OnGoingBookingsPage = React.lazy(() => import('pages/OnGoingBookingsPage'));
-const PreviousBookingsPage = React.lazy(() => import('pages/PreviousBookingsPage'));
 const ViewAddress = React.lazy(() => import('pages/ViewAddress'));
-const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
+const ProfessionalServPage = React.lazy(() => import('pages/ProfessionalServPage'));
 const AddressPage = React.lazy(() => import('pages/AddressPage'));
 const BankForm = React.lazy(() => import('pages/BankPage'));
 const ViewBank = React.lazy(() => import('pages/ViewBank'));
-const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
-const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
+const OnGoingBookingsPage = React.lazy(() => import('pages/OnGoingBookingsPage'));
+const OnGoingBookingsPage1 = React.lazy(() => import('pages/OnGoingBookingsPage1'));
+const ProfessionalView = React.lazy(() => import('pages/ProfessionalView'));
+const PreviousBookingsPage = React.lazy(() => import('pages/PreviousBookingsPage'));
+const PreviousBookingsPage1 = React.lazy(() => import('pages/PreviousBookingsPage1'));
 const CategoryCardPage = React.lazy(() => import('pages/CategoryCardPage'));
-const CardPage = React.lazy(() => import('pages/CardPage'));
-const ChartPage = React.lazy(() => import('pages/ChartPage'));
-const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
-const DropdownPage = React.lazy(() => import('pages/DropdownPage'));
-const FormPage = React.lazy(() => import('pages/FormPage'));
-const InputGroupPage = React.lazy(() => import('pages/InputGroupPage'));
-const ModalPage = React.lazy(() => import('pages/ModalPage'));
-const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
-const TablePage = React.lazy(() => import('pages/TablePage'));
-const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
-const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
+
 
 
 const getBasename = () => {
@@ -174,56 +164,40 @@ class App extends React.Component {
 
 
 
-<Route exact path={["/tabul", "/address1","/viewAddress1","/viewBank1","/bank1"]}>
+<Route exact path={["/tabul", "/address1","/viewAddress1","/viewBank1","/bank1","/booking1","/bookingHistory1", "/service"]}>
 
-              <MainLayout1 breakpoint={this.props.breakpoint}>
-                <React.Suspense fallback={<PageSpinner />}>
-                  <Route exact path="/tabul" component={TablePage} />
-                  <Route exact path="/address1" component={AddressPage} />
-                  <Route exact path="/viewAddress1" component={ViewAddress} />
-                  <Route exact path="/viewBank1" component={ViewBank} />
-                  <Route exact path="/bank1" component={BankForm} />
-                </React.Suspense>
-              </MainLayout1>
+  <MainLayout1 breakpoint={this.props.breakpoint}>
+    <React.Suspense fallback={<PageSpinner />}>
+      <Route exact path="/tabul" component={ProfessionalView} />
+      <Route exact path="/address1" component={AddressPage} />
+      <Route exact path="/viewAddress1" component={ViewAddress} />
+      <Route exact path="/viewBank1" component={ViewBank} />
+      <Route exact path="/bank1" component={BankForm} />
+      <Route exact path="/booking1" component={OnGoingBookingsPage1} />
+      <Route exact path="/bookingHistory1" component={PreviousBookingsPage1} />
+      <Route exact path="/service" component={ProfessionalServPage} />
+    </React.Suspense>
+  </MainLayout1>
 
-            </Route>
+</Route>
 
-            <Route exact path={["/dashboard","/category/","/viewAddress","/viewBank","/bank","/address","/onGoingBookings","/previousBookings","/professionalView"]}>
+            <Route exact path={["/dashboard","/category","/viewAddress","/viewBank","/bank","/address","/booking","/bookingHistory"]}>
               <MainLayout breakpoint={this.props.breakpoint}>
                 <React.Suspense fallback={<PageSpinner />}>
-
                   <Route exact path="/dashboard" component={CategoryCardPage} />
-                  <Route exact path="/login-modal" component={AuthModalPage} />
                   <Route exact path="/category" component={CategoryCardPage} />
-                  <Route exact path="/buttons" component={ButtonPage} />
-                  <Route exact path="/cards" component={CardPage} />
-                  <Route exact path="/widgets" component={WidgetPage} />
-                  <Route exact path="/typography" component={TypographyPage} />
                   <Route exact path="/viewAddress" component={ViewAddress} />
                   <Route exact path="/viewBank" component={ViewBank} />
-                  <Route exact path="/tables" component={TablePage} />
                   <Route exact path="/address" component={AddressPage} />
                   <Route exact path="/bank" component={BankForm} />
-                  <Route exact path="/professionalView" component={ProfessionalView} />
-                  <Route exact path="/onGoingBookings" component={OnGoingBookingsPage} />
-                  <Route exact path="/previousBookings" component={PreviousBookingsPage} />
-                  <Route exact
-                         path="/button-groups"
-                         component={ButtonGroupPage}
-                  />
-                  <Route exact path="/dropdowns" component={DropdownPage} />
-                  <Route exact path="/progress" component={ProgressPage} />
-                  <Route exact path="/modals" component={ModalPage} />
-                  <Route exact path="/forms" component={FormPage} />
-                  <Route exacht path="/input-groups" component={InputGroupPage} />
-                  <Route exact path="/charts" component={ChartPage} />
-
+                  <Route exact path="/booking" component={OnGoingBookingsPage} />
+                  <Route exact path="/bookingHistory" component={PreviousBookingsPage} />
                 </React.Suspense>
               </MainLayout>
             </Route>
 
 
-              <Redirect to="/" />
+            <Redirect to="/" />
 
           </Switch>
 

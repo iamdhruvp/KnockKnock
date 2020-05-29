@@ -7,6 +7,8 @@ import com.KnockKnock.Repositories.ProfessionalRepository;
 import com.KnockKnock.Services.CustomerService;
 import com.KnockKnock.Services.LoginService;
 import com.KnockKnock.Services.UserRoleService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 public class LoginController {
+
+    public static final Logger logger = LogManager.getLogger(LoginController.class);
 
 
     @Autowired
@@ -40,10 +44,12 @@ public class LoginController {
 String mobile=login.getMobileNo();
 String password=login.getPassword();
 
-System.out.println(mobile+"..................");
-        System.out.println(password+"..................");
+logger.info(mobile+" is the mobile number logged in");
+        logger.info(password+" with this password...");
+        logger.info(roleId+" is the role..");
         Login log=loginService.findByMobileNo(mobile);
         UserRole role=userRoleService.findById(roleId);
+
 
         if(log!=null && role!=null)
         {
@@ -70,26 +76,5 @@ System.out.println(mobile+"..................");
     }
 
 
-    @PostMapping("/login")
-    public String verifyCustomer1(@RequestBody String body) {
-        System.out.println("I'm in login " + body);
 
-        return "{\"status\":true, \"user\":"+ body +"}";
-
-        /*List<Login> log;
-        log = loginRepository.findAll();
-
-        UserRole role=userRoleService.findById(roleId);
-
-        for (Login l : log) {
-
-            if ((mobile).equals(l.getMobileNo()) && (password).equals(l.getPassword()) && (role).equals(l.getUserRole())) {
-
-                Date date=new Date();
-                l.setLastLoginDate(date);
-                return "success";
-            }
-        }
-        return "failed";*/
-    }
 }

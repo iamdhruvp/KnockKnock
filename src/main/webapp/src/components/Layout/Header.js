@@ -37,18 +37,19 @@ const MdNotificationsActiveWithBadge = withBadge({
 
 class Header extends React.Component {
 
-    state = {
-      isOpenNotificationPopover: false,
-      isNotificationConfirmed: false,
-      isOpenUserCardPopover: false,
-      customer: []
-    }
+  state = {
+    isOpenNotificationPopover: false,
+    isNotificationConfirmed: false,
+    isOpenUserCardPopover: false,
+    customer: []
+  }
 
 
   componentDidMount() {
 
     {
-      axios.get(process.env.REACT_APP_API_URL +`/getcustomer/`+sessionStorage.getItem("id"))
+      axios.get( //`http://localhost:8081/getcustomer/`+sessionStorage.getItem("id"))
+          process.env.REACT_APP_API_URL+`/getcustomer/`+sessionStorage.getItem("id"))
           .then(res => {
             console.log(res.data)
             this.setState({customer: res.data});
@@ -85,7 +86,7 @@ class Header extends React.Component {
 
     return (
         <Navbar light expand className={bem.b('bg-white')}>
-          <Nav navbar className="const {Header}mr-2">
+          <Nav navbar className="mr-2">
             <Button outline onClick={this.handleSidebarControlButton}>
               <MdClearAll size={25} />
             </Button>
@@ -158,7 +159,7 @@ class Header extends React.Component {
                       <ListGroupItem tag="button" action className="border-light">
                         <MdHelp /> Help
                       </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light">
+                      <ListGroupItem tag="button" action className="border-light" >
                         <MdExitToApp /> Signout
                       </ListGroupItem>
                     </ListGroup>

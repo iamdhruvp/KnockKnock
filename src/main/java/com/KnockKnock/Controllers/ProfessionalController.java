@@ -7,6 +7,8 @@ import com.KnockKnock.Services.UserRoleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +22,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController("/prof")
 public class ProfessionalController {
+
+    public static final Logger logger = LogManager.getLogger(ProfessionalController.class);
 
     @Autowired
     private  com.KnockKnock.Services.LoginService loginService;
@@ -36,7 +40,7 @@ public class ProfessionalController {
 
     @PostMapping( value = "/postProfessional")
     public ResponseEntity<Long> postProfessonal(@RequestBody Professional_Login pl) {
-        System.out.println("I am posting a professional........");
+        logger.info("a professional signed up");
 
         try {
             Date date = new Date();
@@ -51,9 +55,8 @@ public class ProfessionalController {
             loginService.save(login);
             Professional professional = new Professional(pl.getCustomerName(), pl.getCustomerGender(), pl.getCustomerEmail(),
                     login, pl.getProfessionalGSTNo(), pl.getProfessionalBirthDate(), pl.getProfessionalExperience());
-            System.out.println("I am here ........");
             professionalRepository.save(professional);
-            System.out.println("saved professional........");
+            logger.info("saved professional........");
 
             return new ResponseEntity<Long>(professional.getProfessionalId(), HttpStatus.OK);
         }

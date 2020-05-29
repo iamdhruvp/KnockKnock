@@ -48,9 +48,9 @@ const navContents = [
 ];
 
 const pageContents = [
-  { to: '/login', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
+  { to: '/booking1', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
   {
-    to: '/login-modal',
+    to: '/bookingHistory1',
     name: 'Previous Bookings',
     exact: false,
     Icon: MdViewCarousel,
@@ -59,7 +59,8 @@ const pageContents = [
 
 const navItems = [
 
-  { to: '/category', name: 'category', exact: false, Icon: MdWeb },
+  { to: '/tabul', name: 'Dashboard ', exact: false, Icon: MdDashboard },
+  { to: '/service', name: 'Add/Edit Serving City ', exact: false, Icon: MdWeb },
 
 ];
 

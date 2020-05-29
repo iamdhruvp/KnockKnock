@@ -48,15 +48,15 @@ const navContents = [
 ];
 
 const pageContents = [
-  { to: '/onGoingBookings', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
-  { to: '/previousBookings', name: 'Previous Bookings', exact: false, Icon: MdViewCarousel,
+  { to: '/booking', name: 'On Going Bookings', exact: false, Icon: MdAccountCircle },
+  { to: '/bookingHistory', name: 'Previous Bookings', exact: false, Icon: MdViewCarousel,
   },
 ];
 
 const navItems = [
 
-  { to: '/category', name: 'category', exact: false, Icon: MdWeb },
-  { to: '/professionalView', name: 'Professional View', exact: false, Icon: MdPages },
+  { to: '/category', name: 'category', exact: false, Icon: MdDashboard },
+  //{ to: '/professionalView', name: 'Professional View', exact: false, Icon: MdPages },
 
 ];
 

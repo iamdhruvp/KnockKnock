@@ -19,6 +19,7 @@ import {
 import {Button, ListGroup, ListGroupItem, Nav, Navbar, NavItem, NavLink, Popover, PopoverBody,} from 'reactstrap';
 import bn from 'utils/bemnames';
 import axios from "axios";
+import Redirect from "react-router/Redirect";
 
 const bem = bn.create('header');
 
@@ -36,15 +37,26 @@ const MdNotificationsActiveWithBadge = withBadge({
 })(MdNotificationsActive);
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
 
-    state = {
+    this.state = {
       isOpenNotificationPopover: false,
       isNotificationConfirmed: false,
       isOpenUserCardPopover: false,
       customer: []
-    }
+    };
+
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+  }
 
 
+  handleLogoutClick() {
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("role");
+    window.open("/");
+  }
   componentDidMount() {
 
     {
@@ -152,13 +164,9 @@ class Header extends React.Component {
                       <ListGroupItem tag="button" action className="border-light">
                         <MdInsertChart /> Stats
                       </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light">
-                        <MdSettingsApplications /> Settings
-                      </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light">
-                        <MdHelp /> Help
-                      </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light">
+
+                      <ListGroupItem tag="button" action className="border-light"
+                                     onClick={() => this.handleLogoutClick()}>
                         <MdExitToApp /> Signout
                       </ListGroupItem>
                     </ListGroup>

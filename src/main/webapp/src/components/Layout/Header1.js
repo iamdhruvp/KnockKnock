@@ -37,19 +37,32 @@ const MdNotificationsActiveWithBadge = withBadge({
 
 class Header1 extends React.Component {
 
-  state = {
-    isOpenNotificationPopover: false,
-    isNotificationConfirmed: false,
-    isOpenUserCardPopover: false,
-    customer: []
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isOpenNotificationPopover: false,
+      isNotificationConfirmed: false,
+      isOpenUserCardPopover: false,
+      customer: []
+    };
+
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
 
+
+  handleLogoutClick() {
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("role");
+    window.open("/");
+  }
 
   componentDidMount() {
 
     {
       axios.get( //`http://localhost:8081/getcustomer/`+sessionStorage.getItem("id"))
-          process.env.REACT_APP_API_URL+`/getcustomer/`+sessionStorage.getItem("id"))
+          process.env.REACT_APP_API_URL+`/getProfessional/`+sessionStorage.getItem("id"))
           .then(res => {
             console.log(res.data)
             this.setState({customer: res.data});
@@ -153,13 +166,8 @@ class Header1 extends React.Component {
                       <ListGroupItem tag="button" action className="border-light">
                         <MdInsertChart /> Stats
                       </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light">
-                        <MdSettingsApplications /> Settings
-                      </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light">
-                        <MdHelp /> Help
-                      </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light" >
+                      <ListGroupItem tag="button" action className="border-light"
+                                     onClick={() => this.handleLogoutClick()}>
                         <MdExitToApp /> Signout
                       </ListGroupItem>
                     </ListGroup>

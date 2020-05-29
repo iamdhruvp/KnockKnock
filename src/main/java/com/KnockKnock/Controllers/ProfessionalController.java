@@ -123,4 +123,27 @@ public class ProfessionalController {
         }
 
     }
+
+    @GetMapping(value="/getProfessional/{id}")
+    public ResponseEntity<Professional_Login> getCustomer(@PathVariable("id") Long id)
+    {
+        try {
+
+            Professional professional = professionalService.findById(id);
+            Login log = professional.getLogin();
+            Professional_Login pl = new Professional_Login(professional.getProfessionalName(),
+                    professional.getProfessionalGender(),
+                   professional.getProfessionalEmail(), log.getPassword(), log.getMobileNo(), professional.getProfessionalGSTNo(),
+                    professional.getProfessionalBirthDate(),professional.getProfessionalExperience());
+
+            logger.info("fetching the profile for the Professional "+pl.getCustomerName());
+            return new ResponseEntity<Professional_Login>(pl, HttpStatus.OK);
+
+        }
+        catch (Exception e) {
+            return new ResponseEntity<Professional_Login>(HttpStatus.BAD_REQUEST);
+
+        }
+
+    }
 }

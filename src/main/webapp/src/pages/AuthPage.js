@@ -72,8 +72,7 @@ class AuthPage extends React.Component {
         }}>
         <Col md={6} lg={4}>
           <Card body>
-            <h1>Status: {this.props.loggedInStatus}</h1>
-            <button onClick={() => this.handleLogoutClick()}>Logout</button>
+
             <AuthForm
               handleSuccessfulAuth={this.handleSuccessfulAuth}
               handleSuccessfulAuth1={this.handleSuccessfulAuth1}

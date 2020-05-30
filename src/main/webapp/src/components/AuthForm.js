@@ -185,6 +185,7 @@ class AuthForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
+          {/*
         {showLogo && (
           <div className="text-center pb-4">
             <img
@@ -196,6 +197,8 @@ class AuthForm extends React.Component {
             />
           </div>
         )}
+        */}
+
         <FormGroup>
           <Label for={usernameLabel}>{usernameLabel}</Label>
           <Input {...usernameInputProps}

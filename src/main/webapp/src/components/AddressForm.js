@@ -197,6 +197,7 @@ class AddressForm extends React.Component {
 
         return (
             <Form onSubmit={this.handleSubmit}>
+                {/*
                 {showLogo && (
                     <div className="text-center pb-4">
                         <img
@@ -208,7 +209,7 @@ class AddressForm extends React.Component {
                         />
                     </div>
                 )}
-
+                 */}
                     <FormGroup>
                         <Label for={anameLabel}>{anameLabel}</Label>
                         <Input

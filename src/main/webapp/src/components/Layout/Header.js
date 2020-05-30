@@ -36,14 +36,18 @@ const MdNotificationsActiveWithBadge = withBadge({
 })(MdNotificationsActive);
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props, ".........props")
 
-  state = {
-    isOpenNotificationPopover: false,
-    isNotificationConfirmed: false,
-    isOpenUserCardPopover: false,
-    customer: []
+    this.state = {
+      isOpenNotificationPopover: false,
+      isNotificationConfirmed: false,
+      isOpenUserCardPopover: false,
+      customer: []
+    };
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
-
 
   componentDidMount() {
 
@@ -80,6 +84,14 @@ class Header extends React.Component {
 
     document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
   };
+
+  handleLogoutClick() {
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("role");
+    //window.open("/");
+    window.location.replace("/");
+  }
 
   render() {
     const { isNotificationConfirmed } = this.state;
@@ -143,7 +155,7 @@ class Header extends React.Component {
                   <UserCard
                       title={this.state.customer.customerName}
                       subtitle={this.state.customer.customerEmail}
-                      subtitle={this.state.customer.mobileNo}
+                      text={this.state.customer.mobileNo}
                       className="border-light"
                   >
                     <ListGroup flush>
@@ -159,7 +171,8 @@ class Header extends React.Component {
                       <ListGroupItem tag="button" action className="border-light">
                         <MdHelp /> Help
                       </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light" >
+                      <ListGroupItem tag="button" action className="border-light"
+                                     onClick={() => this.handleLogoutClick()}>
                         <MdExitToApp /> Signout
                       </ListGroupItem>
                     </ListGroup>

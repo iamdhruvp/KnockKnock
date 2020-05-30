@@ -83,6 +83,13 @@ class OnGoingBookingsPage1 extends React.Component{
         return (
             <div>
                 <Page title="Bookings" breadcrumbs={[{ name: 'OnGoing', active: true }]}>
+                    {this.state.profs.length === 0 && (
+                        <Card>
+                            <CardBody>
+                                <CardTitle> <h3>No Accepted Requests</h3></CardTitle>
+                            </CardBody>
+                        </Card>
+                    )}
                     {this.state.profs.map(p =>
                         <Card>
                             <CardBody>

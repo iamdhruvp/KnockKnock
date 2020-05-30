@@ -53,7 +53,8 @@ class OnGoingBookingsPage1 extends React.Component{
                 console.log("Response Data", response.data)
 
                 if(this.state.bookingId !== 0)
-                    window.location.reload();
+                    //window.location.reload();
+                    this.props.history.push("/dashboard1")
 
             })
             .catch(error => {

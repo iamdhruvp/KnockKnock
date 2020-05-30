@@ -23,13 +23,14 @@ import {
     NavbarText,
     NavItem,
 } from 'reactstrap';
-import bg11Image from 'assets/img/bg/background_1920-11.jpg';
+import bg11Image from 'assets/img/knock_knock/photography.jpg';
 import axios from "axios";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import Container from "reactstrap/es/Container";
-import bg1Image from 'assets/img/bg/background_640-1.jpg';
-import bg18Image from 'assets/img/bg/background_1920-18.jpg';
+import bg1Image from 'assets/img/knock_knock/professional.jpg';
+import bg2Image from 'assets/img/knock_knock/sub_category.jpg';
+import bg18Image from 'assets/img/knock_knock/book_professional.jpg';
 
 class CategoryCardPage extends React.Component{
     constructor(props) {
@@ -195,7 +196,7 @@ class CategoryCardPage extends React.Component{
         ));
         const SubCategories = this.state.subcategories.map((subcategory, i) => (
             <Card>
-                <CardImg top width="100%" src={bg11Image} alt="Card image cap" />
+                <CardImg top width="100%" src={bg2Image} alt="Card image cap" />
                 <CardBody>
                     <CardTitle>{ subcategory.serviceSubCategoryName }</CardTitle>
                     <CardSubtitle>SubCategory Id : { subcategory.serviceSubCategoryId }</CardSubtitle>

@@ -95,6 +95,7 @@ class BankForm extends React.Component {
 
         return (
             <Form onSubmit={this.handleSubmit}>
+                {/*
                 {showLogo && (
                     <div className="text-center pb-4">
                         <img
@@ -106,7 +107,7 @@ class BankForm extends React.Component {
                         />
                     </div>
                 )}
-
+                */}
                 <FormGroup>
                     <Label for={bnoLabel}>{bnoLabel}</Label>
                     <Input

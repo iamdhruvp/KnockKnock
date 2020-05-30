@@ -36,23 +36,31 @@ const MdNotificationsActiveWithBadge = withBadge({
 })(MdNotificationsActive);
 
 class Header1 extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log(this.props, "........header props")
 
-  state = {
-    isOpenNotificationPopover: false,
-    isNotificationConfirmed: false,
-    isOpenUserCardPopover: false,
-    customer: []
-  }
+        this.state = {
+            isOpenNotificationPopover: false,
+            isNotificationConfirmed: false,
+            isOpenUserCardPopover: false,
+            professional: [],
+            login: []
+        };
 
+        this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    }
 
   componentDidMount() {
 
     {
       axios.get( //`http://localhost:8081/getcustomer/`+sessionStorage.getItem("id"))
-          process.env.REACT_APP_API_URL+`/getcustomer/`+sessionStorage.getItem("id"))
+          process.env.REACT_APP_API_URL+`/getProfessional/`+sessionStorage.getItem("id"))
           .then(res => {
             console.log(res.data)
-            this.setState({customer: res.data});
+            this.setState({professional: res.data});
+            this.setState({login: this.state.professional.login})
+              console.log(this.state.login)
           })
 
     }
@@ -80,6 +88,15 @@ class Header1 extends React.Component {
 
     document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
   };
+
+
+    handleLogoutClick() {
+        sessionStorage.removeItem("id");
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("role");
+        //window.open("/")
+        window.location.replace("/");
+    }
 
   render() {
     const { isNotificationConfirmed } = this.state;
@@ -126,11 +143,13 @@ class Header1 extends React.Component {
 
             <NavItem>
               <NavLink id="Popover2">
+
                 <Avatar
                     onClick={this.toggleUserCardPopover}
                     className="can-click"
                 />
               </NavLink>
+
               <Popover
                   placement="bottom-end"
                   isOpen={this.state.isOpenUserCardPopover}
@@ -140,12 +159,12 @@ class Header1 extends React.Component {
                   style={{ minWidth: 250 }}
               >
                 <PopoverBody className="p-0 border-light">
-                  <UserCard
-                      title={this.state.customer.customerName}
-                      subtitle={this.state.customer.customerEmail}
-                      subtitle={this.state.customer.mobileNo}
+                    <UserCard
+                      title={this.state.professional.professionalName}
+                      subtitle={this.state.professional.professionalEmail}
+                      text={this.state.login.mobileNo}
                       className="border-light"
-                  >
+                    >
                     <ListGroup flush>
                       <ListGroupItem tag="button" action className="border-light">
                         <MdPersonPin /> Profile
@@ -159,7 +178,8 @@ class Header1 extends React.Component {
                       <ListGroupItem tag="button" action className="border-light">
                         <MdHelp /> Help
                       </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light" >
+                      <ListGroupItem tag="button" action className="border-light"
+                                     onClick={() => this.handleLogoutClick()}>
                         <MdExitToApp /> Signout
                       </ListGroupItem>
                     </ListGroup>

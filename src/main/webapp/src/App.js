@@ -164,11 +164,10 @@ class App extends React.Component {
 
 
 
-<Route exact path={["/tabul", "/address1","/viewAddress1","/viewBank1","/bank1","/booking1","/bookingHistory1", "/service"]}>
-
+<Route exact path={["/dashboard1", "/address1","/viewAddress1","/viewBank1","/bank1","/booking1","/bookingHistory1", "/service"]}>
   <MainLayout1 breakpoint={this.props.breakpoint}>
     <React.Suspense fallback={<PageSpinner />}>
-      <Route exact path="/tabul" component={ProfessionalView} />
+      <Route exact path="/dashboard1" component={ProfessionalView} />
       <Route exact path="/address1" component={AddressPage} />
       <Route exact path="/viewAddress1" component={ViewAddress} />
       <Route exact path="/viewBank1" component={ViewBank} />

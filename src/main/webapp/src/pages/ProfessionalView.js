@@ -91,7 +91,14 @@ class ProfessionalView extends React.Component{
         return (
             <div>
                 <Page title="Professional" breadcrumbs={[{ name: 'ServiceRequest', active: true }]}>
-                        {this.state.profs.map(p =>
+                    {this.state.profs.length === 0 && (
+                        <Card>
+                            <CardBody>
+                                <CardTitle> <h3>No Pending Requests</h3></CardTitle>
+                            </CardBody>
+                        </Card>
+                        )}
+                    {this.state.profs.map(p =>
                         <Card>
                             <CardBody>
                                 <CardTitle>Customer Request   </CardTitle>

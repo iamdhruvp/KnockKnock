@@ -20,16 +20,6 @@ class PreviousBookingsPage1 extends React.Component{
         };
     }
 
-/*
-    accept = (event) =>{
-        this.setState({
-            status: 3,
-        });
-        this.setState({ [event.target.name] : event.target.value })
-        console.log("++++++++++++++", event.target.value,"++++++++++++++++++")
-    };
-*/
-
     componentDidMount() {
 
         {
@@ -43,25 +33,6 @@ class PreviousBookingsPage1 extends React.Component{
         }
     }
 
-/*
-    componentDidUpdate() {
-
-        axios.post(
-            process.env.REACT_APP_API_URL+'/changestatus/' + this.state.bookingId+"/"+this.state.status,
-            {})
-            .then(response => {
-                console.log("Response", response)
-                console.log("Response Data", response.data)
-
-                if(this.state.bookingId !== 0)
-                    window.location.reload();
-
-            })
-            .catch(error => {
-                console.log("error", error);
-            });
-    }
-*/
 
     render() {
 
@@ -84,6 +55,13 @@ class PreviousBookingsPage1 extends React.Component{
         return (
             <div>
                 <Page title="Bookings" breadcrumbs={[{ name: 'Previous', active: true }]}>
+                    {this.state.profs.length === 0 && (
+                        <Card>
+                            <CardBody>
+                                <CardTitle> <h3>No Previous Booking Requests</h3></CardTitle>
+                            </CardBody>
+                        </Card>
+                    )}
                     {this.state.profs.map(p =>
                         <Card>
                             <CardBody>

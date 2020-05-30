@@ -58,6 +58,13 @@ class PreviousBookingsPage extends React.Component{
         return (
             <div>
                 <Page title="Bookings" breadcrumbs={[{ name: 'Previous', active: true }]}>
+                    {this.state.bookings.length === 0 && (
+                        <Card>
+                            <CardBody>
+                                <CardTitle> <h3>No Previous Bookings</h3></CardTitle>
+                            </CardBody>
+                        </Card>
+                    )}
                     {this.state.bookings.map(booking =>
                         <Card>
                             <CardBody>

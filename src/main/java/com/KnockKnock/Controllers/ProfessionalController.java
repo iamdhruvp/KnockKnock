@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
-@RestController("/prof")
+//@RestController("/prof")
 public class ProfessionalController {
 
     public static final Logger logger = LogManager.getLogger(ProfessionalController.class);
@@ -154,9 +154,8 @@ public class ProfessionalController {
         }
 
     }
-}
-/*
-    @GetMapping(value="/getProfessional/{id}")
+
+    @GetMapping(value="/getprofessional/{id}")
     public ResponseEntity<Professional_Login> getCustomer(@PathVariable("id") Long id)
     {
         try {
@@ -176,5 +175,6 @@ public class ProfessionalController {
             return new ResponseEntity<Professional_Login>(HttpStatus.BAD_REQUEST);
 
         }
-*/
- 
+
+    }
+}

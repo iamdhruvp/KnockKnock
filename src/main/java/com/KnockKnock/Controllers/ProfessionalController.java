@@ -154,7 +154,7 @@ public class ProfessionalController {
         }
 
     }
-
+/*
     @GetMapping(value="/getProfessional/{id}")
     public ResponseEntity<Professional_Login> getCustomer(@PathVariable("id") Long id)
     {
@@ -175,6 +175,6 @@ public class ProfessionalController {
             return new ResponseEntity<Professional_Login>(HttpStatus.BAD_REQUEST);
 
         }
-
+*/
     }
 }

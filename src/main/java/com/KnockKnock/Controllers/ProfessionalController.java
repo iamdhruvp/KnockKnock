@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
-//@RestController("/prof")
+@RestController("/prof")
 public class ProfessionalController {
 
     public static final Logger logger = LogManager.getLogger(ProfessionalController.class);

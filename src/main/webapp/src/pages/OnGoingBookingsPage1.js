@@ -45,21 +45,36 @@ class OnGoingBookingsPage1 extends React.Component{
 
     componentDidUpdate() {
 
-        axios.post(
-            process.env.REACT_APP_API_URL+'/changestatus/' + this.state.bookingId+"/"+this.state.status,
-            {})
-            .then(response => {
-                console.log("Response", response)
-                console.log("Response Data", response.data)
+        if(this.state.status === 3) {
+            axios.post(
+                process.env.REACT_APP_API_URL + '/changestatus/' + this.state.bookingId + "/" + this.state.status,
+                {})
+                .then(response => {
+                    console.log("Response", response)
+                    console.log("Response Data", response.data)
 
-                if(this.state.bookingId !== 0)
+                    if (this.state.bookingId !== 0)
                     //window.location.reload();
-                    this.props.history.push("/dashboard1")
+                        this.setState({status: -1});
+                    console.log("......reloading")
+                    this.props.history.push("/booking1");
 
-            })
-            .catch(error => {
-                console.log("error", error);
-            });
+                })
+                .catch(error => {
+                    console.log("error", error);
+                });
+        }
+
+        if(this.state.status === -1) {
+            this.state.status = 1;
+            axios.get(//`http://localhost:8081/getP`)
+                process.env.REACT_APP_API_URL + `/getProfs/` + sessionStorage.getItem("id") + `/` + this.state.status)
+                .then(res => {
+                    console.log(res.data)
+                    this.setState({profs: res.data});
+                    this.setState({status: 1});
+                })
+        }
     }
 
 

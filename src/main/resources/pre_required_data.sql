@@ -20,7 +20,7 @@ DELETE FROM service_category;
 
 USE knock_knock;
 
-INSERT INTO user_role (user_role_name) VALUES ("admin"), ("customer"), ("professional");
+INSERT INTO user_role (user_role_name) VALUES ("customer"), ("professional"), ("admin");
 
 INSERT INTO city (city_country, city_name, city_state) VALUES ("india", "bangalore", "karnataka"),
                                                               ("india", "mehsana", "gujarat");
@@ -66,6 +66,5 @@ INSERT INTO professional (professional_id, professional_birth_date, professional
 INSERT INTO professional (professional_id, professional_birth_date, professional_email, professional_experience, professionalgstno, professional_gender, professional_name, login_login_id, serving_city_city_id) VALUES("3", now(), "a3@gmail.com", 10, "123", "Male", "Henil", "3", "1");
 
 INSERT INTO professional_service (service_estimated_time, service_cost, service_extra_cost, service_extra_cost_desc, professional_professional_id, service_service_id) VALUES (now(), "101",	"10", "For an Extra Hr.", "1", "1");
-INSERT INTO professional_service (service_estimated_time, service_cost, service_extra_cost, service_extra_cost_desc, professional_professional_id, service_service_id) VALUES (now(), "202",	"20", "For an Extra Hr.", "1", "3");
 INSERT INTO professional_service (service_estimated_time, service_cost, service_extra_cost, service_extra_cost_desc, professional_professional_id, service_service_id) VALUES (now(), "404", "40", "For an Extra Hr.", "3", "2");
 INSERT INTO professional_service (service_estimated_time, service_cost, service_extra_cost, service_extra_cost_desc, professional_professional_id, service_service_id) VALUES (now(), "303",	"30", "For an Extra Hr.", "2", "1");

@@ -37,25 +37,25 @@ class CategoryCardPage extends React.Component{
         super(props);
 
         this.state = {
-        show: 1,
-        categories:[],
-        selectedCategory:0,
-        subcategories:[],
-        selectedSubCategory:0,
-        services:[],
-        selectedServices:[],
-        professionals:[],
-        selectedProfessional:null,
-        bookingComments: "",
-        professionalServices: [],
-        total:0
+            show: 1,
+            categories:[],
+            selectedCategory:0,
+            subcategories:[],
+            selectedSubCategory:0,
+            services:[],
+            selectedServices:[],
+            professionals:[],
+            selectedProfessional:null,
+            bookingComments: "",
+            professionalServices: [],
+            total:0
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
     }
 
-    
+
     toggle = (event) => {
         this.setState({
             show: this.state.show + 1,
@@ -92,12 +92,12 @@ class CategoryCardPage extends React.Component{
     componentDidUpdate() {
 
         { this.state.show === 2 && this.state.subcategories.length === 0 &&
-            axios.get(//`http://localhost:8081/getSubCategory/` + this.state.selectedCategory)
-                process.env.REACT_APP_API_URL+`/getSubCategory/` + this.state.selectedCategory)
-                .then(res => {
-                    console.log(res.data)
-                    this.setState({subcategories: res.data});
-                })
+        axios.get(//`http://localhost:8081/getSubCategory/` + this.state.selectedCategory)
+            process.env.REACT_APP_API_URL+`/getSubCategory/` + this.state.selectedCategory)
+            .then(res => {
+                console.log(res.data)
+                this.setState({subcategories: res.data});
+            })
         }
         { this.state.show === 3 && this.state.services.length === 0 &&
         axios.get(//`http://localhost:8081/getService/` + this.state.selectedSubCategory)
@@ -108,16 +108,16 @@ class CategoryCardPage extends React.Component{
             })
         }
         { this.state.show === 4 && this.state.professionals.length === 0 &&
-            axios.post(//`http://localhost:8081/getProfessional/`,
-                process.env.REACT_APP_API_URL+`/getProfessional/`,
-                this.state.selectedServices)
-                .then(res => {
-                    console.log(res.data,"--------------response")
-                    this.setState({professionals: res.data});
-                })
-                .catch(error => {
-                    console.log("profs error", error);
-                });
+        axios.post(//`http://localhost:8081/getProfessional/`,
+            process.env.REACT_APP_API_URL+`/getProfessional/`,
+            this.state.selectedServices)
+            .then(res => {
+                console.log(res.data,"--------------response")
+                this.setState({professionals: res.data});
+            })
+            .catch(error => {
+                console.log("profs error", error);
+            });
         }
     }
 
@@ -149,13 +149,13 @@ class CategoryCardPage extends React.Component{
         const {bookingComments,professionalServices} = this.state;
 
         axios.post(
-                //"http://localhost:8081/addBooking/"+sessionStorage.getItem("id"),
+            //"http://localhost:8081/addBooking/"+sessionStorage.getItem("id"),
             process.env.REACT_APP_API_URL+"/addBooking/"+sessionStorage.getItem("id"),
-                {
-                    bookingComments: bookingComments,
-                    professionalServices: professionalServices
-                }
-            )
+            {
+                bookingComments: bookingComments,
+                professionalServices: professionalServices
+            }
+        )
             .then(response => {
                 console.log(response)
                 console.log(response.data)
@@ -234,7 +234,7 @@ class CategoryCardPage extends React.Component{
                                         disabled={this.state.selectedServices.includes(service.serviceId)}
                                         name="selectedServices" value={ service.serviceId } block>Add</Button>
                             </Col>
-                    </Row>
+                        </Row>
                     </Container>
                 </CardFooter>
             </Card>
@@ -245,7 +245,7 @@ class CategoryCardPage extends React.Component{
                 <CardImg
                     className="card-img-left"
                     src={require(`./img/imgg${i}.jpg`)}
-                    style={{ width: 'auto', height: 150 }}
+                    style={{ width: 'auto', height: 170 }}
                 />
                 <CardBody>
                     <CardTitle>{professional.professionalName} <Badge style={{float: 'right'}} color="secondary">Experience: {professional.professionalExperience} Yrs</Badge> </CardTitle>
@@ -263,9 +263,9 @@ class CategoryCardPage extends React.Component{
                 </Page>)
                 }
                 { this.state.show === 2 && (
-                <Page title="SubCategory" breadcrumbs={[{ name: 'Category', active: false }, { name: 'SubCategory', active: true }]}>
+                    <Page title="SubCategory" breadcrumbs={[{ name: 'Category', active: false }, { name: 'SubCategory', active: true }]}>
                         <CardDeck>{ SubCategories }</CardDeck>
-                </Page>
+                    </Page>
                 )}
                 { this.state.show === 3 && (
                     <Page title="Service" breadcrumbs={[{ name: 'Category', active: false }, { name: 'SubCategory', active: false }, { name: 'Service', active: true }]}>
@@ -314,8 +314,8 @@ class CategoryCardPage extends React.Component{
                                     </ListGroup>
                                     <CardBody>
                                         <FormGroup>
-                                        <Label for="bookingComments">Comments</Label>
-                                        <Input type="textarea" name="bookingComments" value={this.state.bookingComments} onChange={this.handleChange}/>
+                                            <Label for="bookingComments">Comments</Label>
+                                            <Input type="textarea" name="bookingComments" value={this.state.bookingComments} onChange={this.handleChange}/>
                                         </FormGroup>
                                         <Button onClick={this.handleSubmit}>Book Now</Button>
                                     </CardBody>

@@ -6,6 +6,7 @@ import React from 'react';
 import componentQueries from 'react-component-queries';
 import {BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './styles/reduction.scss';
+import CategoryCardPage2 from "./pages/CategoryCardPage2";
 
 const ViewAddress = React.lazy(() => import('pages/ViewAddress'));
 const ProfessionalServPage = React.lazy(() => import('pages/ProfessionalServPage'));
@@ -13,9 +14,12 @@ const AddressPage = React.lazy(() => import('pages/AddressPage'));
 const BankForm = React.lazy(() => import('pages/BankPage'));
 const ViewBank = React.lazy(() => import('pages/ViewBank'));
 const OnGoingBookingsPage = React.lazy(() => import('pages/OnGoingBookingsPage'));
+const OnGoingBookingsPage1 = React.lazy(() => import('pages/OnGoingBookingsPage1'));
 const ProfessionalView = React.lazy(() => import('pages/ProfessionalView'));
 const PreviousBookingsPage = React.lazy(() => import('pages/PreviousBookingsPage'));
+const PreviousBookingsPage1 = React.lazy(() => import('pages/PreviousBookingsPage1'));
 const CategoryCardPage = React.lazy(() => import('pages/CategoryCardPage'));
+
 
 
 const getBasename = () => {
@@ -30,7 +34,7 @@ class App extends React.Component {
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {}
-      };
+    };
 
     this.handleLoginProf = this.handleLoginProf.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -39,16 +43,16 @@ class App extends React.Component {
 
   checkLoginStatus() {
     if (
-      sessionStorage.getItem("id") !== null &&
-      this.state.loggedInStatus === "NOT_LOGGED_IN"
+        sessionStorage.getItem("id") !== null &&
+        this.state.loggedInStatus === "NOT_LOGGED_IN"
     ) {
       this.setState({
         loggedInStatus: "LOGGED_IN",
         user: sessionStorage.getItem("user")
       });
     } else if (
-      !sessionStorage.getItem("id") &
-      (this.state.loggedInStatus === "LOGGED_IN")
+        !sessionStorage.getItem("id") &
+        (this.state.loggedInStatus === "LOGGED_IN")
     ) {
       this.setState({
         loggedInStatus: "NOT_LOGGED_IN",
@@ -95,37 +99,37 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter basename={getBasename()}>
-        
+        <BrowserRouter basename={getBasename()}>
+
           <Switch>
             <LayoutRoute
-              exact
-              path="/login"
-              layout={EmptyLayout}
-              component={props => (
-                <AuthPage
-                  {...props}
+                exact
+                path="/login"
+                layout={EmptyLayout}
+                component={props => (
+                    <AuthPage
+                        {...props}
 
-                  handleLoginProf={this.handleLoginProf}
-                  handleLogin={this.handleLogin}
-                  handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
-                  authState={STATE_LOGIN}
-                />
-              )}
+                        handleLoginProf={this.handleLoginProf}
+                        handleLogin={this.handleLogin}
+                        handleLogout={this.handleLogout}
+                        loggedInStatus={this.state.loggedInStatus}
+                        authState={STATE_LOGIN}
+                    />
+                )}
             />
             <LayoutRoute
-              exact
-              path="/signup"
-              layout={EmptyLayout}
-              component={props => (
-                <AuthPage {...props}
-                handleLogin={this.handleLogin}
-                handleLoginProf={this.handleLoginProf}
-                handleLogout={this.handleLogout}
-                loggedInStatus={this.state.loggedInStatus}
-                authState={STATE_SIGNUP} />
-              )}
+                exact
+                path="/signup"
+                layout={EmptyLayout}
+                component={props => (
+                    <AuthPage {...props}
+                              handleLogin={this.handleLogin}
+                              handleLoginProf={this.handleLoginProf}
+                              handleLogout={this.handleLogout}
+                              loggedInStatus={this.state.loggedInStatus}
+                              authState={STATE_SIGNUP} />
+                )}
             />
             <LayoutRoute
                 exact
@@ -160,24 +164,23 @@ class App extends React.Component {
 
 
 
-<Route exact path={["/tabul", "/address1","/viewAddress1","/viewBank1","/bank1","/booking1","/bookingHistory1", "/service"]}>
-
+<Route exact path={["/dashboard1", "/address1","/viewAddress1","/viewBank1","/bank1","/booking1","/bookingHistory1", "/service"]}>
   <MainLayout1 breakpoint={this.props.breakpoint}>
     <React.Suspense fallback={<PageSpinner />}>
-      <Route exact path="/tabul" component={ProfessionalView} />
+      <Route exact path="/dashboard1" component={ProfessionalView} />
       <Route exact path="/address1" component={AddressPage} />
       <Route exact path="/viewAddress1" component={ViewAddress} />
       <Route exact path="/viewBank1" component={ViewBank} />
       <Route exact path="/bank1" component={BankForm} />
-      <Route exact path="/booking1" component={OnGoingBookingsPage} />
-      <Route exact path="/bookingHistory1" component={PreviousBookingsPage} />
+      <Route exact path="/booking1" component={OnGoingBookingsPage1} />
+      <Route exact path="/bookingHistory1" component={PreviousBookingsPage1} />
       <Route exact path="/service" component={ProfessionalServPage} />
     </React.Suspense>
   </MainLayout1>
 
 </Route>
 
-            <Route exact path={["/dashboard","/viewAddress","/viewBank","/bank","/address","/booking","/bookingHistory"]}>
+            <Route exact path={["/dashboard","/category","/viewAddress","/viewBank","/bank","/address","/booking","/bookingHistory"]}>
               <MainLayout breakpoint={this.props.breakpoint}>
                 <React.Suspense fallback={<PageSpinner />}>
                   <Route exact path="/dashboard" component={CategoryCardPage} />
@@ -195,11 +198,9 @@ class App extends React.Component {
 
             <Redirect to="/" />
 
-
-
           </Switch>
-        
-      </BrowserRouter>
+
+        </BrowserRouter>
     );
   }
 }

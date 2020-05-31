@@ -46,6 +46,10 @@ class AddressPage extends React.Component {
                 }}>
                 <Col md={6} lg={4}>
                     <Card body>
+                        {/*
+                        <h1>Status: {this.props.loggedInStatus}</h1>
+                        <button onClick={() => this.handleLogoutClick()}>CLOSE</button>
+                        */}
                         <AddressForm
                             handleSuccess={this.handleSuccess}
                             onLogoClick={this.handleLogoClick}

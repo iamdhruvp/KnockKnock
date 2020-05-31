@@ -68,7 +68,38 @@ public class ProfessionalController {
     }
 
 
+    @GetMapping(value="/getProfessional/{id}")
+    public ResponseEntity<String> getProfessional (@PathVariable("id") Long id)
+    {
+        try {
 
+            Professional prof = professionalService.findById(id);
+            Login log = prof.getLogin();
+            SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+
+            filterProvider.addFilter("professionalNameOnly",
+                    SimpleBeanPropertyFilter.filterOutAllExcept("professionalId","professionalName", "professionalGender", "professionalEmail",
+                            "professionalExperience", "servingCity", "customerPhoto","login"));
+            filterProvider.addFilter("professionalOnly",
+                    SimpleBeanPropertyFilter.serializeAll());
+
+            ObjectMapper om = new ObjectMapper();
+            om.setFilterProvider(filterProvider);
+
+            logger.info("fetching the profile for the professional "+prof.getProfessionalName());
+            logger.info("fetching the professional "+log.getMobileNo());
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(om.writeValueAsString(prof));
+
+
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+
+    }
 
 
 

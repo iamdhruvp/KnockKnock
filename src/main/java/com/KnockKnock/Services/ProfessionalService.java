@@ -20,8 +20,6 @@ public class ProfessionalService {
 
 
     public Professional findByLogin(Login log) {
-
-
         return professionalRepository.findByLogin(log);
     }
 

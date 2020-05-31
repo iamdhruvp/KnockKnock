@@ -55,8 +55,8 @@ const pageContents = [
 
 const navItems = [
 
-  { to: '/category', name: 'category', exact: false, Icon: MdWeb },
-  { to: '/professionalView', name: 'Professional View', exact: false, Icon: MdPages },
+  { to: '/category', name: 'category', exact: false, Icon: MdDashboard },
+  //{ to: '/professionalView', name: 'Professional View', exact: false, Icon: MdPages },
 
 ];
 

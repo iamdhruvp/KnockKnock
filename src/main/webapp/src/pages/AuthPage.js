@@ -19,7 +19,7 @@ class AuthPage extends React.Component {
    {
      this.props.handleLoginProf(data);
      console.log("login Response Data Status", sessionStorage.getItem("role"))
-     this.props.history.push("/dashboard1");
+     this.props.history.push("/tabul");
    }
    else
    {
@@ -32,7 +32,7 @@ class AuthPage extends React.Component {
 
   handleSuccessfulAuth1(data) {
     this.props.handleLoginProf(data);
-    this.props.history.push("/dashboard1");
+    this.props.history.push("/tabul");
 
   };
 
@@ -72,10 +72,7 @@ class AuthPage extends React.Component {
         }}>
         <Col md={6} lg={4}>
           <Card body>
-            {/*
-            <h1>Status: {this.props.loggedInStatus}</h1>
-            <button onClick={() => this.handleLogoutClick()}>Logout</button>
-            */}
+
             <AuthForm
               handleSuccessfulAuth={this.handleSuccessfulAuth}
               handleSuccessfulAuth1={this.handleSuccessfulAuth1}

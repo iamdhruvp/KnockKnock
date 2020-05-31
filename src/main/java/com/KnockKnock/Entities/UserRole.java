@@ -27,9 +27,11 @@ public class UserRole implements Serializable {
     public UserRole() {
     }
 
+    public UserRole(@Size(max = 50) @NotNull String userRoleName) {
+        this.userRoleName = userRoleName;
+    }
 
-
-    public UserRole(Long userRoleId,@Size(max = 50) @NotNull String userRoleName) {
+    public UserRole(Long userRoleId, @Size(max = 50) @NotNull String userRoleName) {
         this.userRoleId=userRoleId;
         this.userRoleName = userRoleName;
     }

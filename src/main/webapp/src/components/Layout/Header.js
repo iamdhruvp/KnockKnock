@@ -19,6 +19,7 @@ import {
 import {Button, ListGroup, ListGroupItem, Nav, Navbar, NavItem, NavLink, Popover, PopoverBody,} from 'reactstrap';
 import bn from 'utils/bemnames';
 import axios from "axios";
+import Redirect from "react-router/Redirect";
 
 const bem = bn.create('header');
 
@@ -38,7 +39,6 @@ const MdNotificationsActiveWithBadge = withBadge({
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props, ".........props")
 
     this.state = {
       isOpenNotificationPopover: false,
@@ -46,14 +46,21 @@ class Header extends React.Component {
       isOpenUserCardPopover: false,
       customer: []
     };
+
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
 
+
+  handleLogoutClick() {
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("role");
+    window.open("/");
+  }
   componentDidMount() {
 
     {
-      axios.get( //`http://localhost:8081/getcustomer/`+sessionStorage.getItem("id"))
-          process.env.REACT_APP_API_URL+`/getcustomer/`+sessionStorage.getItem("id"))
+      axios.get(process.env.REACT_APP_API_URL +`/getcustomer/`+sessionStorage.getItem("id"))
           .then(res => {
             console.log(res.data)
             this.setState({customer: res.data});
@@ -85,20 +92,12 @@ class Header extends React.Component {
     document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
   };
 
-  handleLogoutClick() {
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("role");
-    //window.open("/");
-    window.location.replace("/");
-  }
-
   render() {
     const { isNotificationConfirmed } = this.state;
 
     return (
         <Navbar light expand className={bem.b('bg-white')}>
-          <Nav navbar className="mr-2">
+          <Nav navbar className="const {Header}mr-2">
             <Button outline onClick={this.handleSidebarControlButton}>
               <MdClearAll size={25} />
             </Button>
@@ -155,7 +154,7 @@ class Header extends React.Component {
                   <UserCard
                       title={this.state.customer.customerName}
                       subtitle={this.state.customer.customerEmail}
-                      text={this.state.customer.mobileNo}
+                      subtitle={this.state.customer.mobileNo}
                       className="border-light"
                   >
                     <ListGroup flush>
@@ -165,12 +164,7 @@ class Header extends React.Component {
                       <ListGroupItem tag="button" action className="border-light">
                         <MdInsertChart /> Stats
                       </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light">
-                        <MdSettingsApplications /> Settings
-                      </ListGroupItem>
-                      <ListGroupItem tag="button" action className="border-light">
-                        <MdHelp /> Help
-                      </ListGroupItem>
+
                       <ListGroupItem tag="button" action className="border-light"
                                      onClick={() => this.handleLogoutClick()}>
                         <MdExitToApp /> Signout

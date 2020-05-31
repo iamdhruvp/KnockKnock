@@ -23,13 +23,14 @@ import {
     NavbarText,
     NavItem,
 } from 'reactstrap';
-import bg11Image from 'assets/img/bg/background_1920-11.jpg';
+
 import axios from "axios";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import Container from "reactstrap/es/Container";
 import bg1Image from 'assets/img/bg/background_640-1.jpg';
 import bg18Image from 'assets/img/bg/background_1920-18.jpg';
+
 
 class CategoryCardPage extends React.Component{
     constructor(props) {
@@ -169,6 +170,9 @@ class CategoryCardPage extends React.Component{
     }
 
     render() {
+
+
+
         const externalCloseBtn = (
             <button
                 className="close"
@@ -184,7 +188,7 @@ class CategoryCardPage extends React.Component{
         );
         const Categories = this.state.categories.map((category, i) => (
             <Card>
-                <CardImg top width="100%" src={bg11Image} alt="Card image cap" />
+                <CardImg top width="100%" src={require(`./img/im${i}.jpeg`)}  alt="Card image cap" />
                 <CardBody>
                     <CardTitle>{category.serviceCategoryName}</CardTitle>
                     <CardSubtitle>Category Id : { category.serviceCategoryId }</CardSubtitle>
@@ -195,7 +199,7 @@ class CategoryCardPage extends React.Component{
         ));
         const SubCategories = this.state.subcategories.map((subcategory, i) => (
             <Card>
-                <CardImg top width="100%" src={bg11Image} alt="Card image cap" />
+                <CardImg top width="100%" src={require(`./img/img${i}.jpeg`)} alt="Card image cap" />
                 <CardBody>
                     <CardTitle>{ subcategory.serviceSubCategoryName }</CardTitle>
                     <CardSubtitle>SubCategory Id : { subcategory.serviceSubCategoryId }</CardSubtitle>
@@ -209,7 +213,7 @@ class CategoryCardPage extends React.Component{
         ));
         const Services = this.state.services.map((service, i) => (
             <Card>
-                <CardImg top width="100%" src={bg11Image} alt="Card image cap" />
+                <CardImg top width="100%" src="/img/screenshots/imm.jpg" alt="Card image cap" />
                 <CardBody>
                     <CardTitle>{ service.serviceName }</CardTitle>
                     <CardSubtitle>Service Id : { service.serviceId }</CardSubtitle>
@@ -240,7 +244,7 @@ class CategoryCardPage extends React.Component{
             <Card className="flex-row">
                 <CardImg
                     className="card-img-left"
-                    src={bg1Image}
+                    src={require(`./img/imgg${i}.jpg`)}
                     style={{ width: 'auto', height: 150 }}
                 />
                 <CardBody>
